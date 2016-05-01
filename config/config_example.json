@@ -1,0 +1,29 @@
+{
+    "development": {
+        "username": "comptajs",
+        "password": "",
+        "database": "comptajs_dev",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false
+    },
+    "test": {
+        "username": "comptajs",
+        "password": "",
+        "database": "comptajs_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false,
+        "dialectOptions": {
+            "multipleStatements": true
+        }
+    },
+    "production": {
+        "username": "comptajs",
+        "password": "",
+        "database": "comptajs_prod",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false
+    }
+}
