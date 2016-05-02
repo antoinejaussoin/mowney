@@ -1,6 +1,6 @@
 var q = require('q');
 
-function findAll(model, includes, where) {
+function findOne(model, includes, where) {
     var defer = q.defer();
 
     model.find({
@@ -17,4 +17,4 @@ function findAll(model, includes, where) {
     return defer.promise;
 }
 
-module.exports = findAll;
+module.exports = findOne;

@@ -5,7 +5,8 @@
         "database": "comptajs_dev",
         "host": "127.0.0.1",
         "dialect": "mysql",
-        "logging": false
+        "logging": false,
+        "autoLogin": "me@me.com"
     },
     "test": {
         "username": "comptajs",
@@ -14,6 +15,7 @@
         "host": "127.0.0.1",
         "dialect": "mysql",
         "logging": false,
+        "autoLogin": "me@me.com",
         "dialectOptions": {
             "multipleStatements": true
         }
@@ -24,6 +26,7 @@
         "database": "comptajs_prod",
         "host": "127.0.0.1",
         "dialect": "mysql",
-        "logging": false
+        "logging": false,
+        "autoLogin": "me@me.com"
     }
 }

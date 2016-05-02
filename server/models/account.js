@@ -7,13 +7,13 @@ module.exports = function (sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models){
-
+                
                 Account.belongsTo(models.Currency, { as : 'currency' });
                 Account.belongsTo(models.User, { as: 'owner' });
                 //Account.hasMany(models.Transactions, { as: 'transactions' });
-            }
+            } 
         }
     });
-
+    
     return Account;
 };

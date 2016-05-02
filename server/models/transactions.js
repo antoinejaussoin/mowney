@@ -6,14 +6,14 @@ module.exports = function (sequelize, DataTypes) {
         categorisedDate: DataTypes.DATE
     }, {
         classMethods: {
-            associate: function(models){
+            associate: function(models){ 
                 Transactions.belongsTo(models.Account, { as : 'account' });   
-                Transactions.belongsTo(models.Category, { as : 'category' });
-                Transactions.belongsTo(models.Import, { as : 'import' });
+                Transactions.belongsTo(models.Category, { as : 'category' });   
+                Transactions.belongsTo(models.Import, { as : 'import' });   
                 Transactions.belongsTo(models.CategoryClue, { as : 'categoryClue' });
-            }
+            } 
         }
     });
-
+    
     return Transactions;
 };
