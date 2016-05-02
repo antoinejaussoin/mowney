@@ -8,7 +8,6 @@ var q = require('q');
 var transactionRepository = require('./transaction-repository');
 
 function getAll(user, includeDisabled) {
-
     var disabledClause = includeDisabled ? '' : ' and isActive = true';
     return findAll(models.Account, null, 'ownerid = ' + user.id + disabledClause, ['name']);
 }

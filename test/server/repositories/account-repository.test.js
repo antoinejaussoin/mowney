@@ -22,7 +22,6 @@ describe('Account Repository', function () {
         });
 
         it('should return 4 accounts', function () {
-            console.log(result)
             result.length.should.equal(4);
         });
     });

@@ -41,7 +41,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha -t 20000 -d --watch --recursive -R spec -r rewire -r ./unit-test ./test/server",
+    "test": "mocha -t 20000 -d --watch --recursive -R spec -r rewire -r ./test/unit-test ./test/server",
     "start-server": "nodemon ./server/index.js"
   },
   "repository": {
