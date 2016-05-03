@@ -13,6 +13,13 @@ var routes = require('./routes');
 var app = express();
 var isDev = app.get('env') === 'development';
 
+const htmlFile = process.env.NODE_ENV === 'production' ?
+    path.resolve(__dirname, '..', 'assets', 'index.html') :
+    path.resolve(__dirname, '..', 'content', 'index.html');
+const assetsFolder = path.resolve(__dirname, '..', 'assets');
+const staticFolder = path.resolve(__dirname, '..', 'static');
+
+
 // view engine setup
 app.use(logger('dev'));
 app.use(multipart({
@@ -28,6 +35,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use('/assets', express.static(assetsFolder));
+app.use('/static', express.static(staticFolder));
+app.get('/*', (req, res) => res.sendFile(htmlFile));
 
 routes(app);
 
