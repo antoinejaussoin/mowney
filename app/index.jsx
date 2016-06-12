@@ -9,6 +9,7 @@ import {
     App,
     Main
 } from './pages';
+import './theme/materialadmin.css';
 
 const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
