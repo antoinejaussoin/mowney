@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions';
 
-export const LOGIN = 'LOGIN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGOUT = 'LOGOUT';
-export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
-export const CHANGE_LANGUAGE_SUCCESS = 'CHANGE_LANGUAGE_SUCCESS';
+export const LOGIN = 'mowney/user/login';
+export const LOGIN_SUCCESS = 'mowney/user/login-success';
+export const LOGOUT = 'mowney/user/logout';
+export const CHANGE_LANGUAGE = 'mowney/user/language/change';
+export const CHANGE_LANGUAGE_SUCCESS = 'mowney/user/language/change-success';
 
 export default function reducer(state = {
     name: null,
@@ -31,6 +31,6 @@ export default function reducer(state = {
     }
 }
 
-export const login = createAction(LOGIN, user => ({ name: user }));
+export const login = createAction(LOGIN);
 export const logout = createAction(LOGOUT);
 export const changeLanguage = createAction(CHANGE_LANGUAGE);

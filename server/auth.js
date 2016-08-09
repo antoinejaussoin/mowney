@@ -2,7 +2,7 @@ var passport = require('passport');
 var models = require('./models');
 var env = process.env.NODE_ENV || "development";
 var config = require('../config/config.json')[env];
-var useAutoLogin = env === 'development';
+var useAutoLogin = env === 'development' && config.autoLogin;
 
 function auth(req, res, next) {
     if (!req.isAuthenticated()) {

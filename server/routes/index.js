@@ -1,5 +1,5 @@
 function initialiseRoutes(app) {
-    //app.use('/', require('./root'));
+    app.use('/api/auth', require('./root'));
     //app.use('/register', require('./register'));
     app.use('/api/account', require('./api/account'));
     app.use('/api/transaction', require('./api/transaction'));

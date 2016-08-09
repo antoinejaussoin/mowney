@@ -4,7 +4,7 @@ var passport = require('passport');
 var auth = require('./../auth').auth;
 
 router.post('/login', passport.authenticate('local', { session: false }), function (req, res) {
-    res.redirect('/');
+    res.send(req.user);
 });
 
 router.post('/logout', function (req, res) {

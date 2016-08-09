@@ -6,19 +6,32 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import {
     App,
-    Main
+    Main,
+    Login
 } from './pages';
 import configureStore from './store/configureStore';
 
 const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
+function requireAuth(nextState, replace) {
+    const state = store.getState();
+
+    if (!state.user.name) {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        });
+    }
+}
+
 class Index extends React.Component {
     renderRoutes() {
         return (
             <Router history={history}>
                 <Route path="/" component={App}>
-                    <IndexRoute component={Main} />
+                    <IndexRoute component={Main} onEnter={requireAuth} />
+                    <Route path="login" component={Login} />
                 </Route>
             </Router>
         );
