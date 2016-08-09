@@ -3,11 +3,11 @@
 
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
 import DevTools from '../pages/DevTools';
 import reducers from '../state';
 import sagas from '../sagas';
-import { routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
 
 export default function configureStore(initialState = {}, browserHistory) {
     const middlewares = [];
@@ -18,6 +18,7 @@ export default function configureStore(initialState = {}, browserHistory) {
 
     if (__DEVELOPMENT__) {
         const createLogger = require('redux-logger');
+
         const logger = createLogger({ predicate:
             (getState, action) => action.type !== 'EFFECT_TRIGGERED' &&
                                   action.type !== 'EFFECT_RESOLVED' });
@@ -26,6 +27,7 @@ export default function configureStore(initialState = {}, browserHistory) {
 
     if (__USE_GA__) {
         const { googleAnalyticsMiddleware } = require('../middlewares/ga');
+
         middlewares.push(googleAnalyticsMiddleware);
     }
 
@@ -47,6 +49,7 @@ export default function configureStore(initialState = {}, browserHistory) {
             // Enable Webpack hot module replacement for reducers
             module.hot.accept('../state', () => {
                 const nextReducer = require('../state');
+
                 store.replaceReducer(nextReducer);
             });
         }

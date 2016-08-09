@@ -1,11 +1,12 @@
 import React from 'react';
-import Component from '../Component';
-import translate from '../i18n/Translate';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/lib/Button';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import Component from '../Component';
+import translate from '../i18n/Translate';
+
 
 const stateToProps = state => ({
     state
@@ -24,7 +25,7 @@ class Main extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="#">Mowney</a>
+                            <a>Mowney</a>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
@@ -51,20 +52,13 @@ class Main extends Component {
                     </div>
                     <div className="card-actionbar">
                         <div className="card-actionbar-row">
-                            <a
-                              href="#"
-                              className="btn btn-icon-toggle btn-danger ink-reaction pull-left"
-                            >
-                                <i className="fa fa-heart"></i>
+                            <a className="btn btn-icon-toggle btn-danger ink-reaction pull-left">
+                                <i className="fa fa-heart" />
                             </a>
-                            <a href="#"
-                              className="btn btn-icon-toggle btn-default ink-reaction pull-left"
-                            >
-                                <i className="fa fa-reply"></i>
+                            <a className="btn btn-icon-toggle btn-default ink-reaction pull-left">
+                                <i className="fa fa-reply" />
                             </a>
-                            <a href="#"
-                              className="btn btn-flat btn-default-dark ink-reaction"
-                            >
+                            <a className="btn btn-flat btn-default-dark ink-reaction">
                               Submit
                             </a>
                         </div>
