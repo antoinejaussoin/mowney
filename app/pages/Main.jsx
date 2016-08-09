@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import translate from '../i18n/Translate';
-
 
 const stateToProps = state => ({
     state
@@ -11,14 +11,17 @@ const actionsToProps = dispatch => ({
     dispatch
 });
 
-@connect(stateToProps, actionsToProps)
-@translate('Main')
 class Main extends Component {
     render() {
         return (
-            <p>Hello</p>
+            <p>Hello you</p>
         );
     }
 }
 
-export default Main;
+const decorators = flow([
+    connect(stateToProps, actionsToProps),
+    translate('Main')
+]);
+
+export default decorators(Main);

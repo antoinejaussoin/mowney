@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
 
-export const AUTO_LOGIN = 'AUTO_LOGIN';
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
@@ -32,7 +31,6 @@ export default function reducer(state = {
     }
 }
 
-export const autoLogin = createAction(AUTO_LOGIN);
 export const login = createAction(LOGIN, user => ({ name: user }));
 export const logout = createAction(LOGOUT);
 export const changeLanguage = createAction(CHANGE_LANGUAGE);
