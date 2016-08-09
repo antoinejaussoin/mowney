@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Component from '../Component';
 import TranslationProvider from '../i18n/TranslationProvider';
 
 const stateToProps = state => ({ state });
