@@ -7,14 +7,14 @@ export const CHANGE_LANGUAGE = 'mowney/user/language/change';
 export const CHANGE_LANGUAGE_SUCCESS = 'mowney/user/language/change-success';
 
 export default function reducer(state = {
-    name: null,
+    username: null,
     lang: 'en'
 }, action) {
     switch (action.type) {
     case LOGIN_SUCCESS:
         return {
             ...state,
-            name: action.payload.name
+            ...action.payload
         };
     case CHANGE_LANGUAGE_SUCCESS:
         return {
@@ -24,7 +24,7 @@ export default function reducer(state = {
     case LOGOUT:
         return {
             ...state,
-            name: null
+            username: null
         };
     default:
         return state;
@@ -32,5 +32,6 @@ export default function reducer(state = {
 }
 
 export const login = createAction(LOGIN);
+export const loginSuccess = createAction(LOGIN_SUCCESS);
 export const logout = createAction(LOGOUT);
 export const changeLanguage = createAction(CHANGE_LANGUAGE);
