@@ -38,8 +38,9 @@ app.use(passport.session());
 
 app.use('/assets', express.static(assetsFolder));
 app.use('/static', express.static(staticFolder));
-app.get('/*', (req, res) => res.sendFile(htmlFile));
 
 routes(app);
+
+app.get('/*', (req, res) => res.sendFile(htmlFile));
 
 module.exports = app;

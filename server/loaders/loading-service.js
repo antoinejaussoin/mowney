@@ -19,7 +19,7 @@ function loadNewTransactions(user, files) {
 
 
     function decorateNewTransactions(transactions) {
-        var dates = _.pluck(transactions, 'date');
+        var dates = _.map(transactions, 'date');
         var from = new Date(_.min(dates));
         var to = new Date(_.max(dates));
 

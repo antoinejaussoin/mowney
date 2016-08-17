@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Component from '../Component';
-import TranslationProvider from '../i18n/TranslationProvider';
+import { Layout, Panel } from 'react-toolbox/lib/layout';
+import Header from '../components/header/Header';
+import style from './App.scss';
 
 const stateToProps = state => ({ state });
 
 const actionsToProps = dispatch => ({ dispatch });
 
-@connect(stateToProps, actionsToProps)
 class App extends Component {
     componentDidMount() {
 
@@ -15,9 +15,14 @@ class App extends Component {
 
     render() {
         return (
-            <TranslationProvider>
-                { this.props.children }
-            </TranslationProvider>
+            <Layout className={style.layout}>
+                <Panel className={style.panel}>
+                    <Header />
+                    <div className={style.content}>
+                        { this.props.children }
+                    </div>
+                </Panel>
+            </Layout>
         );
     }
 }
@@ -30,4 +35,4 @@ App.defaultTypes = {
     children: null
 };
 
-export default App;
+export default connect(stateToProps, actionsToProps)(App);

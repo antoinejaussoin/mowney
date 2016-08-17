@@ -9,6 +9,8 @@ passport.use(new LocalStrategy({
     },
     function (email, password, done) {
 
+        console.log('Trying to login ', email, password)
+
         if (email === 'admin' && password === 'admin')
             return done(null, {
                 firstName: 'Administrator',

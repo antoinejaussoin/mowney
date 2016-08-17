@@ -1,15 +1,19 @@
+/* eslint object-property-newline:0 */
+
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const staticFolder = path.resolve(__dirname, 'assets');
 const languages = require('./app/i18n/languages');
+
+const staticFolder = path.resolve(__dirname, 'assets');
 const momentFilter = languages.map(lang => lang.iso).join('|');
 
 module.exports = {
     content: __dirname,
     entry: [
-        './ui.jsx'
+        'react-hot-loader/patch',
+        './app/index.jsx'
     ],
     output: {
         path: staticFolder,
@@ -33,8 +37,13 @@ module.exports = {
             { test: /(\.jsx|\.js)$/, loader: 'babel', exclude: /node_modules/ },
             { test: /\.png$/, loader: 'url?limit=10000&mimetype=image/png' },
             { test: /\.jpg$/, loader: 'url?limit=10000&mimetype=image/jpeg' },
-            { test: /\.json$/, loader: 'json-loader' }
+            { test: /\.json$/, loader: 'json-loader' },
+            { test: /(\.scss)$/, loader: 'style!css?sourceMap&modules&importLoaders=1&' +
+                'localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap!toolbox' }
         ]
+    },
+    toolbox: {
+        theme: path.join(__dirname, 'app/theme.scss')
     },
     postcss: [autoprefixer],
     plugins: [
@@ -44,9 +53,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
             __DEVELOPMENT__: true,
-            __DEVTOOLS__: false,
-            __USE_GA__: false,
-            __GA_ID__: null
+            __DEVTOOLS__: false
         }),
         new webpack.ProvidePlugin({
             React: 'react'

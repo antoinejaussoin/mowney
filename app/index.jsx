@@ -1,63 +1,20 @@
-/* global __DEVTOOLS__ __USE_GA__ __GA_ID__ */
+/* eslint import/no-unresolved:0 no-undef:0 */
 /* eslint global-require:0 */
+import 'babel-polyfill';
+import { render } from 'react-dom';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { Router, IndexRoute, Route, browserHistory } from 'react-router';
-import configureStore from './store/configureStore';
-import {
-    App,
-    Main
-} from './pages';
-import './theme/materialadmin.css';
+import 'react-toolbox/lib/commons.scss';
+import { AppContainer } from 'react-hot-loader';
+import App from './app';
 
-const store = configureStore({}, browserHistory);
-const history = syncHistoryWithStore(browserHistory, store);
+const rootElement = document.getElementById('content');
 
-if (__USE_GA__) {
-    const ga = require('react-ga');
+render(<AppContainer><App /></AppContainer>, rootElement);
 
-    ga.initialize(__GA_ID__);
+if (module.hot) {
+    module.hot.accept('./app', () => {
+        const NextApp = require('./app').default;
+
+        render(<AppContainer><NextApp /></AppContainer>, rootElement);
+    });
 }
-
-class Index extends React.Component {
-    renderRoutes() {
-        return (
-            <Router history={history}>
-                <Route path="/" component={App}>
-                    <IndexRoute component={Main} />
-                </Route>
-            </Router>
-        );
-    }
-
-    render() {
-        let component;
-        if (__DEVTOOLS__) {
-            const DevTools = require('./pages/DevTools').default;
-
-            component = (
-                <div>
-                    <Provider store={store}>
-                        <div>
-                            {this.renderRoutes()}
-                            <DevTools />
-                        </div>
-                    </Provider>
-                </div>
-            );
-        } else {
-            component = (
-                <div>
-                    <Provider store={store}>
-                        {this.renderRoutes()}
-                    </Provider>
-                </div>
-            );
-        }
-
-        return component;
-    }
-}
-
-export default Index;
