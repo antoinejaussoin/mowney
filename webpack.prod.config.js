@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const config = require('./config');
 const appVersion = require('./package.json').version;
 const languages = require('./app/i18n/languages');
 

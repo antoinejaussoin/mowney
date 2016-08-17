@@ -34,11 +34,11 @@ router.get('/summary/:currency', function (req, res) {
             return s;
         });
 
-        var sum = _.reduce(_.pluck(summaries, 'balanceInCurrency'), function (sum, x) {
+        var sum = _.reduce(_.map(summaries, 'balanceInCurrency'), function (sum, x) {
             return sum + x;
         });
 
-        res.send({
+        res.status(200).json({
             lines: summaries,
             total: sum
         });

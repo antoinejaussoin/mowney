@@ -17,13 +17,7 @@ export const login = (username, password) => fetch('/api/auth/login', {
         throw new Error('Bad response from server');
     }
     return response.json();
-}).then(response => ({
-    username: response.email,
-    isAdmin: response.isAdministrator,
-    firstName: response.firstName,
-    lastName: response.lastName,
-    id: response.id
-}));
+});
 
 export const logout = () => {
 

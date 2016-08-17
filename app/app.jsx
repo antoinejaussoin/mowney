@@ -17,7 +17,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 function requireAuth(nextState, replace) {
     const state = store.getState();
 
-    if (!state.user.username) {
+    if (!state.user.token) {
         replace({
             pathname: '/login',
             state: { nextPathname: nextState.location.pathname }

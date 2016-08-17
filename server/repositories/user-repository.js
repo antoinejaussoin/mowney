@@ -8,6 +8,10 @@ function login(email, password, cb) {
     })
         .catch(cb)
         .then(function (user) {
+            if (!user) {
+                cb('The user does not exist', null);
+                return;
+            }
             user.verifyPassword(password, function (err, isValid) {
                 if (err) cb(err, null);
 

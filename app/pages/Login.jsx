@@ -33,6 +33,7 @@ class Login extends Component {
                 <p>
                     <Input
                       value={this.state.password}
+                      type="password"
                       onChange={password => this.setState({ password })}
                     />
                 </p>

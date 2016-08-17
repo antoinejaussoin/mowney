@@ -14,7 +14,8 @@ export default function reducer(state = {
     case LOGIN_SUCCESS:
         return {
             ...state,
-            ...action.payload
+            ...action.payload.user,
+            token: action.payload.token
         };
     case CHANGE_LANGUAGE_SUCCESS:
         return {
@@ -24,7 +25,8 @@ export default function reducer(state = {
     case LOGOUT:
         return {
             ...state,
-            username: null
+            username: null,
+            token: null
         };
     default:
         return state;
