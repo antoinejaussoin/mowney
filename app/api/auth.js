@@ -19,6 +19,22 @@ export const login = (username, password) => fetch('/api/auth/login', {
     return response.json();
 });
 
+export const reAuthenticate = token => fetch('/api/auth/re-auth', {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        token
+    })
+}).then(response => {
+    if (response.status >= 400) {
+        throw new Error('Bad response from server');
+    }
+    return response.json();
+});
+
 export const logout = () => {
 
 };
