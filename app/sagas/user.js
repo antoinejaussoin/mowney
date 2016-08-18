@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { login, logout } from '../api/auth';
-import { loginSuccess } from '../state/user';
+import { loginSuccess, loginFailure } from '../state/user';
 import { initialLoad } from '../state/actions';
 
 export function* onLogin(action) {
@@ -15,6 +15,7 @@ export function* onLogin(action) {
         yield put(push('/'));
     } catch (e) {
         console.error('Auth error: ', e);
+        yield put(loginFailure('Login or password incorrect'));
     }
 }
 
