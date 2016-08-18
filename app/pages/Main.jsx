@@ -3,6 +3,7 @@ import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import translate from '../i18n/Translate';
 import { getSummary } from '../selectors/dashboard';
+import Container from '../components/Container';
 
 const stateToProps = state => ({
     summary: getSummary(state)
@@ -16,12 +17,12 @@ class Main extends Component {
     render() {
         const lines = this.props.summary.lines;
         return (
-            <div>
+            <Container>
                 <p>Hello you</p>
                 <div>
                     { lines.map(line => <p>{ line.name }</p>) }
                 </div>
-            </div>
+            </Container>
         );
     }
 }

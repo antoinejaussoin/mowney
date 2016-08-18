@@ -28,6 +28,24 @@ router.post('/login', function (req, res) {
     });
 });
 
+router.post('/re-auth', function(req, res) {
+    const token = req.body.token;
+    if (token) {
+        // verifies secret and checks exp
+        jwt.verify(token, config.tokenSecret, function (err, decoded) {
+            if (err) {
+                res.status(401).send('Invalid token');
+            } else {
+                res.status(200).json({ token, user: decoded });
+            }
+        });
+
+    } else {
+        res.status(401).send('Invalid token');
+    }
+});
+
+
 module.exports = router;
 
 

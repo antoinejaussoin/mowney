@@ -5,10 +5,13 @@ import { Input } from 'react-toolbox/lib/input';
 import { Button } from 'react-toolbox/lib/button';
 import translate from '../i18n/Translate';
 import { login } from '../state/user';
-
+import Container from '../components/Container';
+import { getError, isPending } from '../selectors/user';
+import ErrorMessage from '../components/Error';
 
 const stateToProps = state => ({
-    state
+    error: getError(state),
+    isPending: isPending(state)
 });
 
 const actionsToProps = dispatch => ({
@@ -21,35 +24,48 @@ class Login extends Component {
         this.state = { username: '', password: '' };
     }
     render() {
+        const canLogin = !this.props.isPending && this.state.username && this.state.password;
         return (
-            <div>
-                <p>Login</p>
+            <Container>
+                <h3>Login</h3>
                 <p>
                     <Input
                       value={this.state.username}
+                      label="Email"
+                      icon="email"
                       onChange={username => this.setState({ username })}
                     />
                 </p>
                 <p>
                     <Input
                       value={this.state.password}
+                      label="Password"
                       type="password"
+                      icon="lock"
                       onChange={password => this.setState({ password })}
                     />
                 </p>
                 <p>
                     <Button
                       label="Login"
+                      accent
+                      raised
+                      disabled={ !canLogin }
                       onClick={() => this.props.login(this.state.username, this.state.password)}
                     />
                 </p>
-            </div>
+                <p>
+                    { this.props.error ? <ErrorMessage message={this.props.error} /> : null }
+                </p>
+            </Container>
         );
     }
 }
 
 Login.propTypes = {
-    login: PropTypes.func
+    login: PropTypes.func,
+    isPending: PropTypes.bool,
+    error: PropTypes.string
 };
 
 const decorators = flow([
