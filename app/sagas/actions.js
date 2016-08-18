@@ -9,12 +9,14 @@ import { loadDashboard } from '../state/dashboard';
 function* doReAuthenticate() {
     console.log('reauth');
     const userAndToken = yield call(ls, 'token');
-    const validatedUserAndToken = yield call(reAuthenticate, userAndToken.token);
     if (userAndToken) {
-        yield put(loginSuccess(validatedUserAndToken));
+        const validatedUserAndToken = yield call(reAuthenticate, userAndToken.token);
+        if (validatedUserAndToken) {
+            yield put(loginSuccess(validatedUserAndToken));
+            yield put(initialLoad());
+            yield put(push('/'));
+        }
     }
-    yield put(initialLoad());
-    yield put(push('/'));
 }
 
 export function* onInitialise() {
