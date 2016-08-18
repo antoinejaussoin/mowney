@@ -1,0 +1,25 @@
+div.item {
+    min-width: 200px;
+    border:1px solid $color-primary-dark;
+    text-align: center;
+    margin: 5px;
+
+    div.header {
+        border-bottom:1px solid $color-primary-dark;
+
+        h4 {
+            font-size: 1.5em;
+        }
+    }
+
+    div.content {
+        background-color: $color-primary-light;
+        color: $color-primary-dark;
+        height: 3em;
+
+        p {
+            font-size: 2em;
+            padding-top: 0.25em;
+        }
+    }
+}

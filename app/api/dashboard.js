@@ -17,3 +17,14 @@ export const fetchSummary = (token, currency) => fetch(`/api/account/summary/${c
     }
     return response.json();
 });
+
+export const fetchSaving = (token, name, currency) =>
+fetch(`/api/account/saving/${currency}/${name}`, {
+    headers: getHeaders(token)
+})
+.then(response => {
+    if (response.status >= 400) {
+        throw new Error('Bad response from server');
+    }
+    return response.json();
+});

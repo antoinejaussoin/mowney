@@ -1,38 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import flow from 'lodash/flow';
-import { connect } from 'react-redux';
 import translate from '../i18n/Translate';
-import { getSummary } from '../selectors/dashboard';
 import Container from '../components/Container';
+import AccountTable from '../components/dashboard/AccountTable';
+import Savings from '../components/dashboard/Savings';
+import style from './Main.scss';
 
-const stateToProps = state => ({
-    summary: getSummary(state)
-});
-
-const actionsToProps = dispatch => ({
-    dispatch
-});
-
-class Main extends Component {
-    render() {
-        const lines = this.props.summary.lines;
-        return (
-            <Container>
-                <p>Hello you</p>
-                <div>
-                    { lines.map(line => <p>{ line.name }</p>) }
-                </div>
-            </Container>
-        );
-    }
-}
-
-Main.propTypes = {
-    summary: PropTypes.object
-};
+const Main = () => (
+    <Container>
+        <h3>Dashboard</h3>
+        <div className={style.summaries}>
+            <div className={style.accounts}>
+                <AccountTable />
+            </div>
+            <div className={style.savings}>
+                <Savings />
+            </div>
+        </div>
+    </Container>
+);
 
 const decorators = flow([
-    connect(stateToProps, actionsToProps),
     translate('Main')
 ]);
 

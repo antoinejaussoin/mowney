@@ -10,7 +10,7 @@ const Container = ({ children, className }) => (
 );
 
 Container.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.array,
     className: PropTypes.string
 };
 

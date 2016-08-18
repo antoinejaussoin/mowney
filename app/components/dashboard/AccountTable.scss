@@ -1,0 +1,33 @@
+table.table {
+    border: 1px solid #1B5E20;
+    border-radius: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    thead {
+        background-color: #43A047;
+        color: #1B5E20;
+        border-bottom: 5px solid #1B5E20;
+        tr {
+            height: 2em;
+        }
+    }
+
+    tbody {
+        tr {
+            height: 1.5em;
+
+            td {
+                padding: 5px;
+            }
+
+            td.right {
+                text-align: right;
+            }
+        }
+        tr.even {
+            background-color: #E8F5E9;
+        }
+    }
+}
