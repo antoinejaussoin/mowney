@@ -46,6 +46,10 @@ module.exports = {
         theme: path.join(__dirname, 'app/theme.scss')
     },
     postcss: [autoprefixer],
+    eslint: {
+        configFile: './.eslintrc',
+        emitWarning: true
+    },
     plugins: [
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, new RegExp(momentFilter)),
         new ExtractTextPlugin('style.css', { allChunks: true }),

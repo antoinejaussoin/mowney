@@ -28,3 +28,14 @@ fetch(`/api/account/saving/${currency}/${name}`, {
     }
     return response.json();
 });
+
+export const fetchTimeline = (token, currency) =>
+fetch(`/api/account/timeline/${currency}`, {
+    headers: getHeaders(token)
+})
+.then(response => {
+    if (response.status >= 400) {
+        throw new Error('Bad response from server');
+    }
+    return response.json();
+});

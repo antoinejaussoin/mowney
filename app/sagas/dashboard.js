@@ -1,6 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
-import { fetchSummary, fetchSaving } from '../api/dashboard';
-import { receiveSummary, receiveSavings } from '../state/dashboard';
+import { fetchSummary, fetchSaving, fetchTimeline } from '../api/dashboard';
+import { receiveSummary, receiveSavings, receiveTimeline } from '../state/dashboard';
 import { getToken } from '../selectors/user';
 
 export function* onGetSummary() {
@@ -38,7 +38,18 @@ function* onGetSavings() {
     yield put(receiveSavings(results));
 }
 
+export function* onGetTimeline() {
+    try {
+        const token = yield select(getToken);
+        const timeline = yield call(fetchTimeline, token, 'GBP');
+        yield put(receiveTimeline(timeline));
+    } catch (e) {
+        console.error('Get Timeline error: ', e);
+    }
+}
+
 export function* onLoadDashboard() {
     yield call(onGetSummary);
     yield call(onGetSavings);
+    yield call(onGetTimeline);
 }
