@@ -7,6 +7,7 @@ import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import App from 'modules/app';
 import Home from 'modules/home';
 import Login from 'modules/user/Login';
+import Upload from 'modules/upload';
 import configureStore from './store/configureStore';
 
 const store = configureStore({}, browserHistory);
@@ -30,6 +31,7 @@ class Index extends React.Component {
                 <Route path="/" component={App}>
                     <IndexRoute component={Home} onEnter={requireAuth} />
                     <Route path="login" component={Login} />
+                    <Route path="upload" component={Upload} />
                 </Route>
             </Router>
         );

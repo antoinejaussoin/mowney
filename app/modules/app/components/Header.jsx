@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 import translate from 'i18n/Translate';
 import { getCurrentUser } from 'modules/user/selectors';
 import style from './Header.scss';
+import Menu from './Menu';
 
 const stateToProps = state => ({
     user: getCurrentUser(state)
@@ -25,6 +26,7 @@ const Header = ({ strings, goToHomepage, user }) => (
                 </a>
             </div>
             <div className={ style.navigation }>
+                <Menu />
                 <span className={style.user}>{ user }</span>
             </div>
         </AppBar>
