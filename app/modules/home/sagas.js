@@ -1,7 +1,8 @@
+import { takeEvery } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import { getToken } from 'modules/user/selectors';
 import { fetchSummary, fetchSaving, fetchTimeline } from './api';
-import { receiveSummary, receiveSavings, receiveTimeline } from './state';
+import { receiveSummary, receiveSavings, receiveTimeline, GET_SUMMARY, LOAD_DASHBOARD } from './state';
 
 export function* onGetSummary() {
     try {
@@ -52,4 +53,11 @@ export function* onLoadDashboard() {
     yield call(onGetSummary);
     yield call(onGetSavings);
     yield call(onGetTimeline);
+}
+
+export default function* watchers() {
+    yield [
+        takeEvery(GET_SUMMARY, onGetSummary),
+        takeEvery(LOAD_DASHBOARD, onLoadDashboard)
+    ];
 }

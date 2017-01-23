@@ -17,6 +17,7 @@
   },
   "rules": {
       "indent": ["error", 4],
+      "max-len": ["error", { "code": 150 }],
       "react/jsx-indent": ["error", 4],
       "react/jsx-first-prop-new-line": 0,
       "react/prefer-stateless-function": 1,

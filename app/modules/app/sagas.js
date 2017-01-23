@@ -1,10 +1,11 @@
+import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { loginSuccess } from 'modules/user/state';
 import { loadDashboard } from 'modules/home/state';
 import { reAuthenticate } from 'modules/user/api';
-import { initialLoad } from './state';
+import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
 
 function* doReAuthenticate() {
     console.log('reauth');
@@ -25,4 +26,11 @@ export function* onInitialise() {
 
 export function* onInitialLoad() {
     yield put(loadDashboard());
+}
+
+export default function* watchers() {
+    yield [
+        takeEvery(INITIALISE, onInitialise),
+        takeEvery(INITIAL_LOAD, onInitialLoad)
+    ];
 }
