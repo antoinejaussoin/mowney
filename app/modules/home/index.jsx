@@ -1,27 +1,47 @@
 import React from 'react';
 import flow from 'lodash/flow';
 import translate from 'i18n/Translate';
-import Container from 'components/Container';
+import { Card, CardTitle, CardText } from 'components/Card';
 import AccountTable from './components/AccountTable';
 import Savings from './components/Savings';
 import Timeline from './components/Timeline';
 import style from './index.scss';
 
 const Main = () => (
-    <Container>
-        <h3>Dashboard</h3>
+    <div className={style.container}>
+        <div className={style.header}>
+            <Card>
+                <CardTitle>Dashboard</CardTitle>
+                <CardText>...</CardText>
+            </Card>
+        </div>
         <div className={style.summaries}>
             <div className={style.accounts}>
-                <AccountTable />
+                <Card>
+                    <CardTitle>Accounts</CardTitle>
+                    <CardText>
+                        <AccountTable />
+                    </CardText>
+                </Card>
             </div>
             <div className={style.savings}>
-                <Savings />
+                <Card>
+                    <CardTitle>Savings</CardTitle>
+                    <CardText>
+                        <Savings />
+                    </CardText>
+                </Card>
             </div>
         </div>
         <div className={style.charts}>
-            <Timeline />
+            <Card>
+                <CardTitle>Balance</CardTitle>
+                <CardText>
+                    <Timeline />
+                </CardText>
+            </Card>
         </div>
-    </Container>
+    </div>
 );
 
 const decorators = flow([
