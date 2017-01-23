@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import user from './user';
-import dashboard from './dashboard';
+import user from 'modules/user/state';
+import dashboard from 'modules/home/state';
 
 const rootReducer = combineReducers({
     user,

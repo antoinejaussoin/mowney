@@ -1,11 +1,11 @@
 import React from 'react';
 import flow from 'lodash/flow';
-import translate from '../i18n/Translate';
-import Container from '../components/Container';
-import AccountTable from '../components/dashboard/AccountTable';
-import Savings from '../components/dashboard/Savings';
-import Timeline from '../components/dashboard/Timeline';
-import style from './Main.scss';
+import translate from 'i18n/Translate';
+import Container from 'components/Container';
+import AccountTable from './components/AccountTable';
+import Savings from './components/Savings';
+import Timeline from './components/Timeline';
+import style from './index.scss';
 
 const Main = () => (
     <Container>

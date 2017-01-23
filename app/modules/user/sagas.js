@@ -1,9 +1,9 @@
 import { call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
-import { login, logout } from '../api/auth';
-import { loginSuccess, loginFailure } from '../state/user';
-import { initialLoad } from '../state/actions';
+import { initialLoad } from 'modules/app/state';
+import { login, logout } from './api';
+import { loginSuccess, loginFailure } from './state';
 
 export function* onLogin(action) {
     console.log(action);

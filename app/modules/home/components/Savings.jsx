@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
-import { getSavings } from '../../selectors/dashboard';
+import { getSavings } from '../selectors';
 import style from './Savings.scss';
 import SavingItem from './SavingItem';
 

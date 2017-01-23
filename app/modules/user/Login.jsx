@@ -3,11 +3,11 @@ import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import { Input } from 'react-toolbox/lib/input';
 import { Button } from 'react-toolbox/lib/button';
-import translate from '../i18n/Translate';
-import { login } from '../state/user';
-import Container from '../components/Container';
-import { getError, isPending } from '../selectors/user';
-import ErrorMessage from '../components/Error';
+import translate from 'i18n/Translate';
+import Container from 'components/Container';
+import ErrorMessage from 'components/Error';
+import { login } from './state';
+import { getError, isPending } from './selectors';
 
 const stateToProps = state => ({
     error: getError(state),

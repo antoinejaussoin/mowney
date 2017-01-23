@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Panel } from 'react-toolbox/lib/layout';
-import { initialise } from '../state/actions';
-import Header from '../components/header/Header';
-import style from './App.scss';
+import Header from './components/Header';
+import { initialise } from './state';
+import style from './index.scss';
 
 const stateToProps = state => ({ state });
 

@@ -3,7 +3,7 @@ import flow from 'lodash/flow';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
-import { getSummary } from '../../selectors/dashboard';
+import { getSummary } from '../selectors';
 import style from './AccountTable.scss';
 
 const format = '0,0.00';

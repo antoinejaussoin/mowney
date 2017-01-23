@@ -35,6 +35,9 @@ module.exports = {
         modulesDirectories: [
             'node_modules',
             path.resolve(__dirname, './node_modules')
+        ],
+        root: [
+            path.resolve('./app')
         ]
     },
     module: {
@@ -60,7 +63,7 @@ module.exports = {
         emitWarning: true
     },
     plugins: [
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, new RegExp(momentFilter)),
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, new RegExp(momentFilter)),
         new ExtractTextPlugin('style.css', { allChunks: true }),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({

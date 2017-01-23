@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line,
     ResponsiveContainer } from 'recharts';
-import { getTimeline } from '../../selectors/dashboard';
+import { getTimeline } from '../selectors';
 
 const stateToProps = state => ({
     data: getTimeline(state)

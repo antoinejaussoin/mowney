@@ -4,11 +4,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
-import {
-    App,
-    Main,
-    Login
-} from './pages';
+import App from 'modules/app';
+import Home from 'modules/home';
+import Login from 'modules/user/Login';
 import configureStore from './store/configureStore';
 
 const store = configureStore({}, browserHistory);
@@ -30,7 +28,7 @@ class Index extends React.Component {
         return (
             <Router history={history}>
                 <Route path="/" component={App}>
-                    <IndexRoute component={Main} onEnter={requireAuth} />
+                    <IndexRoute component={Home} onEnter={requireAuth} />
                     <Route path="login" component={Login} />
                 </Route>
             </Router>

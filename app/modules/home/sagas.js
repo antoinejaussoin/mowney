@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
-import { fetchSummary, fetchSaving, fetchTimeline } from '../api/dashboard';
-import { receiveSummary, receiveSavings, receiveTimeline } from '../state/dashboard';
-import { getToken } from '../selectors/user';
+import { getToken } from 'modules/user/selectors';
+import { fetchSummary, fetchSaving, fetchTimeline } from './api';
+import { receiveSummary, receiveSavings, receiveTimeline } from './state';
 
 export function* onGetSummary() {
     try {

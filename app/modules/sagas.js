@@ -1,12 +1,12 @@
 /* eslint func-names: "off" */
 
 import { takeEvery } from 'redux-saga';
-import { LOGIN, LOGOUT } from '../state/user';
-import { onLogin, onLogout } from './user';
-import { LOAD_DASHBOARD, GET_SUMMARY } from '../state/dashboard';
-import { onLoadDashboard, onGetSummary } from './dashboard';
-import { INITIALISE, INITIAL_LOAD } from '../state/actions';
-import { onInitialise, onInitialLoad } from './actions';
+import { LOGIN, LOGOUT } from 'modules/user/state';
+import { onLogin, onLogout } from 'modules/user/sagas';
+import { LOAD_DASHBOARD, GET_SUMMARY } from 'modules/home/state';
+import { onLoadDashboard, onGetSummary } from 'modules/home/sagas';
+import { INITIALISE, INITIAL_LOAD } from 'modules/app/state';
+import { onInitialise, onInitialLoad } from 'modules/app/sagas';
 
 
 export default function* rootSaga() {

@@ -27,6 +27,9 @@ module.exports = {
         modulesDirectories: [
             'node_modules',
             path.resolve(__dirname, './node_modules')
+        ],
+        root: [
+            path.resolve('./app')
         ]
     },
     module: {

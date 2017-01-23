@@ -1,10 +1,10 @@
 import { call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
-import { reAuthenticate } from '../api/auth';
-import { loginSuccess } from '../state/user';
-import { initialLoad } from '../state/actions';
-import { loadDashboard } from '../state/dashboard';
+import { loginSuccess } from 'modules/user/state';
+import { loadDashboard } from 'modules/home/state';
+import { reAuthenticate } from 'modules/user/api';
+import { initialLoad } from './state';
 
 function* doReAuthenticate() {
     console.log('reauth');

@@ -4,10 +4,9 @@ import flow from 'lodash/flow';
 import AppBar from 'react-toolbox/lib/app_bar';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import translate from 'i18n/Translate';
+import { getCurrentUser } from 'modules/user/selectors';
 import style from './Header.scss';
-import translate from '../../i18n/Translate';
-import { getCurrentUser } from '../../selectors';
-
 
 const stateToProps = state => ({
     user: getCurrentUser(state)
