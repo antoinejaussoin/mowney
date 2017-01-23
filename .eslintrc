@@ -1,0 +1,39 @@
+ {
+ "parser": "babel-eslint",
+ "extends": "airbnb",
+ "plugins": [
+    "jsx-a11y",
+    "import"
+  ],
+  "globals": {
+      "document": true,
+      "fetch": true,
+      "Headers": true,
+      "pannellum": true,
+      "FormData": true
+  },
+  "settings": {
+      "import/resolver": "webpack"
+  },
+  "rules": {
+      "indent": ["error", 4],
+      "react/jsx-indent": ["error", 4],
+      "react/jsx-first-prop-new-line": 0,
+      "react/prefer-stateless-function": 1,
+      "jsx-a11y/aria-role": 0,
+      "jsx-a11y/img-has-alt": 0,
+      "jsx-a11y/img-redundant-alt": 0,
+      "react/jsx-curly-spacing": 0,
+      "no-console": 0,
+      "no-param-reassign": 0,
+      "comma-dangle": ["error", "never"],
+      "import/no-named-as-default": 0,
+      "import/prefer-default-export": 0
+  },
+  "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    }
+ }

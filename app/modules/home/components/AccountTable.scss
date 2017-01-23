@@ -1,0 +1,33 @@
+table.table {
+    border: 1px solid $color-primary-dark;
+    border-radius: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    thead {
+        background-color: $color-primary;
+        color: white;
+        border-bottom: 5px solid $color-primary-dark;
+        tr {
+            height: 2em;
+        }
+    }
+
+    tbody {
+        tr {
+            height: 1.5em;
+
+            td {
+                padding: 5px;
+            }
+
+            td.right {
+                text-align: right;
+            }
+        }
+        tr.even {
+            background-color: $color-primary-light;
+        }
+    }
+}
