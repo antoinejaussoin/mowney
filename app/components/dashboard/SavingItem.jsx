@@ -1,10 +1,13 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
+import classNames from 'classnames';
 import style from './SavingItem.scss';
 
 const SavingItem = ({ saving }) => (
-    <div className={style.item}>
+    <div className={classNames(style.item,
+        saving.savingPerMonth < 0 ? style.negative : style.positive)}
+    >
         <div className={style.header}>
             <h4>{saving.name}</h4>
             <p>{moment(saving.from).format('DD/MM/YYYY')}</p>

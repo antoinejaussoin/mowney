@@ -1,14 +1,14 @@
 table.table {
-    border: 1px solid #1B5E20;
+    border: 1px solid $color-primary-dark;
     border-radius: 10px;
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
 
     thead {
-        background-color: #43A047;
-        color: #1B5E20;
-        border-bottom: 5px solid #1B5E20;
+        background-color: $color-primary;
+        color: white;
+        border-bottom: 5px solid $color-primary-dark;
         tr {
             height: 2em;
         }
@@ -27,7 +27,7 @@ table.table {
             }
         }
         tr.even {
-            background-color: #E8F5E9;
+            background-color: $color-primary-light;
         }
     }
 }
