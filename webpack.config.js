@@ -20,6 +20,15 @@ module.exports = {
         publicPath: 'http://localhost:8080/assets/',
         filename: 'app.js'
     },
+    devServer: {
+        historyApiFallback: true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                secure: false
+            }
+        }
+    },
     devtool: 'eval-source-map',
     resolve: {
         extensions: ['', '.js', '.jsx'],
