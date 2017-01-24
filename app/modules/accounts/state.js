@@ -1,0 +1,28 @@
+import { createAction } from 'redux-actions';
+
+export const LOAD_ACCOUNTS = 'mowney/accounts/load';
+export const RECEIVE_ACCOUNTS = 'mowney/accounts/receive';
+
+export default function reducer(state = {
+    loading: false,
+    list: []
+}, action) {
+    switch (action.type) {
+    case LOAD_ACCOUNTS:
+        return {
+            ...state,
+            loading: true
+        };
+    case RECEIVE_ACCOUNTS:
+        return {
+            ...state,
+            loading: false,
+            list: action.payload
+        };
+    default:
+        return state;
+    }
+}
+
+export const loadAccounts = createAction(LOAD_ACCOUNTS);
+export const receiveAccounts = createAction(RECEIVE_ACCOUNTS);

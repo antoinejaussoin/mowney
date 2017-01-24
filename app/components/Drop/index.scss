@@ -1,0 +1,30 @@
+.container {
+    border: 5px dashed $color-primary-dark;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    .add {
+        span {
+            font-size: 3em;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+        
+        color: $color-primary-dark;
+
+    }
+
+    .preview {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+}
