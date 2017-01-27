@@ -5,6 +5,7 @@
     justify-content: center;
     align-content: center;
     align-items: center;
+    height: 100%;
 
     .add {
         span {
@@ -19,7 +20,6 @@
         }
         
         color: $color-primary-dark;
-
     }
 
     .preview {

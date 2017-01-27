@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Icon from 'components/FontIcon';
+import classNames from 'classnames';
 import style from './index.scss';
 
 const onDrop = onChange => e => {
@@ -10,11 +11,11 @@ const onDrop = onChange => e => {
     }
 };
 
-const Drop = ({ label, value, onChange }) => (
+const Drop = ({ label, value, className, onChange }) => (
     <Dropzone
       onDrop={onDrop(onChange)}
       multiple={false}
-      className={style.container}
+      className={classNames(style.container, className)}
     >
         { value ?
             <img src={value.preview} className={style.preview} /> :
@@ -29,13 +30,15 @@ const Drop = ({ label, value, onChange }) => (
 Drop.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.object,
-    label: PropTypes.string
+    label: PropTypes.string,
+    className: PropTypes.string
 };
 
 Drop.defaultProps = {
     onChange: () => {},
     value: null,
-    label: 'Click to upload'
+    label: 'Click to upload',
+    className: ''
 };
 
 export default Drop;

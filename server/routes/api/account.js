@@ -51,13 +51,15 @@ router.get('/list/all', function (req, res) {
     });
 });
 
-router.post('/upload', function (req, res) {
+router.post('/upload/:accountId', function (req, res) {
+    console.log('Req: ', req);
     var file = req.files.file;
+    var accountId = req.params.accountId;
 
     loadingService(req.user, [{
         path: file.path,
         name: file.name,
-        accountId: req.body.accountId
+        accountId
     }]).then(function () {
         res.send('ok');
     }, function (err) {

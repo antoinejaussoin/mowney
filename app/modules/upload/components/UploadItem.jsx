@@ -3,9 +3,9 @@ import Drop from 'components/Drop';
 import style from './UploadItem.scss';
 
 const UploadItem = ({ account, file, onFileAdded }) => (
-    <div>
-        {account.name}
-        <Drop onChange={onFileAdded} value={file} className={style.drop} />
+    <div className={style.container}>
+        <p>{account.name}</p>
+        <Drop onChange={f => onFileAdded(account, f)} value={file} className={style.drop} />
     </div>
 );
 

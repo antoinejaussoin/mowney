@@ -5,7 +5,8 @@ export const RECEIVE_ACCOUNTS = 'mowney/accounts/receive';
 
 export default function reducer(state = {
     loading: false,
-    list: []
+    list: [],
+    entities: {}
 }, action) {
     switch (action.type) {
     case LOAD_ACCOUNTS:
@@ -17,7 +18,7 @@ export default function reducer(state = {
         return {
             ...state,
             loading: false,
-            list: action.payload
+            ...action.payload
         };
     default:
         return state;

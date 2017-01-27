@@ -3,26 +3,39 @@ import { connect } from 'react-redux';
 import flow from 'lodash/flow';
 import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
+import ProgressBar from 'components/ProgressBar';
+import Button from 'components/Button';
 import { getAccounts } from 'modules/accounts/selectors';
 import style from './index.scss';
 import UploadItem from './components/UploadItem';
-import { addFile } from '../state';
+import { addFile, uploadAll } from './state';
+import { getFiles, isUploading } from './selectors';
 
 const stateToProps = state => ({
-    accounts: getAccounts(state)
+    accounts: getAccounts(state),
+    files: getFiles(state),
+    uploading: isUploading(state)
 });
 
 const actionsToProps = dispatch => ({
-    onAddFile: (account, file) => dispatch(addFile({ account, file }))
+    onAddFile: (account, file) => dispatch(addFile({ account, file })),
+    onUpload: () => dispatch(uploadAll())
 });
 
-const Main = ({ accounts, onAddFile }) => (
+const Main = ({ accounts, files, uploading, onAddFile, onUpload }) => (
     <div className={style.container}>
         <Card>
             <CardTitle>Upload a file</CardTitle>
             <CardText>
-                <div className={style.items}>
-                    { accounts.map(account => <UploadItem account={account} key={account.id} onFileAdded={onAddFile} />) }
+                <Button label="Upload" raised accent onClick={onUpload} disabled={uploading} />
+                <div className={style.list}>
+                    { !uploading ?
+                        <div className={style.items}>
+                            { accounts.map(account =>
+                                <UploadItem account={account} file={files[account.id]} key={account.id} onFileAdded={onAddFile} />) }
+                        </div> :
+                        <ProgressBar mode="indeterminate" />
+                    }
                 </div>
             </CardText>
         </Card>
@@ -31,7 +44,10 @@ const Main = ({ accounts, onAddFile }) => (
 
 Main.propTypes = {
     accounts: PropTypes.array,
-    onAddFile: PropTypes.func
+    files: PropTypes.array,
+    uploading: PropTypes.bool,
+    onAddFile: PropTypes.func,
+    onUpload: PropTypes.func
 };
 
 const decorators = flow([

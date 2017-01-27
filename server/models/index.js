@@ -22,6 +22,10 @@ db.init = function () {
             db[modelName].associate(db);
         }
     });
+
+    sequelize.query('SET sql_mode=""').then(res => {
+        console.log('Setting sql_mode done ', res);
+    });
 }
 
 db.sequelize = sequelize;

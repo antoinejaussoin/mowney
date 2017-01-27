@@ -9,10 +9,9 @@ import { listOfAccountsModel } from './model';
 export function* onLoadAccounts() {
     try {
         const token = yield select(getToken);
-        const accounts = yield call(fetchAccounts, token);
-        console.log('fn: ', normalize);
-        const { result, entities: { accounts }} = normalize(accounts, listOfAccountsModel);
-        yield put(receiveAccounts({ entities: accounts}));
+        const data = yield call(fetchAccounts, token);
+        const { result, entities: { accounts } } = normalize(data, listOfAccountsModel);
+        yield put(receiveAccounts({ entities: accounts, list: result }));
     } catch (e) {
         console.error('Get Accounts error: ', e);
     }
