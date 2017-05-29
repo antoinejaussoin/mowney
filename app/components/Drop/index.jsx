@@ -18,7 +18,7 @@ const Drop = ({ label, value, className, onChange }) => (
       className={classNames(style.container, className)}
     >
         { value ?
-            <img src={value.preview} className={style.preview} /> :
+            <img src={value.preview} className={style.preview} alt="Preview" /> :
             <div className={style.add}>
                 <Icon value="file_upload" />
                 <p>{label}</p>

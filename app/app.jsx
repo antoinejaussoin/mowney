@@ -1,4 +1,4 @@
-/* global __DEVTOOLS__ __USE_GA__ __GA_ID__ */
+/* global __DEVTOOLS__ */
 /* eslint global-require:0 */
 import React from 'react';
 import { Provider } from 'react-redux';

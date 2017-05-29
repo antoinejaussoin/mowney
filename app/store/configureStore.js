@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__ __USE_GA__ __DEVTOOLS__ */
+/* global __DEVELOPMENT__ __DEVTOOLS__ */
 /* eslint global-require: 0 */
 
 import { compose, createStore, applyMiddleware } from 'redux';
@@ -17,7 +17,7 @@ export default function configureStore(initialState = {}, browserHistory) {
     middlewares.push(sagaMiddleware);
 
     if (__DEVELOPMENT__) {
-        const createLogger = require('redux-logger');
+        const { createLogger } = require('redux-logger');
 
         const logger = createLogger({ predicate:
             (getState, action) => action.type !== 'EFFECT_TRIGGERED' &&
