@@ -32,6 +32,7 @@ class Index extends React.Component {
                     <IndexRoute component={Home} onEnter={requireAuth} />
                     <Route path="login" component={Login} />
                     <Route path="upload" component={Upload} />
+                    <Route path="account/:accountId" component={Upload} />
                 </Route>
             </Router>
         );

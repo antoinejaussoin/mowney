@@ -23,9 +23,9 @@ db.init = function () {
         }
     });
 
-    sequelize.query('SET sql_mode=""').then(res => {
-        console.log('Setting sql_mode done ', res);
-    });
+    // sequelize.query('SET sql_mode=""').then(res => {
+    //     console.log('Setting sql_mode done ', res);
+    // });
 }
 
 db.sequelize = sequelize;
