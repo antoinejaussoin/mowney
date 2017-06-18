@@ -5,7 +5,7 @@ import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
 import ProgressBar from 'components/ProgressBar';
 import Button from 'components/Button';
-import { getAccounts } from 'modules/accounts/selectors';
+import { getAccounts } from 'modules/accounts/list/selectors';
 import style from './index.scss';
 import UploadItem from './components/UploadItem';
 import { addFile, uploadAll } from './state';
