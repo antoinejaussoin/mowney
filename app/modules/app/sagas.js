@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { loginSuccess } from 'modules/user/state';
 import { loadDashboard } from 'modules/home/state';
-import { loadAccounts } from 'modules/accounts/state';
+import { loadAccounts } from 'modules/accounts/list/state';
 import { reAuthenticate } from 'modules/user/api';
 import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
 

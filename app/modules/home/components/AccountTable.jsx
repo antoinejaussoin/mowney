@@ -3,6 +3,7 @@ import flow from 'lodash/flow';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
+import { Link } from 'react-router';
 import { getSummary, getTotal } from '../selectors';
 import style from './AccountTable.scss';
 
@@ -49,7 +50,7 @@ Table.propTypes = {
 
 const Line = ({ line, isEven }) => (
     <tr className={classNames({ [style.even]: isEven })}>
-        <td>{ line.name }</td>
+        <td><Link to={`/accounts/${line.id}`}>{ line.name }</Link></td>
         <td>{ line.currency }</td>
         <td className={style.right}>{ numeral(line.balance).format(format) }</td>
         <td className={style.right}>{ numeral(line.balanceInCurrency).format(format) }</td>

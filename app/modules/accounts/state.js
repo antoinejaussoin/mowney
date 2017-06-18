@@ -1,29 +1,10 @@
-import { createAction } from 'redux-actions';
+import { combineReducers } from 'redux';
+import list from './list/state';
+import detail from './detail/state';
 
-export const LOAD_ACCOUNTS = 'mowney/accounts/load';
-export const RECEIVE_ACCOUNTS = 'mowney/accounts/receive';
+const accountsReducer = combineReducers({
+    list,
+    detail
+});
 
-export default function reducer(state = {
-    loading: false,
-    list: [],
-    entities: {}
-}, action) {
-    switch (action.type) {
-    case LOAD_ACCOUNTS:
-        return {
-            ...state,
-            loading: true
-        };
-    case RECEIVE_ACCOUNTS:
-        return {
-            ...state,
-            loading: false,
-            ...action.payload
-        };
-    default:
-        return state;
-    }
-}
-
-export const loadAccounts = createAction(LOAD_ACCOUNTS);
-export const receiveAccounts = createAction(RECEIVE_ACCOUNTS);
+export default accountsReducer;

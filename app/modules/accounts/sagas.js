@@ -1,24 +1,11 @@
-import { takeEvery } from 'redux-saga';
-import { call, put, select } from 'redux-saga/effects';
-import { normalize } from 'normalizr';
-import { getToken } from 'modules/user/selectors';
-import { fetchAccounts } from './api';
-import { receiveAccounts, LOAD_ACCOUNTS } from './state';
-import { listOfAccountsModel } from './model';
+/* eslint func-names: "off" */
 
-export function* onLoadAccounts() {
-    try {
-        const token = yield select(getToken);
-        const data = yield call(fetchAccounts, token);
-        const { result, entities: { accounts } } = normalize(data, listOfAccountsModel);
-        yield put(receiveAccounts({ entities: accounts, list: result }));
-    } catch (e) {
-        console.error('Get Accounts error: ', e);
-    }
-}
+import listSagas from './list/sagas';
+import detailSagas from './detail/sagas';
 
-export default function* watchers() {
+export default function* rootSaga() {
     yield [
-        takeEvery(LOAD_ACCOUNTS, onLoadAccounts)
+        listSagas(),
+        detailSagas()
     ];
 }
