@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Card, CardText } from 'react-toolbox/lib/card';
 
 const Container = ({ children, className }) => (

@@ -1,5 +1,4 @@
-import { takeEvery } from 'redux-saga';
-import { call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { getToken } from 'modules/user/selectors';
 import { fetchSummary, fetchSaving, fetchTimeline } from './api';
 import { receiveSummary, receiveSavings, receiveTimeline, GET_SUMMARY, LOAD_DASHBOARD } from './state';

@@ -1,5 +1,7 @@
 /* eslint react/prefer-stateless-function: "off" */
 /* Because stateless functions don't have context it seems */
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import { connect } from 'react-redux';
 import en from './en';
@@ -38,8 +40,8 @@ export default function translate(key) {
     }
 
     TranslationComponent.propTypes = {
-      strings: React.PropTypes.object,
-      currentLanguage: React.PropTypes.string
+      strings: PropTypes.object,
+      currentLanguage: PropTypes.string
     };
 
     return connect(stateToProps)(TranslationComponent);
