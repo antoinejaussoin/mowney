@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { loginSuccess } from 'modules/user/state';
@@ -30,8 +30,8 @@ export function* onInitialLoad() {
 }
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(INITIALISE, onInitialise),
     takeEvery(INITIAL_LOAD, onInitialLoad)
-  ];
+  ]);
 }

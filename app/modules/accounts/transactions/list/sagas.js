@@ -1,4 +1,4 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { getToken } from 'modules/user/selectors';
 import { fetchAllTransactions } from '../api';
@@ -20,7 +20,7 @@ export function* onLoadTransactions({ payload }) {
 }
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(LOAD_ACCOUNT_TRANSACTIONS, onLoadTransactions)
-  ];
+  ]);
 }

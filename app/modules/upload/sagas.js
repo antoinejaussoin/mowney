@@ -1,4 +1,4 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import entries from 'lodash/entries';
 import { getToken } from 'modules/user/selectors';
 import { uploadFile } from './api';
@@ -25,7 +25,7 @@ export function* onUploadAll() {
 }
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(UPLOAD_ALL, onUploadAll)
-  ];
+  ]);
 }

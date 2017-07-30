@@ -1,4 +1,4 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import { getToken } from 'modules/user/selectors';
 import { fetchSummary, fetchSaving, fetchTimeline } from './api';
 import { receiveSummary, receiveSavings, receiveTimeline, GET_SUMMARY, LOAD_DASHBOARD } from './state';
@@ -55,8 +55,8 @@ export function* onLoadDashboard() {
 }
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(GET_SUMMARY, onGetSummary),
     takeEvery(LOAD_DASHBOARD, onLoadDashboard)
-  ];
+  ]);
 }
