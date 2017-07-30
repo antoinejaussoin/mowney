@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
-export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/load';
-export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/receive';
+export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/load';
+export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/receive';
 
 export default function reducer(state = {
   loading: false,

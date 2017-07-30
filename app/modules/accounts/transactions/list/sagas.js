@@ -2,9 +2,9 @@ import { takeEvery } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { getToken } from 'modules/user/selectors';
-import { fetchAllTransactions } from './api';
+import { fetchAllTransactions } from '../api';
 import { receiveTransactions, LOAD_ACCOUNT_TRANSACTIONS } from './state';
-import { listOfTransactionsModel } from '../model';
+import { listOfTransactionsModel } from '../../model';
 
 export function* onLoadTransactions({ payload }) {
   try {
