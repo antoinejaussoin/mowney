@@ -3,9 +3,19 @@ import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
-import { getTransactions } from './selectors';
+import Table from 'components/Table';
+import { getFormattedTransactions } from './selectors';
 import { loadTransactions } from './state';
 import style from './index.scss';
+
+const TransactionModel = {
+    date: { type: Date },
+    description: { type: String },
+    debit: { type: Number },
+    credit: { type: Number },
+    balance: { type: Number },
+    active: { type: Boolean }
+};
 
 class AccountDetails extends Component {
 
@@ -15,6 +25,7 @@ class AccountDetails extends Component {
     }
     render() {
         const { transactions } = this.props;
+        console.log('Transaxctions: ', transactions);
         return (
             <div className={style.container}>
                 <Card>
@@ -22,7 +33,10 @@ class AccountDetails extends Component {
                         Account
                     </CardTitle>
                     <CardText>
-                        { transactions.length }
+                        <Table
+                          model={TransactionModel}
+                          source={transactions}
+                        />
                     </CardText>
                 </Card>
             </div>
@@ -37,7 +51,7 @@ AccountDetails.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    transactions: getTransactions(state)
+    transactions: getFormattedTransactions(state)
 });
 
 const mapActionsToProps = (dispatch) => ({
