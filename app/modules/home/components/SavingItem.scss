@@ -1,0 +1,36 @@
+div.item {
+    min-width: 200px;
+    border:1px solid $color-positive;
+    text-align: center;
+    margin: 5px;
+
+    div.header {
+        border-bottom:1px solid $color-positive;
+
+        h4 {
+            font-size: 1.5em;
+        }
+    }
+
+    div.content {
+        background-color: $color-positive-light;
+        color: $color-positive;
+        height: 3em;
+
+        p {
+            font-size: 2em;
+            padding-top: 0.25em;
+        }
+    }
+}
+
+div.item.negative {
+    border:1px solid $color-negative;
+    div.header {
+        border-bottom:1px solid $color-negative;
+    }
+    div.content {
+        background-color: $color-negative-light;
+        color: $color-negative;
+    }
+}

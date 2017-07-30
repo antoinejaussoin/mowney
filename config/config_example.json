@@ -1,0 +1,35 @@
+{
+    "development": {
+        "username": "mowney",
+        "password": "",
+        "database": "mowney_dev",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false,
+        "autoLogin": "me@me.com",
+        "tokenSecret": "SOME_SECRET"
+    },
+    "test": {
+        "username": "mowney",
+        "password": "",
+        "database": "mowney_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false,
+        "autoLogin": "me@me.com",
+        "dialectOptions": {
+            "multipleStatements": true
+        },
+        "tokenSecret": "SOME_SECRET"
+    },
+    "production": {
+        "username": "mowney",
+        "password": "",
+        "database": "mowney_prod",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": false,
+        "autoLogin": "me@me.com",
+        "tokenSecret": "SOME_SECRET"
+    }
+}

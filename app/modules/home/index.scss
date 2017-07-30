@@ -1,0 +1,31 @@
+div.container {
+    div.header {
+    }
+
+    div.summaries {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        div.accounts {
+            flex: 2;
+            min-width: 500px;
+            margin-right: 10px;
+        }
+
+        div.savings {
+            flex: 3;
+        }
+
+        div.charts {
+            width: 100%;
+        }
+    }
+}
+
+
+
+@media (max-width: $small) {
+
+}
