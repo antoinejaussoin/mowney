@@ -1,29 +1,30 @@
-var fs = require('fs');
-var path_module = require('path');
-var q = require('q');
-var loaders = [];
-var _ = require('underscore');
+const fs = require('fs');
+const path_module = require('path');
+const q = require('q');
+
+const loaders = [];
+const _ = require('underscore');
 
 function endsWith(str, suffix) {
-    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
 function LoadModules(path) {
-    var files = fs.readdirSync(path);
-    loaders.list = [];
-    
-    files.forEach(function(f) {
-        var file = path_module.join(__dirname, f);
+  const files = fs.readdirSync(path);
+  loaders.list = [];
 
-        if (endsWith(file.toString(), '-loader.js')) {
-            var loader = require(file.toString());
-            loaders[loader.type] = loader;
-            loaders.list.push(loader);
-        }
-    })
+  files.forEach((f) => {
+    const file = path_module.join(__dirname, f);
+
+    if (endsWith(file.toString(), '-loader.js')) {
+      const loader = require(file.toString());
+      loaders[loader.type] = loader;
+      loaders.list.push(loader);
+    }
+  });
 }
 
-var DIR = path_module.join(__dirname);
+const DIR = path_module.join(__dirname);
 LoadModules(DIR);
 
 module.exports = loaders;

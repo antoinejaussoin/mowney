@@ -1,5 +1,5 @@
 export default {
-    Header: {
-        subtitle: 'Finance personnelle'
-    }
+  Header: {
+    subtitle: 'Finance personnelle'
+  }
 };

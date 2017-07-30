@@ -1,40 +1,36 @@
-var models = require('../models');
-var moment = require('moment');
-var async = require('async');
+const models = require('../models');
+const moment = require('moment');
+const async = require('async');
 
 function importAccountIdentifier(importedAccountIdentifiers, account, cb) {
-    var completed = 0;
-    var results = [];
-    
-    if (!importedAccountIdentifiers || importedAccountIdentifiers.length == 0)
-        return cb(null, results);
-    
-    importedAccountIdentifiers.forEach(function (i) {
-        var imp = models.AccountIdentifier.create({
-                type: i['type'][0],
-                value: i['value'][0]
-            })
-            .complete(function (err, accountIdentifier) {
-                if (err) {
-                    console.log('error: ' + err);
-                    return cb(err, null);
-                }
+  let completed = 0;
+  const results = [];
 
-                accountIdentifier.setAccount(account)
-                    .error(function (err) {
-                        return cb(err, null)
-                    })
-                    .success(function () {
+  if (!importedAccountIdentifiers || importedAccountIdentifiers.length == 0) { return cb(null, results); }
 
-                        results.push(accountIdentifier);
-                        completed++;
-                        console.log('imported ' + completed + ' account identifier');
-                        if (completed === importedAccountIdentifiers.length) {
-                            return cb(null, results);
-                        }
-                    })
-            });
-    });
+  importedAccountIdentifiers.forEach((i) => {
+    const imp = models.AccountIdentifier.create({
+      type: i.type[0],
+      value: i.value[0]
+    })
+      .complete((err, accountIdentifier) => {
+        if (err) {
+          console.log(`error: ${err}`);
+          return cb(err, null);
+        }
+
+        accountIdentifier.setAccount(account)
+          .error((err) => cb(err, null))
+          .success(() => {
+            results.push(accountIdentifier);
+            completed++;
+            console.log(`imported ${completed} account identifier`);
+            if (completed === importedAccountIdentifiers.length) {
+              return cb(null, results);
+            }
+          });
+      });
+  });
 }
 
 module.exports = importAccountIdentifier;

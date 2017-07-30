@@ -6,22 +6,22 @@ import style from './Savings.scss';
 import SavingItem from './SavingItem';
 
 const stateToProps = state => ({
-    savings: getSavings(state)
+  savings: getSavings(state)
 });
 
 const Savings = ({ savings }) => (
-    <div className={style.savings}>
-        { savings.map(saving =>
-            <SavingItem saving={saving} key={saving.id} />) }
-    </div>
+  <div className={style.savings}>
+    { savings.map(saving =>
+      <SavingItem saving={saving} key={saving.id} />) }
+  </div>
 );
 
 Savings.propTypes = {
-    savings: PropTypes.array
+  savings: PropTypes.array
 };
 
 const decorators = flow([
-    connect(stateToProps)
+  connect(stateToProps)
 ]);
 
 export default decorators(Savings);

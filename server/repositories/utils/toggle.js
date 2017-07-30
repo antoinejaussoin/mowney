@@ -1,26 +1,25 @@
-var q = require('q');
-var findOne = require('./find-one');
+const q = require('q');
+const findOne = require('./find-one');
 
 function toggle(model, id, property) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    findOne(model, [], {
-        id: id
-    }).then(function (result) {
-        result[property] = !result[property];
-        result.save().then(function () {
-            defer.resolve(result[property]);
-        }, function (err) {
-            console.error(err);
-            defer.reject(err);
-        });
-
-    }, function (err) {
-        console.error(err);
-        defer.reject(err);
+  findOne(model, [], {
+    id
+  }).then((result) => {
+    result[property] = !result[property];
+    result.save().then(() => {
+      defer.resolve(result[property]);
+    }, (err) => {
+      console.error(err);
+      defer.reject(err);
     });
+  }, (err) => {
+    console.error(err);
+    defer.reject(err);
+  });
 
-    return defer.promise;
+  return defer.promise;
 }
 
 module.exports = toggle;

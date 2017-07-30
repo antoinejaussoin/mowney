@@ -1,5 +1,5 @@
-var moment = require('moment');
+const moment = require('moment');
 
 module.exports = function getToday() {
-    return moment().startOf('day');
-}
+  return moment().startOf('day');
+};

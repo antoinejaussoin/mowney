@@ -12,47 +12,47 @@ import { addFile, uploadAll } from './state';
 import { getFiles, isUploading } from './selectors';
 
 const stateToProps = state => ({
-    accounts: getAccounts(state),
-    files: getFiles(state),
-    uploading: isUploading(state)
+  accounts: getAccounts(state),
+  files: getFiles(state),
+  uploading: isUploading(state)
 });
 
 const actionsToProps = dispatch => ({
-    onAddFile: (account, file) => dispatch(addFile({ account, file })),
-    onUpload: () => dispatch(uploadAll())
+  onAddFile: (account, file) => dispatch(addFile({ account, file })),
+  onUpload: () => dispatch(uploadAll())
 });
 
 const Main = ({ accounts, files, uploading, onAddFile, onUpload }) => (
-    <div className={style.container}>
-        <Card>
-            <CardTitle>Upload a file</CardTitle>
-            <CardText>
-                <Button label="Upload" raised accent onClick={onUpload} disabled={uploading} />
-                <div className={style.list}>
-                    { !uploading ?
-                        <div className={style.items}>
-                            { accounts.map(account =>
-                                <UploadItem account={account} file={files[account.id]} key={account.id} onFileAdded={onAddFile} />) }
-                        </div> :
-                        <ProgressBar mode="indeterminate" />
-                    }
-                </div>
-            </CardText>
-        </Card>
-    </div>
+  <div className={style.container}>
+    <Card>
+      <CardTitle>Upload a file</CardTitle>
+      <CardText>
+        <Button label="Upload" raised accent onClick={onUpload} disabled={uploading} />
+        <div className={style.list}>
+          { !uploading ?
+            <div className={style.items}>
+              { accounts.map(account =>
+                <UploadItem account={account} file={files[account.id]} key={account.id} onFileAdded={onAddFile} />) }
+            </div> :
+            <ProgressBar mode="indeterminate" />
+          }
+        </div>
+      </CardText>
+    </Card>
+  </div>
 );
 
 Main.propTypes = {
-    accounts: PropTypes.array,
-    files: PropTypes.array,
-    uploading: PropTypes.bool,
-    onAddFile: PropTypes.func,
-    onUpload: PropTypes.func
+  accounts: PropTypes.array,
+  files: PropTypes.array,
+  uploading: PropTypes.bool,
+  onAddFile: PropTypes.func,
+  onUpload: PropTypes.func
 };
 
 const decorators = flow([
-    translate('Upload'),
-    connect(stateToProps, actionsToProps)
+  translate('Upload'),
+  connect(stateToProps, actionsToProps)
 ]);
 
 export default decorators(Main);

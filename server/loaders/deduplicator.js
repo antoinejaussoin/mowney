@@ -1,17 +1,13 @@
-var _ = require('underscore');
-var moment = require('moment');
+const _ = require('underscore');
+const moment = require('moment');
 
 module.exports = function deduplicate(transactions, importedTransactions) {
-    // Todo: improve algorithm
-    
-    var format = 'YYYY-MM-DD';
+  // Todo: improve algorithm
 
-    var filtered = importedTransactions.filter(function (item) {
-        return !_.some(transactions, function (t) {
-            return moment(t.date).format(format) === moment(item.date).format(format) 
-                && t.amount == item.amount;
-        });
-    });
+  const format = 'YYYY-MM-DD';
 
-    return filtered;
-}
+  const filtered = importedTransactions.filter((item) => !_.some(transactions, (t) => moment(t.date).format(format) === moment(item.date).format(format)
+                && t.amount == item.amount));
+
+  return filtered;
+};

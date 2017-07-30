@@ -4,25 +4,25 @@ export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/load';
 export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/receive';
 
 export default function reducer(state = {
-    loading: false,
-    list: [],
-    entities: {}
+  loading: false,
+  list: [],
+  entities: {}
 }, action) {
-    switch (action.type) {
-    case LOAD_ACCOUNT_TRANSACTIONS:
-        return {
-            ...state,
-            loading: true
-        };
-    case RECEIVE_ACCOUNT_TRANSACTIONS:
-        return {
-            ...state,
-            loading: false,
-            ...action.payload
-        };
-    default:
-        return state;
-    }
+  switch (action.type) {
+  case LOAD_ACCOUNT_TRANSACTIONS:
+    return {
+      ...state,
+      loading: true
+    };
+  case RECEIVE_ACCOUNT_TRANSACTIONS:
+    return {
+      ...state,
+      loading: false,
+      ...action.payload
+    };
+  default:
+    return state;
+  }
 }
 
 export const loadTransactions = createAction(LOAD_ACCOUNT_TRANSACTIONS);

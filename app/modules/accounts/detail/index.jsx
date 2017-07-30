@@ -9,58 +9,57 @@ import { loadTransactions } from './state';
 import style from './index.scss';
 
 const TransactionModel = {
-    date: { type: Date },
-    description: { type: String },
-    debit: { type: Number },
-    credit: { type: Number },
-    balance: { type: Number },
-    active: { type: Boolean }
+  date: { type: Date },
+  description: { type: String },
+  debit: { type: Number },
+  credit: { type: Number },
+  balance: { type: Number },
+  active: { type: Boolean }
 };
 
 class AccountDetails extends Component {
-
-    componentDidMount() {
-        console.log('Props: ', this.props);
-        this.props.onLoad(this.props.params.accountId);
-    }
-    render() {
-        const { transactions } = this.props;
-        console.log('Transaxctions: ', transactions);
-        return (
-            <div className={style.container}>
-                <Card>
-                    <CardTitle>
+  componentDidMount() {
+    console.log('Props: ', this.props);
+    this.props.onLoad(this.props.params.accountId);
+  }
+  render() {
+    const { transactions } = this.props;
+    console.log('Transaxctions: ', transactions);
+    return (
+      <div className={style.container}>
+        <Card>
+          <CardTitle>
                         Account
-                    </CardTitle>
-                    <CardText>
-                        <Table
-                          model={TransactionModel}
-                          source={transactions}
-                        />
-                    </CardText>
-                </Card>
-            </div>
-        );
-    }
+          </CardTitle>
+          <CardText>
+            <Table
+              model={TransactionModel}
+              source={transactions}
+            />
+          </CardText>
+        </Card>
+      </div>
+    );
+  }
 }
 
 AccountDetails.propTypes = {
-    transactions: PropTypes.array,
-    params: PropTypes.object,
-    onLoad: PropTypes.func
+  transactions: PropTypes.array,
+  params: PropTypes.object,
+  onLoad: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-    transactions: getFormattedTransactions(state)
+  transactions: getFormattedTransactions(state)
 });
 
 const mapActionsToProps = (dispatch) => ({
-    onLoad: (accountId) => dispatch(loadTransactions(accountId))
+  onLoad: (accountId) => dispatch(loadTransactions(accountId))
 });
 
 const decorators = flow([
-    translate('Accounts'),
-    connect(mapStateToProps, mapActionsToProps)
+  translate('Accounts'),
+  connect(mapStateToProps, mapActionsToProps)
 ]);
 
 export default decorators(AccountDetails);

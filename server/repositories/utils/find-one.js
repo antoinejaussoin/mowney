@@ -1,20 +1,20 @@
-var q = require('q');
+const q = require('q');
 
 function findOne(model, includes, where) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    model.find({
-        where: where,
-        include: includes || []
-    })
-        .then(function (result) {
-            defer.resolve(result);
-        }, function (err) {
-            console.error(err);
-            defer.reject(err);
-        });
+  model.find({
+    where,
+    include: includes || []
+  })
+    .then((result) => {
+      defer.resolve(result);
+    }, (err) => {
+      console.error(err);
+      defer.reject(err);
+    });
 
-    return defer.promise;
+  return defer.promise;
 }
 
 module.exports = findOne;

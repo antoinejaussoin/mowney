@@ -1,27 +1,27 @@
-var loadQuery = require('../query-loader');
-var q = require('q');
-var models = require('../../models');
-var sequelize = require('sequelize');
+const loadQuery = require('../query-loader');
+const q = require('q');
+const models = require('../../models');
+const sequelize = require('sequelize');
 
 function updateQuery(name, parameters, queryModifier) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    var query = loadQuery(name);
+  let query = loadQuery(name);
 
-    if (queryModifier) {
-        query = queryModifier(query);
-    }
+  if (queryModifier) {
+    query = queryModifier(query);
+  }
 
-    models.sequelize.query(query, {
-        replacements: parameters
-    }).spread(function (data, metadata) {
-        defer.resolve(true);
-    }).catch(function (err) {
-        console.error(err);
-        defer.reject(err);
-    });
+  models.sequelize.query(query, {
+    replacements: parameters
+  }).spread((data, metadata) => {
+    defer.resolve(true);
+  }).catch((err) => {
+    console.error(err);
+    defer.reject(err);
+  });
 
-    return defer.promise;
+  return defer.promise;
 }
 
 module.exports = updateQuery;

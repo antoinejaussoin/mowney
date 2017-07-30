@@ -1,68 +1,55 @@
-var fs = require('fs');
-var xml2js = require('xml2js');
-var models = require('../models');
-var moment = require('moment');
-var async = require('async');
+const fs = require('fs');
+const xml2js = require('xml2js');
+const models = require('../models');
+const moment = require('moment');
+const async = require('async');
 
-var importImports = require('./imports');
-var importCurrencies = require('./currencies');
-var importOwner = require('./users');
-var importAccounts = require('./accounts');
+const importImports = require('./imports');
+const importCurrencies = require('./currencies');
+const importOwner = require('./users');
+const importAccounts = require('./accounts');
 
 module.exports = function (file, user, done) {
+  const parser = new xml2js.Parser();
 
-    var parser = new xml2js.Parser();
+  fs.readFile(file, (err, data) => {
+    parser.parseString(data, (err, data) => {
+      const destination = {};
 
-    fs.readFile(file, function (err, data) {
-        parser.parseString(data, function (err, data) {
+      importImports(data.compta.imports[0].import, (err, imports) => {
+        if (err) {
+          console.log(`Error while importing imports: ${JSON.stringify(err)}`);
+          return done(err);
+        }
+        console.log('Imports finished');
+        destination.imports = imports;
 
-            var destination = {}
+        importCurrencies((err, currencies) => {
+          if (err) {
+            console.log(`Error while importing currencies: ${JSON.stringify(err)}`);
+            return done(err);
+          }
+          destination.currencies = currencies;
 
-            importImports(data.compta.imports[0].import, function (err, imports) {
-                if (err) {
-                    console.log('Error while importing imports: ' + JSON.stringify(err));
-                    return done(err);
-                }
-                console.log('Imports finished');
-                destination.imports = imports;
+          importOwner(user, currencies[0], (err, owner) => {
+            if (err) {
+              console.log(`Error while importing owner: ${JSON.stringify(err)}`);
+              return done(err);
+            }
+            destination.owner = owner;
 
-                importCurrencies(function (err, currencies) {
-                    if (err) {
-                        console.log('Error while importing currencies: ' + JSON.stringify(err));
-                        return done(err);
-                    }
-                    destination.currencies = currencies;
+            importAccounts(data.compta.accounts[0].account, destination, (err, accounts) => {
+              if (err) {
+                console.log(`Error while importing accounts: ${JSON.stringify(err)}`);
+                return done(err);
+              }
+              destination.accounts = accounts;
 
-                    importOwner(user, currencies[0], function (err, owner) {
-                        if (err) {
-                            console.log('Error while importing owner: ' + JSON.stringify(err));
-                            return done(err);
-                        }
-                        destination.owner = owner;
-
-                        importAccounts(data.compta.accounts[0].account, destination, function (err, accounts) {
-                            if (err) {
-                                console.log('Error while importing accounts: ' + JSON.stringify(err));
-                                return done(err);
-                            }
-                            destination.accounts = accounts;
-
-                            done(null, data);
-                        });
-
-
-                    });
-
-                });
-
+              done(null, data);
             });
-
-
+          });
         });
+      });
     });
-
-
-
-
-
-}
+  });
+};

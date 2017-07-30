@@ -7,11 +7,11 @@ import userSagas from 'modules/user/sagas';
 import uploadSagas from 'modules/upload/sagas';
 
 export default function* rootSaga() {
-    yield [
-        appSagas(),
-        accountsSagas(),
-        homeSagas(),
-        userSagas(),
-        uploadSagas()
-    ];
+  yield [
+    appSagas(),
+    accountsSagas(),
+    homeSagas(),
+    userSagas(),
+    uploadSagas()
+  ];
 }

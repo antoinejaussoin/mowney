@@ -1,16 +1,17 @@
-var express = require('express');
-var router = express.Router();
-var auth = require('./../../auth').auth;
-var models = require('../../models');
-var currencyRepository = require('../../repositories/currency-repository');
-var _ = require('lodash');
+const express = require('express');
+
+const router = express.Router();
+const auth = require('./../../auth').auth;
+const models = require('../../models');
+const currencyRepository = require('../../repositories/currency-repository');
+const _ = require('lodash');
 
 router.use(auth);
 
-router.get('/list', function (req, res) {
-    currencyRepository.getAll().then(function (list) {
-        res.send(list);
-    });
+router.get('/list', (req, res) => {
+  currencyRepository.getAll().then((list) => {
+    res.send(list);
+  });
 });
 
 module.exports = router;

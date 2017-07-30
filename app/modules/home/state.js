@@ -9,29 +9,29 @@ export const GET_TIMELINE = 'mowney/dashboard/get-timeline';
 export const RECEIVE_TIMELINE = 'mowney/dashboard/receive-timeline';
 
 export default function reducer(state = {
-    summary: { lines: [] },
-    savings: [],
-    timeline: []
+  summary: { lines: [] },
+  savings: [],
+  timeline: []
 }, action) {
-    switch (action.type) {
-    case RECEIVE_SUMMARY:
-        return {
-            ...state,
-            summary: action.payload
-        };
-    case RECEIVE_SAVINGS:
-        return {
-            ...state,
-            savings: action.payload
-        };
-    case RECEIVE_TIMELINE:
-        return {
-            ...state,
-            timeline: action.payload
-        };
-    default:
-        return state;
-    }
+  switch (action.type) {
+  case RECEIVE_SUMMARY:
+    return {
+      ...state,
+      summary: action.payload
+    };
+  case RECEIVE_SAVINGS:
+    return {
+      ...state,
+      savings: action.payload
+    };
+  case RECEIVE_TIMELINE:
+    return {
+      ...state,
+      timeline: action.payload
+    };
+  default:
+    return state;
+  }
 }
 
 export const loadDashboard = createAction(LOAD_DASHBOARD);

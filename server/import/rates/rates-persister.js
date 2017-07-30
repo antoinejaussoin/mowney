@@ -1,17 +1,15 @@
-var models = require('./../../models');
-var async = require('async');
+const models = require('./../../models');
+const async = require('async');
 
 function persistRates(rates, currency, cb) {
-    var ratesAsModel = rates.map(function (r) {
-        return {
-            date: r.date,
-            rate: r.value
-        }
-    });
-    
-    var persistFunction = persistExchangeRateWithCurrency(currency);
+  const ratesAsModel = rates.map((r) => ({
+    date: r.date,
+    rate: r.value
+  }));
 
-    async.map(ratesAsModel, persistFunction, cb);
+  const persistFunction = persistExchangeRateWithCurrency(currency);
+
+  async.map(ratesAsModel, persistFunction, cb);
 
 //    models.ExchangeRate.bulkCreate(ratesAsModel)
 //        .error(cb)
@@ -21,17 +19,17 @@ function persistRates(rates, currency, cb) {
 }
 
 function persistExchangeRateWithCurrency(currency) {
-    return function persistExchangeRate(rate, cb) {
-        models.ExchangeRate.create(rate)
-            .error(cb)
-            .success(function (created) {
-                created.setCurrency(currency)
-                    .error(cb)
-                    .complete(function () {
-                        cb(null, created);
-                    })
-            });
-    }
+  return function persistExchangeRate(rate, cb) {
+    models.ExchangeRate.create(rate)
+      .error(cb)
+      .success((created) => {
+        created.setCurrency(currency)
+          .error(cb)
+          .complete(() => {
+            cb(null, created);
+          });
+      });
+  };
 }
 
 module.exports = persistRates;
