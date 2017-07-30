@@ -15,57 +15,57 @@ const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
 function requireAuth(nextState, replace) {
-    const state = store.getState();
+  const state = store.getState();
 
-    if (!state.user.token) {
-        replace({
-            pathname: '/login',
-            state: { nextPathname: nextState.location.pathname }
-        });
-    }
+  if (!state.user.token) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
 }
 
 class Index extends React.Component {
-    renderRoutes() {
-        return (
-            <Router history={history}>
-                <Route path="/" component={App}>
-                    <IndexRoute component={Home} onEnter={requireAuth} />
-                    <Route path="login" component={Login} />
-                    <Route path="upload" component={Upload} />
-                    <Route path="accounts/:accountId" component={AccountDetail} />
-                </Route>
-            </Router>
-        );
+  renderRoutes() {
+    return (
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home} onEnter={requireAuth} />
+          <Route path="login" component={Login} />
+          <Route path="upload" component={Upload} />
+          <Route path="accounts/:accountId" component={AccountDetail} />
+        </Route>
+      </Router>
+    );
+  }
+
+  render() {
+    let component;
+    if (__DEVTOOLS__) {
+      const DevTools = require('./components/DevTools').default;
+
+      component = (
+        <div>
+          <Provider store={store}>
+            <div>
+              {this.renderRoutes()}
+              <DevTools />
+            </div>
+          </Provider>
+        </div>
+      );
+    } else {
+      component = (
+        <div>
+          <Provider store={store}>
+            {this.renderRoutes()}
+          </Provider>
+        </div>
+      );
     }
 
-    render() {
-        let component;
-        if (__DEVTOOLS__) {
-            const DevTools = require('./components/DevTools').default;
-
-            component = (
-                <div>
-                    <Provider store={store}>
-                        <div>
-                            {this.renderRoutes()}
-                            <DevTools />
-                        </div>
-                    </Provider>
-                </div>
-            );
-        } else {
-            component = (
-                <div>
-                    <Provider store={store}>
-                        {this.renderRoutes()}
-                    </Provider>
-                </div>
-            );
-        }
-
-        return component;
-    }
+    return component;
+  }
 }
 
 export default Index;

@@ -1,38 +1,37 @@
-var q = require('q');
-var models = require('../../models');
+const q = require('q');
+const models = require('../../models');
 
 function associate(entity, type, propertyName, id, idProperty) {
-    var defer = q.defer();
-    
-    var whereClause;
-    
-    if (idProperty === undefined){
-        whereClause = {id: id};
-    } else {
-        whereClause = {};
-        whereClause[idProperty] = id;
-    }
+  const defer = q.defer();
 
-    if (!entity['set' + propertyName]) {
-        defer.reject('There are no function set' + propertyName);
-    } else {
+  let whereClause;
 
-        models[type].find({
-            where: whereClause
-        }).then(function (item) {
-            entity['set' + propertyName](item).then(function () {
-                defer.resolve(entity);
-            }, function(err){
-                console.error(err);
-                defer.reject(err);   
-            });
-        }, function (err) {
-            console.error(err);
-            defer.reject(err);
-        });
-    }
+  if (idProperty === undefined) {
+    whereClause = { id };
+  } else {
+    whereClause = {};
+    whereClause[idProperty] = id;
+  }
 
-    return defer.promise;
+  if (!entity[`set${propertyName}`]) {
+    defer.reject(`There are no function set${propertyName}`);
+  } else {
+    models[type].find({
+      where: whereClause
+    }).then((item) => {
+      entity[`set${propertyName}`](item).then(() => {
+        defer.resolve(entity);
+      }, (err) => {
+        console.error(err);
+        defer.reject(err);
+      });
+    }, (err) => {
+      console.error(err);
+      defer.reject(err);
+    });
+  }
+
+  return defer.promise;
 }
 
 module.exports = associate;

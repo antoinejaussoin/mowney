@@ -1,51 +1,49 @@
-var passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+let passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy;
 
-var userRepository = require('./repositories/user-repository');
+const userRepository = require('./repositories/user-repository');
 
 passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password'
-    },
-    function (email, password, done) {
+  usernameField: 'email',
+  passwordField: 'password'
+},
+  ((email, password, done) => {
+    console.log('Trying to login ', email, password);
 
-        console.log('Trying to login ', email, password)
-
-        if (email === 'admin' && password === 'admin')
-            return done(null, {
-                firstName: 'Administrator',
-                lastName: '',
-                email: 'admin',
-                isAdmin: true
-            });
-
-        userRepository.login(email, password, function (err, user) {
-            if (err) {
-                return done(null, false, {
-                    message: err
-                });
-            } else if (user) {
-                return done(null, user)
-            } else {
-                return done(null, false, {
-                    message: 'Incorrect'
-                });
-            }
-        })
-
+    if (email === 'admin' && password === 'admin') {
+      return done(null, {
+        firstName: 'Administrator',
+        lastName: '',
+        email: 'admin',
+        isAdmin: true
+      });
     }
+
+    userRepository.login(email, password, (err, user) => {
+      if (err) {
+        return done(null, false, {
+          message: err
+        });
+      } else if (user) {
+        return done(null, user);
+      }
+      return done(null, false, {
+        message: 'Incorrect'
+      });
+    });
+  })
 ));
 
-passport.serializeUser(function (user, done) {
-    done(null, {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        isAdministrator: user.isAdministrator
-    });
+passport.serializeUser((user, done) => {
+  done(null, {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    isAdministrator: user.isAdministrator
+  });
 });
 
-passport.deserializeUser(function (user, done) {
-    done(null, user);
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });

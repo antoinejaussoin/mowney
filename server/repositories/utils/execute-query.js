@@ -1,34 +1,33 @@
-var loadQuery = require('../query-loader');
-var q = require('q');
-var models = require('../../models');
-var sequelize = require('sequelize');
+const loadQuery = require('../query-loader');
+const q = require('q');
+const models = require('../../models');
+const sequelize = require('sequelize');
 
 
 function executeQuery(name, parameters, queryModifier, resultModifier) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    var query = loadQuery(name);
+  let query = loadQuery(name);
 
-    if (queryModifier) {
-        query = queryModifier(query);
+  if (queryModifier) {
+    query = queryModifier(query);
+  }
+
+  models.sequelize.query(query, {
+    replacements: parameters,
+    type: sequelize.QueryTypes.SELECT
+  }).then((data, metadata) => {
+    if (resultModifier) {
+      data = resultModifier(data);
     }
+    defer.resolve(data);
+  }, (err) => {
+    console.error(err);
+    defer.reject(err);
+  });
 
-    models.sequelize.query(query, {
-        replacements: parameters,
-        type: sequelize.QueryTypes.SELECT
-    }).then(function (data, metadata) {
-        if (resultModifier) {
-            data = resultModifier(data);
-        }
-        defer.resolve(data);
-    }, function (err) {
-        console.error(err);
-        defer.reject(err);
-    });
-
-    return defer.promise;
+  return defer.promise;
 }
-
 
 
 module.exports = executeQuery;

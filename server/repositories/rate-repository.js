@@ -1,31 +1,28 @@
-var models = require('../models');
-var q = require('q');
-var moment = require('moment');
-var associate = require('./utils/associate');
+const models = require('../models');
+const q = require('q');
+const moment = require('moment');
+const associate = require('./utils/associate');
 
 function save(currency, rate) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    try {
+  try {
+    models.ExchangeRate.create({
+      date: moment(),
+      rate
+    }).then((a) => associate(a, 'Currency', 'Currency', currency, 'isoCode')).then((a) => {
+      defer.resolve(a);
+    }).catch((err) => {
+      console.error(err);
+      defer.reject(err);
+    });
+  } catch (e) {
+    console.error(e);
+  }
 
-        models.ExchangeRate.create({
-            date: moment(),
-            rate: rate
-        }).then(function (a) {
-            return associate(a, 'Currency', 'Currency', currency, 'isoCode');
-        }).then(function (a) {
-            defer.resolve(a);
-        }).catch(function (err) {
-            console.error(err);
-            defer.reject(err);
-        });
-    } catch (e) {
-        console.error(e);
-    }
-
-    return defer.promise;
+  return defer.promise;
 }
 
 module.exports = {
-    save: save
+  save
 };

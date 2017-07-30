@@ -1,19 +1,18 @@
-var express = require('express');
-var router = express.Router();
-var auth = require('./../../auth').auth;
-var models = require('../../models');
-var loaders = require('../../loaders/loader-factory');
-var _ = require('lodash');
+const express = require('express');
+
+const router = express.Router();
+const auth = require('./../../auth').auth;
+const models = require('../../models');
+const loaders = require('../../loaders/loader-factory');
+const _ = require('lodash');
 
 router.use(auth);
 
-router.get('/list', function (req, res) {
-    res.send(loaders.list.map(function(l){
-        return {
-            name: l.name,
-            type: l.type
-        };
-    }));
+router.get('/list', (req, res) => {
+  res.send(loaders.list.map((l) => ({
+    name: l.name,
+    type: l.type
+  })));
 });
 
 module.exports = router;

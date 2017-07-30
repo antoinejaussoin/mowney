@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var auth = require('./../auth').auth;
+const express = require('express');
+
+const router = express.Router();
+const passport = require('passport');
+const auth = require('./../auth').auth;
 
 // router.post('/login', passport.authenticate('local', { session: true }), function (req, res) {
 //     res.send(req.user);

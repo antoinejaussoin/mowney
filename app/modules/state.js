@@ -6,11 +6,11 @@ import accounts from 'modules/accounts/state';
 import upload from 'modules/upload/state';
 
 const rootReducer = combineReducers({
-    user,
-    dashboard,
-    accounts,
-    upload,
-    routing: routerReducer
+  user,
+  dashboard,
+  accounts,
+  upload,
+  routing: routerReducer
 });
 
 export default rootReducer;

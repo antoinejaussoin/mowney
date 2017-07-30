@@ -7,21 +7,21 @@ import { receiveTransactions, LOAD_ACCOUNT_TRANSACTIONS } from './state';
 import { listOfTransactionsModel } from '../model';
 
 export function* onLoadTransactions({ payload }) {
-    try {
-        const token = yield select(getToken);
-        if (token) {
-            const data = yield call(fetchAllTransactions, token, payload, 50);
-            const { result, entities: { transactions } } = normalize(data, listOfTransactionsModel);
-            yield put(receiveTransactions({ entities: transactions, list: result }));
-            yield put(receiveTransactions(data));
-        }
-    } catch (e) {
-        console.error('Get Transactions error: ', e);
+  try {
+    const token = yield select(getToken);
+    if (token) {
+      const data = yield call(fetchAllTransactions, token, payload, 50);
+      const { result, entities: { transactions } } = normalize(data, listOfTransactionsModel);
+      yield put(receiveTransactions({ entities: transactions, list: result }));
+      yield put(receiveTransactions(data));
     }
+  } catch (e) {
+    console.error('Get Transactions error: ', e);
+  }
 }
 
 export default function* watchers() {
-    yield [
-        takeEvery(LOAD_ACCOUNT_TRANSACTIONS, onLoadTransactions)
-    ];
+  yield [
+    takeEvery(LOAD_ACCOUNT_TRANSACTIONS, onLoadTransactions)
+  ];
 }

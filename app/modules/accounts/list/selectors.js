@@ -7,4 +7,4 @@ export const getAccountsListRoot = createSelector(getAccountsRoot, accounts => a
 export const getAccountIds = createSelector(getAccountsListRoot, list => list.list);
 export const getAccountEntities = createSelector(getAccountsListRoot, list => list.entities);
 export const getAccounts = createSelector(getAccountIds, getAccountEntities, (ids, accounts) =>
-    denormalize(ids, listOfAccountsModel, { accounts }));
+  denormalize(ids, listOfAccountsModel, { accounts }));

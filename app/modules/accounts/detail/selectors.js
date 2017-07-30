@@ -9,5 +9,5 @@ export const getAccountsDetailRoot = createSelector(getAccountsRoot, accounts =>
 export const getTransactionIds = createSelector(getAccountsDetailRoot, detail => detail.list);
 export const getTransactionEntities = createSelector(getAccountsDetailRoot, detail => detail.entities);
 export const getTransactions = createSelector(getTransactionIds, getTransactionEntities, getAccountEntities, (ids, transactions, accounts) =>
-    denormalize(ids, listOfTransactionsModel, { transactions, accounts }));
+  denormalize(ids, listOfTransactionsModel, { transactions, accounts }));
 export const getFormattedTransactions = createSelector(getTransactions, transactions => transactions.map(formatTransaction));

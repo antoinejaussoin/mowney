@@ -1,60 +1,59 @@
-var express = require('express');
-var router = express.Router();
-var auth = require('./../../auth').auth;
-var models = require('../../models');
-var categoryRepository = require('../../repositories/category-repository');
-var _ = require('lodash');
-var moment = require('moment');
+const express = require('express');
+
+const router = express.Router();
+const auth = require('./../../auth').auth;
+const models = require('../../models');
+const categoryRepository = require('../../repositories/category-repository');
+const _ = require('lodash');
+const moment = require('moment');
 
 router.use(auth);
 
-router.get('/list', function (req, res) {
-    categoryRepository.getAll().then(function (list) {
-        res.send(list);
+router.get('/list', (req, res) => {
+  categoryRepository.getAll().then((list) => {
+    res.send(list);
+  });
+});
+
+router.get('/historic/:categoryId/:currency/:from/:to', (req, res) => {
+  categoryRepository.categoryPerMonth(req.user,
+    req.params.currency,
+    req.params.categoryId,
+    moment(req.params.from),
+    moment(req.params.to))
+    .then((data) => {
+      res.status(200).send(data);
     });
 });
 
-router.get('/historic/:categoryId/:currency/:from/:to', function (req, res) {
-    categoryRepository.categoryPerMonth(req.user,
-            req.params.currency,
-            req.params.categoryId,
-            moment(req.params.from),
-            moment(req.params.to))
-        .then(function (data) {
-            res.status(200).send(data);
-        });
-});
-
-router.post('/clue', function (req, res) {
-    //createClue(user, categoryId, isRegex, str) {
-    categoryRepository.createClue(req.user, req.body.categoryId, req.body.isRegex, req.body.str)
-        .then(function () {
-            return categoryRepository.categoriseAll(req.user);
-        })
-        .then(function () {
-            res.status(200).send();
-        });
-});
-
-router.get('/clues', function (req, res) {
-    categoryRepository.getAllClues(req.user).then(function (clues) {
-        res.status(200).send(clues);
+router.post('/clue', (req, res) => {
+  // createClue(user, categoryId, isRegex, str) {
+  categoryRepository.createClue(req.user, req.body.categoryId, req.body.isRegex, req.body.str)
+    .then(() => categoryRepository.categoriseAll(req.user))
+    .then(() => {
+      res.status(200).send();
     });
 });
 
-router.delete('/clue/:id', function (req, res) {
-    categoryRepository.deleteClue(req.user, req.params.id).then(function (result) {
-        res.status(200).send();
-    }, function (err) {
-        res.status(500).send(err);
-    });
+router.get('/clues', (req, res) => {
+  categoryRepository.getAllClues(req.user).then((clues) => {
+    res.status(200).send(clues);
+  });
 });
 
-router.post('/categorise-all', function (req, res) {
-    categoryRepository.categoriseAll(req.user)
-        .then(function () {
-            res.send(200);
-        });
+router.delete('/clue/:id', (req, res) => {
+  categoryRepository.deleteClue(req.user, req.params.id).then((result) => {
+    res.status(200).send();
+  }, (err) => {
+    res.status(500).send(err);
+  });
+});
+
+router.post('/categorise-all', (req, res) => {
+  categoryRepository.categoriseAll(req.user)
+    .then(() => {
+      res.send(200);
+    });
 });
 
 module.exports = router;

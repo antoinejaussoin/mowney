@@ -1,71 +1,67 @@
-var fs = require('fs');
-var q = require('q');
-var accountRepository = require('../repositories/account-repository');
-var transactionRepository = require('../repositories/transaction-repository');
-var importRepository = require('../repositories/import-repository');
-var loaders = require('./loader-factory');
-var deduplicator = require('./deduplicator');
-var persister = require('./persister');
-var _ = require('lodash');
-var m = require('moment');
+const fs = require('fs');
+const q = require('q');
+const accountRepository = require('../repositories/account-repository');
+const transactionRepository = require('../repositories/transaction-repository');
+const importRepository = require('../repositories/import-repository');
+const loaders = require('./loader-factory');
+const deduplicator = require('./deduplicator');
+const persister = require('./persister');
+const _ = require('lodash');
+const m = require('moment');
 
 // file: name, path, accountId
 
 function loadNewTransactions(user, files) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    var count = files.length;
-    var i = 0;
+  const count = files.length;
+  let i = 0;
 
 
-    function decorateNewTransactions(transactions) {
-        var dates = _.map(transactions, 'date');
-        var from = new Date(_.min(dates));
-        var to = new Date(_.max(dates));
+  function decorateNewTransactions(transactions) {
+    const dates = _.map(transactions, 'date');
+    const from = new Date(_.min(dates));
+    const to = new Date(_.max(dates));
 
-        from.setDate(from.getDate() - 2);
-        to.setDate(to.getDate() + 2);
+    from.setDate(from.getDate() - 2);
+    to.setDate(to.getDate() + 2);
 
-        return {
-            transactions: transactions,
-            from: from,
-            to: to
-        }
-    }
+    return {
+      transactions,
+      from,
+      to
+    };
+  }
 
-    files.forEach(function (file) {
-
-        importRepository.create(file.name).then(function (imp) {
-            accountRepository.getById(user, file.accountId).then(function (account) {
-                fs.readFile(file.path, function read(err, rawData) {
-                    var loader = loaders[account.loaderType];
-                    loader.load(rawData.toString()).then(function (newTransactions) {
-                        newTransactions = decorateNewTransactions(newTransactions);
-                        transactionRepository.getRange(user,
-                            account.id,
-                            newTransactions.from,
-                            newTransactions.to).then(function (existingTransactions) {
-                            var filtered = deduplicator(existingTransactions, newTransactions.transactions);
-                            persister(filtered, user, account.id, imp).then(function () {
-                                i++;
-                                if (i === count) {
-                                    defer.resolve();
-                                }
-                            });
-                        });
-                    });
-                });
+  files.forEach((file) => {
+    importRepository.create(file.name).then((imp) => {
+      accountRepository.getById(user, file.accountId).then((account) => {
+        fs.readFile(file.path, (err, rawData) => {
+          const loader = loaders[account.loaderType];
+          loader.load(rawData.toString()).then((newTransactions) => {
+            newTransactions = decorateNewTransactions(newTransactions);
+            transactionRepository.getRange(user,
+              account.id,
+              newTransactions.from,
+              newTransactions.to).then((existingTransactions) => {
+              const filtered = deduplicator(existingTransactions, newTransactions.transactions);
+              persister(filtered, user, account.id, imp).then(() => {
+                i++;
+                if (i === count) {
+                  defer.resolve();
+                }
+              });
             });
-        }, function (err) {
-            defer.reject(err);
+          });
         });
-
-
-
+      });
+    }, (err) => {
+      defer.reject(err);
     });
+  });
 
 
-    return defer.promise;
+  return defer.promise;
 }
 
 

@@ -3,8 +3,8 @@ import list from './list/state';
 import detail from './detail/state';
 
 const accountsReducer = combineReducers({
-    list,
-    detail
+  list,
+  detail
 });
 
 export default accountsReducer;

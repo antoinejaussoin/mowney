@@ -8,49 +8,49 @@ export const CHANGE_LANGUAGE = 'mowney/user/language/change';
 export const CHANGE_LANGUAGE_SUCCESS = 'mowney/user/language/change-success';
 
 const defaultState = {
-    username: null,
-    token: null,
-    pending: false,
-    error: null
+  username: null,
+  token: null,
+  pending: false,
+  error: null
 };
 
 export default function reducer(state = {
-    ...defaultState,
-    lang: 'en'
+  ...defaultState,
+  lang: 'en'
 }, action) {
-    switch (action.type) {
-    case LOGIN:
-        return {
-            ...state,
-            ...defaultState,
-            pending: true
-        };
-    case LOGIN_SUCCESS:
-        return {
-            ...state,
-            ...defaultState,
-            ...action.payload.user,
-            token: action.payload.token
-        };
-    case LOGIN_FAILURE:
-        return {
-            ...state,
-            ...defaultState,
-            error: action.payload
-        };
-    case CHANGE_LANGUAGE_SUCCESS:
-        return {
-            ...state,
-            lang: action.payload
-        };
-    case LOGOUT:
-        return {
-            ...state,
-            ...defaultState
-        };
-    default:
-        return state;
-    }
+  switch (action.type) {
+  case LOGIN:
+    return {
+      ...state,
+      ...defaultState,
+      pending: true
+    };
+  case LOGIN_SUCCESS:
+    return {
+      ...state,
+      ...defaultState,
+      ...action.payload.user,
+      token: action.payload.token
+    };
+  case LOGIN_FAILURE:
+    return {
+      ...state,
+      ...defaultState,
+      error: action.payload
+    };
+  case CHANGE_LANGUAGE_SUCCESS:
+    return {
+      ...state,
+      lang: action.payload
+    };
+  case LOGOUT:
+    return {
+      ...state,
+      ...defaultState
+    };
+  default:
+    return state;
+  }
 }
 
 export const login = createAction(LOGIN);

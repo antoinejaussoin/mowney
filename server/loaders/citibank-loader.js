@@ -1,44 +1,41 @@
-var parse = require('csv-parse');
-var moment = require('moment');
-var ImportedTransaction = require('./imported-transaction');
-var q = require('q');
-var os = require('os');
+const parse = require('csv-parse');
+const moment = require('moment');
+const ImportedTransaction = require('./imported-transaction');
+const q = require('q');
+const os = require('os');
 
 
 function citibankLoader(raw) {
-    var defer = q.defer();
+  const defer = q.defer();
 
-    raw = "date,description,amount,currency,balance,accountNumber,x,anotherDate" + os.EOL + raw;
+  raw = `date,description,amount,currency,balance,accountNumber,x,anotherDate${os.EOL}${raw}`;
 
-    parse(raw, {
-        columns: true,
-        delimiter: ',',
-        auto_parse: true
-    }, function (err, output) {
-        if (err) {
-            defer.reject(err);
-        } else {
-            output = output.map(function (item) {
-                return new ImportedTransaction(
-                    moment(item.date, 'DD-MM-YYYY').toDate(),
-                    item.description,
-                    fixNumber(item.amount)
-                );
-            });
-            defer.resolve(output);
-        }
-    });
-
-    function fixNumber(input) {
-        return +input;
+  parse(raw, {
+    columns: true,
+    delimiter: ',',
+    auto_parse: true
+  }, (err, output) => {
+    if (err) {
+      defer.reject(err);
+    } else {
+      output = output.map((item) => new ImportedTransaction(
+        moment(item.date, 'DD-MM-YYYY').toDate(),
+        item.description,
+        fixNumber(item.amount)
+      ));
+      defer.resolve(output);
     }
+  });
 
-    return defer.promise;
+  function fixNumber(input) {
+    return +input;
+  }
 
+  return defer.promise;
 }
 
 module.exports = {
-    name: 'Citibank UK',
-    type: 'CitibankUk',
-    load: citibankLoader
-}
+  name: 'Citibank UK',
+  type: 'CitibankUk',
+  load: citibankLoader
+};
