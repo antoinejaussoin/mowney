@@ -50,8 +50,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, { accountId }) => ({
-  onAmountChange: (value) => dispatch(changeAmount(+value)),
-  onTotalChange: (value) => dispatch(changeTotal(+value)),
+  onAmountChange: (value) => dispatch(changeAmount(value.length ? +value : '')),
+  onTotalChange: (value) => dispatch(changeTotal(value.length ? +value : '')),
   onDescriptionChange: (value) => dispatch(changeDescription(value)),
   onDateChange: (value) => dispatch(changeDate(moment(value).toISOString())),
   onCreate: () => dispatch(createTransaction(accountId))

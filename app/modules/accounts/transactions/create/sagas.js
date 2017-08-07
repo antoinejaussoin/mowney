@@ -11,8 +11,8 @@ export function* onCreateTransaction({ payload: accountId }) {
     const date = yield select(selectDate);
     const description = yield select(selectDescription);
     if (token) {
-      yield call(postTransaction, token, accountId, date, amount, description);
-      yield put(createTransactionSuccess());
+      const transaction = yield call(postTransaction, token, accountId, date, amount, description);
+      yield put(createTransactionSuccess(transaction));
     }
   } catch (e) {
     console.error('Get Transactions error: ', e);

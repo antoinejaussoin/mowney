@@ -10,8 +10,9 @@ export const CREATE_TRANSACTION_SUCCESS = 'mowney/accounts/transactions/create-s
 export const CREATE_TRANSACTION_FAILURE = 'mowney/accounts/transactions/create-failure';
 
 const INITIAL_STATE = {
-  amount: 0,
-  total: null,
+  amount: '',
+  total: '',
+  description: '',
   date: moment().toISOString()
 };
 
@@ -21,13 +22,13 @@ export default function reducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       amount: action.payload,
-      total: null
+      total: ''
     };
   case CHANGE_TOTAL:
     return {
       ...state,
       total: action.payload,
-      amount: null
+      amount: ''
     };
   case CHANGE_DATE:
     return {

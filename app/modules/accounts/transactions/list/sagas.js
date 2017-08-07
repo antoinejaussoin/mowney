@@ -12,7 +12,6 @@ export function* onLoadTransactions({ payload }) {
       const data = yield call(fetchAllTransactions, token, payload, 50);
       const { result, entities: { transactions } } = normalize(data, listOfTransactionsModel);
       yield put(receiveTransactions({ entities: transactions, list: result }));
-      yield put(receiveTransactions(data));
     }
   } catch (e) {
     console.error('Get Transactions error: ', e);
