@@ -7,34 +7,37 @@ import Input from 'components/Input';
 import DatePicker from 'components/DatePicker';
 import Button from 'components/Button';
 import { changeAmount, changeTotal, changeDate, changeDescription, createTransaction } from './state';
-import { selectAmount, selectTotal, selectDate, selectDescription } from './selectors';
+import { selectAmount, selectTotal, selectDate, selectDescription, selectIsValid } from './selectors';
 import styles from './index.scss';
 
-const CreateTransaction = ({ amount, total, date, description, onAmountChange, onTotalChange, onDateChange, onDescriptionChange, onCreate }) => (
-  <div className={styles.container}>
-    <div className={styles.date}>
-      <DatePicker label="Date" onChange={onDateChange} value={date} />
+const CreateTransaction = ({ amount, total, date, description, isValid,
+  onAmountChange, onTotalChange, onDateChange, onDescriptionChange, onCreate }) =>
+  (
+    <div className={styles.container}>
+      <div className={styles.date}>
+        <DatePicker label="Date" onChange={onDateChange} value={date} />
+      </div>
+      <div className={styles.description}>
+        <Input type="text" label="Description" onChange={onDescriptionChange} value={description} />
+      </div>
+      <div className={styles.amount}>
+        <Input type="number" label="Amount" onChange={onAmountChange} value={amount} />
+      </div>
+      <div className={styles.total}>
+        <Input type="number" label="Total" onChange={onTotalChange} value={total} />
+      </div>
+      <div className={styles.action}>
+        <Button label="Create" onClick={onCreate} disabled={!isValid} primary raised />
+      </div>
     </div>
-    <div className={styles.description}>
-      <Input type="text" label="Description" onChange={onDescriptionChange} value={description} />
-    </div>
-    <div className={styles.amount}>
-      <Input type="number" label="Amount" onChange={onAmountChange} value={amount} />
-    </div>
-    <div className={styles.total}>
-      <Input type="number" label="Total" onChange={onTotalChange} value={total} />
-    </div>
-    <div className={styles.action}>
-      <Button label="Create" onClick={onCreate} primary raised />
-    </div>
-  </div>
-);
+  );
 
 CreateTransaction.propTypes = {
   amount: PropTypes.number,
   total: PropTypes.number,
   date: PropTypes.any,
   description: PropTypes.string,
+  isValid: PropTypes.bool,
   onAmountChange: PropTypes.func,
   onTotalChange: PropTypes.func,
   onDateChange: PropTypes.func,
@@ -46,7 +49,8 @@ const mapStateToProps = (state) => ({
   amount: selectAmount(state),
   total: selectTotal(state),
   date: selectDate(state),
-  description: selectDescription(state)
+  description: selectDescription(state),
+  isValid: selectIsValid(state)
 });
 
 const mapDispatchToProps = (dispatch, { accountId }) => ({
