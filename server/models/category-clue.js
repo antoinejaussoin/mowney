@@ -7,15 +7,13 @@ module.exports = function (sequelize, DataTypes) {
     validTo: DataTypes.DATE,
     exactString: DataTypes.STRING,
     regex: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        CategoryClue.belongsTo(models.Category, { as: 'category' });
-        CategoryClue.belongsTo(models.User, { as: 'user' });
-        CategoryClue.belongsTo(models.Account, { as: 'restrictToAccount' });
-      }
-    }
   });
+
+  CategoryClue.associate = function (models) {
+    CategoryClue.belongsTo(models.Category, { as: 'category' });
+    CategoryClue.belongsTo(models.User, { as: 'user' });
+    CategoryClue.belongsTo(models.Account, { as: 'restrictToAccount' });
+  };
 
   return CategoryClue;
 };

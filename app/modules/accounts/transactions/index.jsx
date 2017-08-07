@@ -14,6 +14,7 @@ class AccountDetails extends Component {
     this.props.onLoad(this.props.params.accountId);
   }
   render() {
+    const { accountId } = this.props.params;
     return (
       <div className={style.container}>
         <Card>
@@ -21,7 +22,7 @@ class AccountDetails extends Component {
             Create Transaction
           </CardTitle>
           <CardText>
-            <Create />
+            <Create accountId={accountId} />
           </CardText>
         </Card>
         <Card>
