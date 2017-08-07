@@ -6,6 +6,7 @@ import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
 import { loadTransactions } from './list/state';
 import List from './list';
+import Create from './create';
 import style from './index.scss';
 
 class AccountDetails extends Component {
@@ -17,7 +18,15 @@ class AccountDetails extends Component {
       <div className={style.container}>
         <Card>
           <CardTitle>
-                        Account
+            Create Transaction
+          </CardTitle>
+          <CardText>
+            <Create />
+          </CardText>
+        </Card>
+        <Card>
+          <CardTitle>
+            Account
           </CardTitle>
           <CardText>
             <List />
