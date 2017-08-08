@@ -43,3 +43,16 @@ export const postTransaction = (token, accountId, date, amount, description) => 
     }
     return response.json();
   });
+
+export const deleteTransactions = (token, ids) => fetch('/api/transaction/delete-batch', {
+  headers: getHeaders(token),
+  method: 'POST',
+  body: JSON.stringify({
+    ids
+  })
+})
+  .then(response => {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+  });

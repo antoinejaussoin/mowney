@@ -7,6 +7,7 @@ import { Card, CardTitle, CardText } from 'components/Card';
 import { loadTransactions } from './list/state';
 import List from './list';
 import Create from './create';
+import Actions from './actions';
 import style from './index.scss';
 
 class AccountDetails extends Component {
@@ -26,9 +27,11 @@ class AccountDetails extends Component {
           </CardText>
         </Card>
         <Card>
-          <CardTitle>
-            Account
-          </CardTitle>
+          <CardText>
+            <Actions />
+          </CardText>
+        </Card>
+        <Card>
           <CardText>
             <List />
           </CardText>

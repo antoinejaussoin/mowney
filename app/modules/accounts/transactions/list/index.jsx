@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Table from 'components/Table';
 import { updateSelected } from './state';
-import { getFormattedTransactions, getSelectedTransactions } from './selectors';
+import { getFormattedTransactions, getSelectedTransactionsIndicies } from './selectors';
 
 const TransactionModel = {
   date: { type: Date },
@@ -20,7 +20,7 @@ const TransactionList = ({ transactions, selected, onSelect }) => (
     model={TransactionModel}
     source={transactions}
     selected={selected}
-    onSelect={onSelect}
+    onSelect={onSelect(transactions)}
     multiSelectable
     selectable
   />
@@ -32,13 +32,15 @@ TransactionList.propTypes = {
   onSelect: PropTypes.func
 };
 
+const rowIndexToId = (transactions, indicies) => indicies.map(index => transactions[index].id);
+
 const mapStateToProps = (state) => ({
   transactions: getFormattedTransactions(state),
-  selected: getSelectedTransactions(state)
+  selected: getSelectedTransactionsIndicies(state)
 });
 
 const mapActionsToProps = (dispatch) => ({
-  onSelect: (list) => dispatch(updateSelected(list))
+  onSelect: (transactions) => (list) => dispatch(updateSelected(rowIndexToId(transactions, list)))
 });
 
 const decorators = compose(
