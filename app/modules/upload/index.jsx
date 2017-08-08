@@ -45,7 +45,7 @@ const Main = ({ accounts, files, uploading, onAddFile, onUpload }) => (
 
 Main.propTypes = {
   accounts: PropTypes.array,
-  files: PropTypes.array,
+  files: PropTypes.object,
   uploading: PropTypes.bool,
   onAddFile: PropTypes.func,
   onUpload: PropTypes.func

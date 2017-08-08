@@ -46,7 +46,7 @@ const Table = ({ summary, total }) => (
 
 Table.propTypes = {
   summary: PropTypes.object,
-  total: PropTypes.number
+  total: PropTypes.string
 };
 
 const Line = ({ line, isEven }) => (

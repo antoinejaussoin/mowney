@@ -8,8 +8,8 @@ const q = require('q');
 const transactionRepository = require('./transaction-repository');
 
 function getAll(user, includeDisabled) {
-  const disabledClause = includeDisabled ? '' : ' and isActive = true';
-  return findAll(models.Account, null, `ownerid = ${user.id}${disabledClause}`, ['name']);
+  const whereClause = includeDisabled ? { ownerId: user.id } : { ownerId: user.id, isActive: true };
+  return findAll(models.Account, null, whereClause, ['name']);
 }
 
 function getById(user, id) {
