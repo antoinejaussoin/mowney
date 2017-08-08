@@ -29,8 +29,8 @@ export default function reducer(state = {
         [action.payload.id]: action.payload
       },
       list: [
-        ...state.list,
-        action.payload.id
+        action.payload.id,
+        ...state.list
       ]
     };
   default:

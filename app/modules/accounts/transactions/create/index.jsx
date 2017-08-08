@@ -24,7 +24,7 @@ const CreateTransaction = ({ amount, total, date, description, isValid,
         <Input type="number" label="Amount" onChange={onAmountChange} value={amount} />
       </div>
       <div className={styles.total}>
-        <Input type="number" label="Total" onChange={onTotalChange} value={total} />
+        <Input type="number" label="Balance" onChange={onTotalChange} value={total} />
       </div>
       <div className={styles.action}>
         <Button label="Create" onClick={onCreate} disabled={!isValid} primary raised />
