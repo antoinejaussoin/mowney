@@ -3,10 +3,12 @@ import { CREATE_TRANSACTION_SUCCESS } from '../create/state';
 
 export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/load';
 export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/receive';
+export const UPDATE_SELECTED = 'mowney/accounts/transactions/list/update-selected';
 
 export default function reducer(state = {
   loading: false,
   list: [],
+  selected: [],
   entities: {}
 }, action) {
   switch (action.type) {
@@ -33,6 +35,11 @@ export default function reducer(state = {
         ...state.list
       ]
     };
+  case UPDATE_SELECTED:
+    return {
+      ...state,
+      selected: action.payload
+    };
   default:
     return state;
   }
@@ -40,3 +47,4 @@ export default function reducer(state = {
 
 export const loadTransactions = createAction(LOAD_ACCOUNT_TRANSACTIONS);
 export const receiveTransactions = createAction(RECEIVE_ACCOUNT_TRANSACTIONS);
+export const updateSelected = createAction(UPDATE_SELECTED);
