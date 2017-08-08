@@ -27,7 +27,11 @@ table.table {
             }
         }
         tr.even {
-            background-color: $color-primary-light;
+            background-color: $palette-grey-100;
         }
+    }
+
+    a {
+        color: $palette-grey-900;
     }
 }
