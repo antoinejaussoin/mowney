@@ -1,5 +1,4 @@
-import { takeEvery } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { initialLoad } from 'modules/app/state';
@@ -27,8 +26,8 @@ export function* onLogout(action) {
 
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(LOGIN, onLogin),
     takeEvery(LOGOUT, onLogout)
-  ];
+  ]);
 }

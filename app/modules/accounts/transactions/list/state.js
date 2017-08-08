@@ -1,7 +1,8 @@
 import { createAction } from 'redux-actions';
+import { CREATE_TRANSACTION_SUCCESS } from '../create/state';
 
-export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/load';
-export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/detail/receive';
+export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/load';
+export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/receive';
 
 export default function reducer(state = {
   loading: false,
@@ -19,6 +20,18 @@ export default function reducer(state = {
       ...state,
       loading: false,
       ...action.payload
+    };
+  case CREATE_TRANSACTION_SUCCESS:
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        [action.payload.id]: action.payload
+      },
+      list: [
+        action.payload.id,
+        ...state.list
+      ]
     };
   default:
     return state;

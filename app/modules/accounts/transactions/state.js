@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import list from './list/state';
-import transactions from './transactions/state';
+import create from './create/state';
 
 const accountsReducer = combineReducers({
   list,
-  transactions
+  create
 });
 
 export default accountsReducer;

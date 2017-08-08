@@ -1,5 +1,4 @@
-import { takeEvery } from 'redux-saga';
-import { call, put, select } from 'redux-saga/effects';
+import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { getToken } from 'modules/user/selectors';
 import { fetchAccounts } from './api';
@@ -18,7 +17,7 @@ export function* onLoadAccounts() {
 }
 
 export default function* watchers() {
-  yield [
+  yield all([
     takeEvery(LOAD_ACCOUNTS, onLoadAccounts)
-  ];
+  ]);
 }

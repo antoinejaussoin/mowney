@@ -5,8 +5,6 @@ module.exports = function (sequelize, DataTypes) {
     isMain: DataTypes.BOOLEAN,
     symbol: DataTypes.STRING,
     format: DataTypes.STRING
-  }, {
-
   });
 
   return Currency;

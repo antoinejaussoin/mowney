@@ -1,10 +1,10 @@
 import { all } from 'redux-saga/effects';
 import listSagas from './list/sagas';
-import transactionsSagas from './transactions/sagas';
+import createSagas from './create/sagas';
 
 export default function* rootSaga() {
   yield all([
     listSagas(),
-    transactionsSagas()
+    createSagas()
   ]);
 }

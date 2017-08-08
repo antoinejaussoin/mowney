@@ -21,8 +21,8 @@ router.delete('/:id', (req, res) => {
 });
 
 router.post('/:id', (req, res) => {
-  transactionRepository.saveManualTransaction(req.params.id, moment(req.body.date), req.body.description, +req.body.amount).then(() => {
-    res.send(200);
+  transactionRepository.saveManualTransaction(req.params.id, moment(req.body.date), req.body.description, +req.body.amount).then(t => {
+    res.status(200).send(t);
   }, (err) => {
     res.send(500, err);
   });

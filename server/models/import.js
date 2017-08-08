@@ -3,13 +3,11 @@ module.exports = function (sequelize, DataTypes) {
     date: DataTypes.DATE,
     fileName: DataTypes.STRING,
     isManual: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate(models) {
-
-      }
-    }
   });
+
+  Import.associate = function (models) {
+    
+  };
 
   return Import;
 };

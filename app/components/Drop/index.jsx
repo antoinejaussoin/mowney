@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import Icon from 'components/FontIcon';
 import classNames from 'classnames';
