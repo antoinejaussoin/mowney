@@ -4,6 +4,7 @@ import { CREATE_TRANSACTION_SUCCESS } from '../create/state';
 import { DELETE_SELECTED_TRANSACTIONS_SUCCESS } from '../actions/state';
 
 export const LOAD_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/load';
+export const LOAD_ALL_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/load-all';
 export const RECEIVE_ACCOUNT_TRANSACTIONS = 'mowney/accounts/transactions/list/receive';
 export const UPDATE_SELECTED = 'mowney/accounts/transactions/list/update-selected';
 
@@ -15,6 +16,7 @@ export default function reducer(state = {
 }, action) {
   switch (action.type) {
   case LOAD_ACCOUNT_TRANSACTIONS:
+  case LOAD_ALL_ACCOUNT_TRANSACTIONS:
     return {
       ...state,
       loading: true,
@@ -56,5 +58,6 @@ export default function reducer(state = {
 }
 
 export const loadTransactions = createAction(LOAD_ACCOUNT_TRANSACTIONS);
+export const loadAllTransactions = createAction(LOAD_ALL_ACCOUNT_TRANSACTIONS);
 export const receiveTransactions = createAction(RECEIVE_ACCOUNT_TRANSACTIONS);
 export const updateSelected = createAction(UPDATE_SELECTED);
