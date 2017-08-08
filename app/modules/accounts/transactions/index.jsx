@@ -19,11 +19,8 @@ class AccountDetails extends Component {
     return (
       <div className={style.container}>
         <Card>
-          <CardTitle>
-            Create Transaction
-          </CardTitle>
           <CardText>
-            <Create accountId={accountId} />
+            <List />
           </CardText>
         </Card>
         <Card>
@@ -32,8 +29,11 @@ class AccountDetails extends Component {
           </CardText>
         </Card>
         <Card>
+          <CardTitle>
+            Custom transaction
+          </CardTitle>
           <CardText>
-            <List />
+            <Create accountId={accountId} />
           </CardText>
         </Card>
       </div>
