@@ -20,6 +20,14 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+router.post('/delete-batch', (req, res) => {
+  transactionRepository.deleteTransactions(req.user, req.body.ids).then(() => {
+    res.send(200);
+  }, (err) => {
+    res.send(500, err);
+  });
+});
+
 router.post('/:id', (req, res) => {
   transactionRepository.saveManualTransaction(req.params.id, moment(req.body.date), req.body.description, +req.body.amount).then(t => {
     res.status(200).send(t);

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import flow from 'lodash/flow';
+import { compose } from 'recompose';
 import Table from 'components/Table';
-import { getFormattedTransactions } from './selectors';
+import { updateSelected } from './state';
+import { getFormattedTransactions, getSelectedTransactionsIndicies } from './selectors';
 
 const TransactionModel = {
   date: { type: Date },
@@ -14,23 +15,36 @@ const TransactionModel = {
   active: { type: Boolean }
 };
 
-const TransactionList = ({ transactions }) => (
+const TransactionList = ({ transactions, selected, onSelect }) => (
   <Table
     model={TransactionModel}
     source={transactions}
+    selected={selected}
+    onSelect={onSelect(transactions)}
+    multiSelectable
+    selectable
   />
 );
 
 TransactionList.propTypes = {
-  transactions: PropTypes.array
+  transactions: PropTypes.array,
+  selected: PropTypes.array,
+  onSelect: PropTypes.func
 };
 
+const rowIndexToId = (transactions, indicies) => indicies.map(index => transactions[index].id);
+
 const mapStateToProps = (state) => ({
-  transactions: getFormattedTransactions(state)
+  transactions: getFormattedTransactions(state),
+  selected: getSelectedTransactionsIndicies(state)
 });
 
-const decorators = flow([
-  connect(mapStateToProps)
-]);
+const mapActionsToProps = (dispatch) => ({
+  onSelect: (transactions) => (list) => dispatch(updateSelected(rowIndexToId(transactions, list)))
+});
+
+const decorators = compose(
+  connect(mapStateToProps, mapActionsToProps)
+);
 
 export default decorators(TransactionList);
