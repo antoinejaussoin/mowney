@@ -7,7 +7,7 @@ import { selectCanDeleteSelected } from './selectors';
 import { deleteSelectedTransactions } from './state';
 
 const Actions = ({ onDeleteSelected, canDeleteSelected }) => (
-  <Button label="Delete Selected" onClick={onDeleteSelected} disabled={!canDeleteSelected} raised primary />
+  <Button label="Delete Selected" icon="delete" onClick={onDeleteSelected} disabled={!canDeleteSelected} raised accent />
 );
 
 Actions.propTypes = {
