@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .item {
+    border: 1px solid $color-text-secondary;
+    padding: 5px;
+    min-width: 200px;
+    margin: 5px;
+
+    a {
+      color: $color-red;
+    }
+
+    &.active {
+      a {
+        color: $color-green;
+      }
+    }
+  }
+}

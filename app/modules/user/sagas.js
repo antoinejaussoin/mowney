@@ -6,7 +6,6 @@ import { login, logout } from './api';
 import { loginSuccess, loginFailure, LOGIN, LOGOUT } from './state';
 
 export function* onLogin(action) {
-  console.log(action);
   try {
     const userAndToken = yield call(login, action.payload.username, action.payload.password);
     yield put(loginSuccess(userAndToken));
@@ -19,8 +18,7 @@ export function* onLogin(action) {
   }
 }
 
-export function* onLogout(action) {
-  console.log(action);
+export function* onLogout() {
   yield call(logout);
 }
 

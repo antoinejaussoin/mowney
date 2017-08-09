@@ -6,14 +6,14 @@ import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
 import ProgressBar from 'components/ProgressBar';
 import Button from 'components/Button';
-import { getAccounts } from 'modules/accounts/list/selectors';
+import { getActiveAccounts } from 'modules/accounts/list/selectors';
 import style from './index.scss';
 import UploadItem from './components/UploadItem';
 import { addFile, uploadAll } from './state';
 import { getFiles, isUploading } from './selectors';
 
 const stateToProps = state => ({
-  accounts: getAccounts(state),
+  accounts: getActiveAccounts(state),
   files: getFiles(state),
   uploading: isUploading(state)
 });
@@ -45,7 +45,7 @@ const Main = ({ accounts, files, uploading, onAddFile, onUpload }) => (
 
 Main.propTypes = {
   accounts: PropTypes.array,
-  files: PropTypes.array,
+  files: PropTypes.object,
   uploading: PropTypes.bool,
   onAddFile: PropTypes.func,
   onUpload: PropTypes.func

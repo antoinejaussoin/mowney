@@ -8,7 +8,6 @@ import { reAuthenticate } from 'modules/user/api';
 import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
 
 function* doReAuthenticate() {
-  console.log('reauth');
   const userAndToken = yield call(ls, 'token');
   if (userAndToken) {
     const validatedUserAndToken = yield call(reAuthenticate, userAndToken.token);

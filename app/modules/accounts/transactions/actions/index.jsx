@@ -3,24 +3,45 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Button from 'components/Button';
-import { selectCanDeleteSelected } from './selectors';
-import { deleteSelectedTransactions } from './state';
+import Switch from 'components/Switch';
+import { selectCanDeleteSelected, selectIsActive, selectIsStatEnabled } from './selectors';
+import { deleteSelectedTransactions, toggleIsActive, toggleIsStatEnabled } from './state';
+import { loadAllTransactions } from '../list/state';
+import styles from './index.scss';
 
-const Actions = ({ onDeleteSelected, canDeleteSelected }) => (
-  <Button label="Delete Selected" icon="delete" onClick={onDeleteSelected} disabled={!canDeleteSelected} raised accent />
+const Actions = ({
+  isActive, isStatEnabled, canDeleteSelected,
+  onDeleteSelected, onLoadAll, onIsActiveToggled, onIsStatEnabledToggled
+}) => (
+  <div className={styles.container}>
+    <Button label="Delete Selected" icon="delete" onClick={onDeleteSelected} disabled={!canDeleteSelected} raised accent />
+    <Button label="Load Every Transactions" icon="cloud_download" onClick={onLoadAll} raised primary />
+    <div><Switch label="Activated" checked={isActive} onChange={onIsActiveToggled} /></div>
+    <div><Switch label="Statistics Enabled" checked={isStatEnabled} onChange={onIsStatEnabledToggled} /></div>
+  </div>
 );
 
 Actions.propTypes = {
+  isActive: PropTypes.bool,
+  isStatEnabled: PropTypes.bool,
   canDeleteSelected: PropTypes.bool,
-  onDeleteSelected: PropTypes.func
+  onDeleteSelected: PropTypes.func,
+  onLoadAll: PropTypes.func,
+  onIsActiveToggled: PropTypes.func,
+  onIsStatEnabledToggled: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { accountId }) => ({
+  isActive: selectIsActive(state, { accountId }),
+  isStatEnabled: selectIsStatEnabled(state, { accountId }),
   canDeleteSelected: selectCanDeleteSelected(state)
 });
 
-const mapActionsToProps = (dispatch) => ({
-  onDeleteSelected: () => dispatch(deleteSelectedTransactions())
+const mapActionsToProps = (dispatch, { accountId }) => ({
+  onDeleteSelected: () => dispatch(deleteSelectedTransactions()),
+  onLoadAll: () => dispatch(loadAllTransactions(accountId)),
+  onIsActiveToggled: () => dispatch(toggleIsActive(accountId)),
+  onIsStatEnabledToggled: () => dispatch(toggleIsStatEnabled(accountId))
 });
 
 const decorators = compose(

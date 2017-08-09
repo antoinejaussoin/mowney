@@ -7,11 +7,8 @@ const config = require('../config/config.json')[env];
 const useAutoLogin = env === 'development' && config.autoLogin;
 
 function auth(req, res, next) {
-  console.log('user: ', req.user);
-  console.log('auth: ', req.isAuthenticated());
   if (!req.isAuthenticated()) {
     if (useAutoLogin) {
-      console.log('Using auto login');
       models.User.find({
         where: {
           email: config.autoLogin

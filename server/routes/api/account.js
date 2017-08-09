@@ -6,7 +6,6 @@ const models = require('../../models');
 const accountRepository = require('../../repositories/account-repository');
 const transactionRepository = require('../../repositories/transaction-repository');
 const loadingService = require('../../loaders/loading-service');
-const _ = require('lodash');
 
 router.use(auth);
 
@@ -29,11 +28,11 @@ router.get('/summary/:currency', (req, res) => {
       } else {
         s.balanceInCurrency = s.balance * s.rateToCurrency / s.rateToUsd;
       }
-
+      console.log('Balance: ', s.balanceInCurrency, s.name)
       return s;
     });
 
-    const sum = _.reduce(_.map(summaries, 'balanceInCurrency'), (sum, x) => sum + x);
+    const sum = summaries.reduce((sum, summary) => sum + (+summary.balanceInCurrency), 0);
 
     res.status(200).json({
       lines: summaries,

@@ -11,8 +11,7 @@ const TransactionModel = {
   description: { type: String },
   debit: { type: Number },
   credit: { type: Number },
-  balance: { type: Number },
-  active: { type: Boolean }
+  balance: { type: Number }
 };
 
 const TransactionList = ({ transactions, selected, onSelect }) => (
