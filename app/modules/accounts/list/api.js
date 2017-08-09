@@ -6,7 +6,7 @@ const getHeaders = token => {
   return headers;
 };
 
-export const fetchAccounts = (token) => fetch('/api/account/list', {
+export const fetchAccounts = (token) => fetch('/api/account/list/all', {
   headers: getHeaders(token)
 })
   .then(response => {
