@@ -7,6 +7,7 @@ export function* onGetSummary() {
   try {
     const token = yield select(getToken);
     const summary = yield call(fetchSummary, token, 'GBP');
+    console.log('Summary: ', summary);
     yield put(receiveSummary(summary));
   } catch (e) {
     console.error('Get Summary error: ', e);

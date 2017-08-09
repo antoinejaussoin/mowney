@@ -16,7 +16,7 @@ table.table {
 
     tbody {
         tr {
-            height: 1.5em;
+            height: 2.5em;
 
             td {
                 padding: 5px;
@@ -28,6 +28,14 @@ table.table {
         }
         tr.even {
             background-color: $palette-grey-100;
+        }
+    }
+
+    tfoot {
+        tr {
+            height: 3em;
+            font-size: 1.5em;
+            background-color: $palette-grey-200;
         }
     }
 
