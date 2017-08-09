@@ -56,3 +56,23 @@ export const deleteTransactions = (token, ids) => fetch('/api/transaction/delete
       throw new Error('Bad response from server');
     }
   });
+
+export const toggleIsActive = (token, id) => fetch(`/api/account/${id}/toggle-active`, {
+  headers: getHeaders(token),
+  method: 'PUT'
+})
+  .then(response => {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+  });
+
+export const toggleIsStatEnabled = (token, id) => fetch(`/api/account/${id}/toggle-stat-enabled`, {
+  headers: getHeaders(token),
+  method: 'PUT'
+})
+  .then(response => {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+  });
