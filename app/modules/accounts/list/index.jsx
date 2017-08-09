@@ -10,7 +10,7 @@ import styles from './index.scss';
 const AccountList = ({ accounts }) => (
   <div className={styles.container}>
     { accounts.map(account => (
-      <div className={classNames(styles.item, { [styles.active]: account.isActive })}>
+      <div key={account.id} className={classNames(styles.item, { [styles.active]: account.isActive })}>
         <Link to={`/accounts/${account.id}`}>{ account.name }</Link>
       </div>
     ))}

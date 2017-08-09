@@ -29,15 +29,15 @@ class Login extends Component {
     return (
       <Container>
         <h3>Login</h3>
-        <p>
+        <div>
           <Input
             value={this.state.username}
             label="Email"
             icon="email"
             onChange={username => this.setState({ username })}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           <Input
             value={this.state.password}
             label="Password"
@@ -45,8 +45,8 @@ class Login extends Component {
             icon="lock"
             onChange={password => this.setState({ password })}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           <Button
             label="Login"
             accent
@@ -54,10 +54,10 @@ class Login extends Component {
             disabled={ !canLogin }
             onClick={() => this.props.login(this.state.username, this.state.password)}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           { this.props.error ? <ErrorMessage message={this.props.error} /> : null }
-        </p>
+        </div>
       </Container>
     );
   }
