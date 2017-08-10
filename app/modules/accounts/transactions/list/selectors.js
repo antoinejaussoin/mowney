@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
+import { getAccountEntities } from 'modules/entities/selectors';
 import { getAccountsTransactionsRoot } from '../selectors';
-import { getAccountEntities } from '../../list/selectors';
 import { listOfTransactionsModel } from '../../model';
 import formatTransaction from './logic/format-transaction';
 

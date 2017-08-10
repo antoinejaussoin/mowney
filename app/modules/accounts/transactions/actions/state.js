@@ -9,5 +9,5 @@ export const TOGGLE_IS_STAT_ENABLED = 'mowney/accounts/transactions/actions/togg
 export const deleteSelectedTransactions = createAction(DELETE_SELECTED_TRANSACTIONS);
 export const deleteSelectedTransactionsSuccess = createAction(DELETE_SELECTED_TRANSACTIONS_SUCCESS);
 export const deleteSelectedTransactionsFailure = createAction(DELETE_SELECTED_TRANSACTIONS_FAILURE);
-export const toggleIsActive = createAction(TOGGLE_IS_ACTIVE, null, accountId => ({ accountId }));
-export const toggleIsStatEnabled = createAction(TOGGLE_IS_STAT_ENABLED, null, accountId => ({ accountId }));
+export const toggleIsActive = createAction(TOGGLE_IS_ACTIVE, null, id => ({ entity: 'accounts', id }));
+export const toggleIsStatEnabled = createAction(TOGGLE_IS_STAT_ENABLED, null, id => ({ entity: 'accounts', id }));

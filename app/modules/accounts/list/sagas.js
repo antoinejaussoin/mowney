@@ -1,6 +1,7 @@
 import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { getToken } from 'modules/user/selectors';
+import { addEntities } from 'modules/entities/state';
 import { fetchAccounts } from './api';
 import { receiveAccounts, LOAD_ACCOUNTS } from './state';
 import { listOfAccountsModel } from '../model';
@@ -10,7 +11,8 @@ export function* onLoadAccounts() {
     const token = yield select(getToken);
     const data = yield call(fetchAccounts, token);
     const { result, entities: { accounts } } = normalize(data, listOfAccountsModel);
-    yield put(receiveAccounts({ entities: accounts, list: result }));
+    yield put(addEntities('accounts', accounts));
+    yield put(receiveAccounts(result));
   } catch (e) {
     console.error('Get Accounts error: ', e);
   }
