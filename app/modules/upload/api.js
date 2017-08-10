@@ -18,6 +18,4 @@ export const uploadFile = (token, accountId, file) =>
     if (response.status >= 400) {
       throw new Error('Bad response');
     }
-
-    return response.json();
   });
