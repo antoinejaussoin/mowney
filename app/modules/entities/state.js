@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import merge from 'lodash/merge';
 import reduceReducers from 'reduce-reducers';
 import accountReducer from './account-reducer';
 
@@ -15,13 +16,7 @@ export default function reducer(state = {
 }, action) {
   switch (action.type) {
   case ADD_ENTITIES:
-    return {
-      ...state,
-      [action.payload.name]: {
-        ...state[action.payload.name],
-        ...action.payload.entities
-      }
-    };
+    return merge({ ...state }, action.payload); // TODO: check mutability
   default:
     if (action && action.meta && action.meta.entity && action.meta.id) {
       return {
@@ -36,4 +31,4 @@ export default function reducer(state = {
   }
 }
 
-export const addEntities = createAction(ADD_ENTITIES, (name, entities) => ({ name, entities }));
+export const addEntities = createAction(ADD_ENTITIES);

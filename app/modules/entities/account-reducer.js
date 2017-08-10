@@ -3,7 +3,6 @@ import { TOGGLE_IS_ACTIVE, TOGGLE_IS_STAT_ENABLED } from 'modules/accounts/trans
 export default (state, action) => {
   switch (action.type) {
   case TOGGLE_IS_ACTIVE:
-    console.log('worked: ', state, action);
     return {
       ...state,
       isActive: !state.isActive

@@ -10,8 +10,8 @@ export function* onLoadAccounts() {
   try {
     const token = yield select(getToken);
     const data = yield call(fetchAccounts, token);
-    const { result, entities: { accounts } } = normalize(data, listOfAccountsModel);
-    yield put(addEntities('accounts', accounts));
+    const { result, entities } = normalize(data, listOfAccountsModel);
+    yield put(addEntities(entities));
     yield put(receiveAccounts(result));
   } catch (e) {
     console.error('Get Accounts error: ', e);

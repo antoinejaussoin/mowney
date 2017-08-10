@@ -6,3 +6,18 @@ export const account = new schema.Entity('accounts', {
 });
 export const summary = new schema.Entity('summaries');
 
+export const currencyModel = new schema.Entity('currencies');
+export const listOfCurrenciesModel = new schema.Array(currencyModel);
+
+export const accountModel = new schema.Entity('accounts', {
+  // user
+});
+
+export const listOfAccountsModel = new schema.Array(accountModel);
+
+export const transactionModel = new schema.Entity('transactions', {
+  accountId: accountModel
+});
+
+export const listOfTransactionsModel = new schema.Array(transactionModel);
+
