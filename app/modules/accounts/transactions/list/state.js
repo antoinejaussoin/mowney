@@ -11,8 +11,7 @@ export const UPDATE_SELECTED = 'mowney/accounts/transactions/list/update-selecte
 export default function reducer(state = {
   loading: false,
   list: [],
-  selected: [],
-  entities: {}
+  selected: []
 }, action) {
   switch (action.type) {
   case LOAD_ACCOUNT_TRANSACTIONS:
@@ -26,7 +25,7 @@ export default function reducer(state = {
     return {
       ...state,
       loading: false,
-      ...action.payload
+      list: action.payload
     };
   case CREATE_TRANSACTION_SUCCESS:
     return {
