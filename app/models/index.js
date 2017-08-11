@@ -1,16 +1,14 @@
 import { schema } from 'normalizr';
 
 export const user = new schema.Entity('users');
-export const account = new schema.Entity('accounts', {
-  user
-});
+
 export const summary = new schema.Entity('summaries');
 
 export const currencyModel = new schema.Entity('currencies');
 export const listOfCurrenciesModel = new schema.Array(currencyModel);
 
 export const accountModel = new schema.Entity('accounts', {
-  // user
+  currencyId: currencyModel
 });
 
 export const listOfAccountsModel = new schema.Array(accountModel);
