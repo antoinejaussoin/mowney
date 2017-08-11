@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import without from 'lodash/without';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { CREATE_TRANSACTION_SUCCESS } from '../create/state';
 import { DELETE_SELECTED_TRANSACTIONS_SUCCESS } from '../actions/state';
 
@@ -46,6 +47,13 @@ export default function reducer(state = {
       ...state,
       list: without(state.list, ...action.payload),
       selected: []
+    };
+  case LOCATION_CHANGE:
+    return {
+      ...state,
+      list: [],
+      selected: [],
+      loading: false
     };
   default:
     return state;
