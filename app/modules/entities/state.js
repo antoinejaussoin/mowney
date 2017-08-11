@@ -2,16 +2,19 @@ import { createAction } from 'redux-actions';
 import merge from 'lodash/merge';
 import reduceReducers from 'reduce-reducers';
 import accountReducer from './account-reducer';
+import transactionReducer from './transaction-reducer';
 
 export const ADD_ENTITIES = 'mowney/entities/add';
 
 const entitiesReducer = reduceReducers(
-  accountReducer
+  accountReducer,
+  transactionReducer
 );
 
 export default function reducer(state = {
   accounts: {},
   transactions: {},
+  currencies: {},
   users: {}
 }, action) {
   switch (action.type) {

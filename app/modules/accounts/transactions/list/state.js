@@ -30,10 +30,6 @@ export default function reducer(state = {
   case CREATE_TRANSACTION_SUCCESS:
     return {
       ...state,
-      entities: {
-        ...state.entities,
-        [action.payload.id]: action.payload
-      },
       list: [
         action.payload.id,
         ...state.list
