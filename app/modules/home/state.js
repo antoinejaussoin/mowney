@@ -7,11 +7,14 @@ export const GET_SAVINGS = 'mowney/dashboard/get-savings';
 export const RECEIVE_SAVINGS = 'mowney/dashboard/receive-savings';
 export const GET_TIMELINE = 'mowney/dashboard/get-timeline';
 export const RECEIVE_TIMELINE = 'mowney/dashboard/receive-timeline';
+export const GET_SAVINGS_PER_YEAR = 'mowney/dashboard/get-savings-per-year';
+export const RECEIVE_SAVINGS_PER_YEAR = 'mowney/dashboard/receive-savings-per-year';
 
 export default function reducer(state = {
   summary: { lines: [] },
   savings: [],
-  timeline: []
+  timeline: [],
+  savingsPerYear: []
 }, action) {
   switch (action.type) {
   case RECEIVE_SUMMARY:
@@ -29,6 +32,11 @@ export default function reducer(state = {
       ...state,
       timeline: action.payload
     };
+  case RECEIVE_SAVINGS_PER_YEAR:
+    return {
+      ...state,
+      savingsPerYear: action.payload
+    };
   default:
     return state;
   }
@@ -41,3 +49,5 @@ export const getSavings = createAction(GET_SAVINGS);
 export const receiveSavings = createAction(RECEIVE_SAVINGS);
 export const getTimeline = createAction(GET_TIMELINE);
 export const receiveTimeline = createAction(RECEIVE_TIMELINE);
+export const getSavingsPerYear = createAction(GET_SAVINGS_PER_YEAR);
+export const receiveSavingsPerYear = createAction(RECEIVE_SAVINGS_PER_YEAR);

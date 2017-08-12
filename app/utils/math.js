@@ -1,1 +1,1 @@
-export const round = number => Math.round(number * 1000000) / 1000000;
+export const round = (number, digits = 8) => Math.round(number * (10 ** digits)) / (10 ** digits);

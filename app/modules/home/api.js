@@ -8,7 +8,7 @@ const getHeaders = token => {
   return headers;
 };
 
-export const fetchSummary = (token, currency) => fetch(`/api/account/summary/${currency}`, {
+const fetchUrl = (token, url) => fetch(url, {
   headers: getHeaders(token)
 })
   .then(response => {
@@ -18,24 +18,7 @@ export const fetchSummary = (token, currency) => fetch(`/api/account/summary/${c
     return response.json();
   });
 
-export const fetchSaving = (token, name, currency) =>
-  fetch(`/api/account/saving/${currency}/${name}`, {
-    headers: getHeaders(token)
-  })
-    .then(response => {
-      if (response.status >= 400) {
-        throw new Error('Bad response from server');
-      }
-      return response.json();
-    });
-
-export const fetchTimeline = (token, currency) =>
-  fetch(`/api/account/timeline/${currency}`, {
-    headers: getHeaders(token)
-  })
-    .then(response => {
-      if (response.status >= 400) {
-        throw new Error('Bad response from server');
-      }
-      return response.json();
-    });
+export const fetchSummary = (token, currency) => fetchUrl(token, `/api/account/summary/${currency}`);
+export const fetchSaving = (token, name, currency) => fetchUrl(token, `/api/account/saving/${currency}/${name}`);
+export const fetchTimeline = (token, currency) => fetchUrl(token, `/api/account/timeline/${currency}`);
+export const fetchSavingsPerYear = (token, currency) => fetchUrl(token, `/api/account/savings-per-year/${currency}`);
