@@ -1,7 +1,7 @@
 import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 import { getToken } from 'modules/user/selectors';
-import { fetchSummary, fetchSaving, fetchTimeline } from './api';
-import { receiveSummary, receiveSavings, receiveTimeline, GET_SUMMARY, LOAD_DASHBOARD } from './state';
+import { fetchSummary, fetchSaving, fetchTimeline, fetchSavingsPerYear } from './api';
+import { receiveSummary, receiveSavings, receiveTimeline, receiveSavingsPerYear, GET_SUMMARY, LOAD_DASHBOARD } from './state';
 
 export function* onGetSummary() {
   try {
@@ -48,10 +48,21 @@ export function* onGetTimeline() {
   }
 }
 
+export function* onGetSavingsPerYear() {
+  try {
+    const token = yield select(getToken);
+    const savings = yield call(fetchSavingsPerYear, token, 'GBP');
+    yield put(receiveSavingsPerYear(savings));
+  } catch (e) {
+    console.error('Get Savings per year error: ', e);
+  }
+}
+
 export function* onLoadDashboard() {
   yield call(onGetSummary);
   yield call(onGetSavings);
   yield call(onGetTimeline);
+  yield call(onGetSavingsPerYear);
 }
 
 export default function* watchers() {

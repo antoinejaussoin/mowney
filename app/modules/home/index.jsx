@@ -6,6 +6,7 @@ import AccountList from 'modules/accounts/list';
 import AccountTable from './components/AccountTable';
 import Savings from './components/Savings';
 import Timeline from './components/Timeline';
+import SavingsPerYear from './components/SavingsPerYear';
 import style from './index.scss';
 
 const Main = () => (
@@ -30,6 +31,14 @@ const Main = () => (
         <CardTitle>Balance</CardTitle>
         <CardText>
           <Timeline />
+        </CardText>
+      </Card>
+    </div>
+    <div className={style.charts}>
+      <Card>
+        <CardTitle>Savings per Year</CardTitle>
+        <CardText>
+          <SavingsPerYear />
         </CardText>
       </Card>
     </div>
