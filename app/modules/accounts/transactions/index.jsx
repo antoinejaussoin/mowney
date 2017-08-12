@@ -8,6 +8,7 @@ import { loadTransactions } from './list/state';
 import List from './list';
 import Create from './create';
 import Actions from './actions';
+import Infos from './infos';
 import style from './index.scss';
 
 class AccountDetails extends Component {
@@ -18,6 +19,11 @@ class AccountDetails extends Component {
     const { accountId } = this.props.params;
     return (
       <div className={style.container}>
+        <Card raised>
+          <CardText>
+            <Infos accountId={accountId} />
+          </CardText>
+        </Card>
         <Card>
           <CardText>
             <List />

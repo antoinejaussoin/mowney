@@ -55,5 +55,7 @@ export const changeDate = createAction(CHANGE_DATE);
 export const changeDescription = createAction(CHANGE_DESCRIPTION);
 export const createTransaction = createAction(CREATE_TRANSACTION);
 export const createTransactionSuccess =
-  createAction(CREATE_TRANSACTION_SUCCESS, transaction => transaction, transaction => ({ entity: 'transactions', id: transaction.id }));
+  createAction(CREATE_TRANSACTION_SUCCESS,
+    transaction => transaction,
+    transaction => ({ entity: 'transactions', id: transaction.id }));
 export const createTransactionFailure = createAction(CREATE_TRANSACTION_FAILURE);
