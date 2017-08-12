@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Table from 'components/Table';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import { Card, CardText } from 'components/Card';
 import { getTransactions, getSearch } from './selectors';
 import { changeSearch, executeSearch } from './state';
 import styles from './index.scss';
@@ -17,13 +18,21 @@ const TransactionModel = {
 
 const Search = ({ transactions, search, onSearchChange, onExecuteSearch }) => (
   <div className={styles.container}>
-    <Input value={search} onChange={onSearchChange} />
-    <Button label="Execute" onClick={onExecuteSearch} />
-    <Table
-      model={TransactionModel}
-      source={transactions}
-      selectable={false}
-    />
+    <Card>
+      <CardText>
+        <div className={styles.search}>
+          <Input value={search} onChange={onSearchChange} />
+          <Button label="Execute" onClick={onExecuteSearch} accent raised />
+        </div>
+        <div className={styles.result}>
+          <Table
+            model={TransactionModel}
+            source={transactions}
+            selectable={false}
+          />
+        </div>
+      </CardText>
+    </Card>
   </div>
 );
 

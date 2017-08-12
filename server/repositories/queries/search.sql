@@ -11,12 +11,18 @@ select
           where c3.isoCode = :currency
         ) 
       ) end
-    ) as 'amountInCurrency'
+    ) as 'amountInCurrency',
+    a.name as 'accountName',
+    c.name as 'currencyName',
+    c.isoCode as 'currencyIso',
+    cat.name as 'categoryName',
+    cat.description as 'categoryDescription'
 
     from Transactions t
 
     join Accounts a on a.id = t.accountId
     join Currencies c on c.id = a.currencyId
+    left join Categories cat on cat.id = t.categoryId
     left join ExchangeRates r on r.currencyId = c.id and 
       r.id = (select max(r2.id) from ExchangeRates r2 where r2.currencyId = c.id)
 
