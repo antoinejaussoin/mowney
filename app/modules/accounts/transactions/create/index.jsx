@@ -33,8 +33,8 @@ const CreateTransaction = ({ amount, total, date, description, isValid,
   );
 
 CreateTransaction.propTypes = {
-  amount: PropTypes.number,
-  total: PropTypes.number,
+  amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  total: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   date: PropTypes.any,
   description: PropTypes.string,
   isValid: PropTypes.bool,

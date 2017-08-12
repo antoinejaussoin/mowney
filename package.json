@@ -83,6 +83,7 @@
     "react-tools": "0.13.3",
     "recharts": "^1.0.0-alpha.2",
     "recompose": "^0.24.0",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-devtools": "^3.4.0",

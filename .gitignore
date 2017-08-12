@@ -36,3 +36,6 @@ config.json
 materialadmin
 .vscode
 .DS_Store
+
+server/tmp/*
+!server/tmp/.gitkeep

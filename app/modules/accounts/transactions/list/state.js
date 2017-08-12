@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import without from 'lodash/without';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { CREATE_TRANSACTION_SUCCESS } from '../create/state';
 import { DELETE_SELECTED_TRANSACTIONS_SUCCESS } from '../actions/state';
 
@@ -11,8 +12,7 @@ export const UPDATE_SELECTED = 'mowney/accounts/transactions/list/update-selecte
 export default function reducer(state = {
   loading: false,
   list: [],
-  selected: [],
-  entities: {}
+  selected: []
 }, action) {
   switch (action.type) {
   case LOAD_ACCOUNT_TRANSACTIONS:
@@ -26,15 +26,11 @@ export default function reducer(state = {
     return {
       ...state,
       loading: false,
-      ...action.payload
+      list: action.payload
     };
   case CREATE_TRANSACTION_SUCCESS:
     return {
       ...state,
-      entities: {
-        ...state.entities,
-        [action.payload.id]: action.payload
-      },
       list: [
         action.payload.id,
         ...state.list
@@ -51,6 +47,13 @@ export default function reducer(state = {
       ...state,
       list: without(state.list, ...action.payload),
       selected: []
+    };
+  case LOCATION_CHANGE:
+    return {
+      ...state,
+      list: [],
+      selected: [],
+      loading: false
     };
   default:
     return state;

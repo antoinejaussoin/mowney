@@ -28,7 +28,6 @@ router.get('/summary/:currency', (req, res) => {
       } else {
         s.balanceInCurrency = s.balance * s.rateToCurrency / s.rateToUsd;
       }
-      console.log('Balance: ', s.balanceInCurrency, s.name)
       return s;
     });
 
@@ -48,7 +47,6 @@ router.get('/list/all', (req, res) => {
 });
 
 router.post('/upload/:accountId', (req, res) => {
-  console.log('Req: ', req);
   const file = req.files.file;
   const accountId = req.params.accountId;
 
@@ -57,7 +55,7 @@ router.post('/upload/:accountId', (req, res) => {
     name: file.name,
     accountId
   }]).then(() => {
-    res.send('ok');
+    res.status(200).send('ok');
   }, (err) => {
     console.log(err);
     res.status(500).send(err);

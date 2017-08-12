@@ -1,6 +1,8 @@
 import { all, takeEvery, call, put, select } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import entries from 'lodash/entries';
 import { getToken } from 'modules/user/selectors';
+import { loadDashboard } from 'modules/home/state';
 import { uploadFile } from './api';
 import { uploadAllSuccess, UPLOAD_ALL } from './state';
 import { getFiles } from './selectors';
@@ -10,7 +12,6 @@ export function* onUploadAll() {
     const token = yield select(getToken);
     const files = yield select(getFiles);
     const fileEntries = entries(files);
-    // const accounts = yield select(getAccounts);
 
     for (let i = 0; i < fileEntries.length; i++) {
       const accountId = fileEntries[i][0];
@@ -18,7 +19,9 @@ export function* onUploadAll() {
       yield call(uploadFile, token, accountId, file);
     }
 
+    yield put(loadDashboard());
     yield put(uploadAllSuccess());
+    yield put(push('/'));
   } catch (e) {
     console.error('Get Accounts error: ', e);
   }

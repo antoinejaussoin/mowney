@@ -29,20 +29,38 @@ function saveManualTransaction(accountId, date, description, amount) {
 function deleteTransactions(user, ids) {
   return models.Transactions.destroy({
     where: {
-      id: { in: ids
-      }
+      id: { in: ids }
     }
   });
 }
 
 function getRange(user, accountId, from, to) {
+  console.log('get range ', user.id);
   return findAll(models.Transactions, [{
     model: models.Account,
-    as: 'account'
-  }], models.sequelize.and(
-    ['accountid = ?', accountId], ['account.ownerid = ?', user.id], ['date >= ?', from], ['date <= ?', to]
+    as: 'account',
+    where: {
+      ownerId: user.id
+    }
+  }], models.sequelize.and({
+    accountId,
+    date: {
+      $gte: from,
+      $lte: to
+    }
+  }// TODO: Add owner check
+    // ['accountid = ?', accountId], ['account.ownerid = ?', user.id], ['date >= ?', from], ['date <= ?', to]
   ), [['date', 'DESC']]);
 }
+
+// function getRange(user, accountId, from, to) {
+//   return findAll(models.Transactions, [{
+//     model: models.Account,
+//     as: 'account'
+//   }], models.sequelize.and(
+//     ['accountid = ?', accountId], ['account.ownerid = ?', user.id], ['date >= ?', from], ['date <= ?', to]
+//   ), [['date', 'DESC']]);
+// }
 
 function getTotal(user, accountId) {
   const includes = [];

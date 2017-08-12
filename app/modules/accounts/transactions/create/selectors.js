@@ -19,4 +19,4 @@ export const selectTotal = createSelector(
 export const selectDate = createSelector(selectAccountsTransactionsCreateRoot, detail => moment(detail.date).toDate());
 export const selectDescription = createSelector(selectAccountsTransactionsCreateRoot, detail => detail.description);
 export const selectIsValid = createSelector(selectAmount, selectDescription, selectDate,
-  (amount, description, date) => amount !== '' && description.length && date);
+  (amount, description, date) => Boolean(amount !== '' && description.length && date));

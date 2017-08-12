@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import classNames from 'classnames';
 import { Link } from 'react-router';
-import { getAccounts } from './selectors';
+import { getAccounts } from 'modules/entities/selectors';
 import styles from './index.scss';
 
 const AccountList = ({ accounts }) => (
