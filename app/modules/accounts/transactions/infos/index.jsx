@@ -12,7 +12,7 @@ const AccountInfo = ({ account }) => (
 );
 
 AccountInfo.propTypes = {
-  account: PropTypes.func
+  account: PropTypes.object
 };
 
 const mapStateToProps = (state, { accountId }) => ({
