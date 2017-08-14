@@ -1,7 +1,7 @@
 select 
-		t.*,
-    t.amount / (
-      select case c.isoCode when 'USD' then 1 else r.rate end
+		transaction.*,
+    transaction.amount / (
+      select case currency.isoCode when 'USD' then 1 else r.rate end
     ) * (
       select case :currency when 'USD' then 1 else (
         select r4.rate from ExchangeRates r4 where r4.id = (
@@ -12,22 +12,22 @@ select
         ) 
       ) end
     ) as 'amountInCurrency',
-    a.name as 'accountName',
-    c.name as 'currencyName',
-    c.isoCode as 'currencyIso',
-    cat.name as 'categoryName',
-    cat.description as 'categoryDescription'
+    account.name as 'accountName',
+    currency.name as 'currencyName',
+    currency.isoCode as 'currencyIso',
+    category.name as 'categoryName',
+    category.description as 'categoryDescription'
 
-    from Transactions t
+    from Transactions transaction
 
-    join Accounts a on a.id = t.accountId
-    join Currencies c on c.id = a.currencyId
-    left join Categories cat on cat.id = t.categoryId
-    left join ExchangeRates r on r.currencyId = c.id and 
-      r.id = (select max(r2.id) from ExchangeRates r2 where r2.currencyId = c.id)
+    join Accounts account on account.id = transaction.accountId
+    join Currencies currency on currency.id = account.currencyId
+    left join ExchangeRates r on r.currencyId = currency.id and 
+      r.id = (select max(r2.id) from ExchangeRates r2 where r2.currencyId = currency.id)
+    left join Categories category on category.id = transaction.categoryId
 
     where 
-      a.ownerId = 200 and
+      account.ownerId = 200 and
       :search
 
-    order by t.date desc
+    order by transaction.date desc

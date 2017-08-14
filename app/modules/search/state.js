@@ -7,7 +7,7 @@ export const SEARCH_CHANGE = 'mowney/search/change';
 export default function reducer(state = {
   loading: false,
   transactions: [],
-  search: 't.description like \'%%\' and a.name like \'%%\''
+  search: 'transaction.description like \'%%\' and account.name like \'%%\''
 }, action) {
   switch (action.type) {
   case EXECUTE_SEARCH:
