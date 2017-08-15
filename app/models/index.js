@@ -15,7 +15,11 @@ export const accountModel = new schema.Entity('accounts', {
 });
 export const listOfAccountsModel = new schema.Array(accountModel);
 
+export const categoryModel = new schema.Entity('categories', {});
+export const listOfCategoriesModel = new schema.Array(categoryModel);
+
 export const transactionModel = new schema.Entity('transactions', {
-  accountId: accountModel
+  accountId: accountModel,
+  categoryId: categoryModel
 });
 export const listOfTransactionsModel = new schema.Array(transactionModel);

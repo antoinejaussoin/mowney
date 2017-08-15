@@ -5,7 +5,10 @@ import { loginSuccess } from 'modules/user/state';
 import { loadDashboard } from 'modules/home/state';
 import { loadEntities } from 'modules/entities/sagas';
 import { reAuthenticate } from 'modules/user/api';
-import { listOfCurrenciesModel, listOfAccountsModel, listOfLoadersModel } from 'models';
+import { listOfCurrenciesModel,
+  listOfAccountsModel,
+  listOfLoadersModel,
+  listOfCategoriesModel } from 'models';
 import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
 
 function* doReAuthenticate() {
@@ -28,6 +31,7 @@ export function* onInitialLoad() {
   yield loadEntities('/loader/list', listOfLoadersModel);
   yield loadEntities('/currency/list', listOfCurrenciesModel);
   yield loadEntities('/account/list/all', listOfAccountsModel);
+  yield loadEntities('/category/list', listOfCategoriesModel);
   yield put(loadDashboard());
 }
 

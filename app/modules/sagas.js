@@ -6,6 +6,7 @@ import accountsSagas from 'modules/accounts/sagas';
 import homeSagas from 'modules/home/sagas';
 import userSagas from 'modules/user/sagas';
 import uploadSagas from 'modules/upload/sagas';
+import searchSagas from 'modules/search/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -13,6 +14,7 @@ export default function* rootSaga() {
     accountsSagas(),
     homeSagas(),
     userSagas(),
-    uploadSagas()
+    uploadSagas(),
+    searchSagas()
   ]);
 }

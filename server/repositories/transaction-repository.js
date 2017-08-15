@@ -18,6 +18,16 @@ function getByAccountId(user, accountId, limit) {
   });
 }
 
+function search(user, currency, search, limit) {
+  return executeQuery('search', {
+    currency,
+    ownerId: user.id
+  }, (query) => {
+    const limitClause = limit > 0 ? ` LIMIT ${limit}` : '';
+    return (query + limitClause).replace(':search', search);
+  });
+}
+
 function saveManualTransaction(accountId, date, description, amount) {
   return models.Transactions.create({
     date: moment(date),
@@ -155,5 +165,6 @@ module.exports = {
   getSaving,
   getSavingsPerYear,
   saveManualTransaction,
-  deleteTransactions
+  deleteTransactions,
+  search
 };

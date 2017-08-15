@@ -8,6 +8,7 @@ import App from 'modules/app';
 import Home from 'modules/home';
 import Login from 'modules/user/Login';
 import Upload from 'modules/upload';
+import Search from 'modules/search';
 import Transactions from 'modules/accounts/transactions';
 import configureStore from './store/configureStore';
 
@@ -33,6 +34,7 @@ class Index extends React.Component {
           <IndexRoute component={Home} onEnter={requireAuth} />
           <Route path="login" component={Login} />
           <Route path="upload" component={Upload} />
+          <Route path="search" component={Search} />
           <Route path="accounts/:accountId" component={Transactions} />
         </Route>
       </Router>
