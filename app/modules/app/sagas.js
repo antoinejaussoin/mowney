@@ -8,7 +8,8 @@ import { reAuthenticate } from 'modules/user/api';
 import { listOfCurrenciesModel,
   listOfAccountsModel,
   listOfLoadersModel,
-  listOfCategoriesModel } from 'models';
+  listOfCategoriesModel,
+  listOfCluesModel } from 'models';
 import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
 
 function* doReAuthenticate() {
@@ -32,6 +33,7 @@ export function* onInitialLoad() {
   yield loadEntities('/currency/list', listOfCurrenciesModel);
   yield loadEntities('/account/list/all', listOfAccountsModel);
   yield loadEntities('/category/list', listOfCategoriesModel);
+  yield loadEntities('/category/clues', listOfCluesModel);
   yield put(loadDashboard());
 }
 

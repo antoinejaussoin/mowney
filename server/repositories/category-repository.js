@@ -18,7 +18,7 @@ function getAllClues(user) {
   {
     model: models.Account,
     as: 'restrictToAccount'
-  }], { ownerId: user.id });
+  }], { userId: user.id });
 }
 
 function createClue(user, categoryId, isRegex, str) {

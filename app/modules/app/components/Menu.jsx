@@ -5,6 +5,7 @@ import style from './Menu.scss';
 
 const Menu = () => (
   <div className={style.container}>
+    <Link to={'/categories'}><IconButton icon="list" /></Link>
     <Link to={'/search'}><IconButton icon="search" /></Link>
     <Link to={'/upload'}><IconButton icon="file_upload" /></Link>
   </div>

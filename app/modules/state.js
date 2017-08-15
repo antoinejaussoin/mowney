@@ -6,6 +6,7 @@ import accounts from 'modules/accounts/state';
 import dashboard from 'modules/home/state';
 import upload from 'modules/upload/state';
 import search from 'modules/search/state';
+import categories from 'modules/categories/state';
 
 const rootReducer = combineReducers({
   entities,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   dashboard,
   upload,
   search,
+  categories,
   routing: routerReducer
 });
 

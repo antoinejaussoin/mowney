@@ -16,7 +16,16 @@ export const accountModel = new schema.Entity('accounts', {
 export const listOfAccountsModel = new schema.Array(accountModel);
 
 export const categoryModel = new schema.Entity('categories', {});
+categoryModel.define({
+  parentId: categoryModel
+});
 export const listOfCategoriesModel = new schema.Array(categoryModel);
+
+export const clueModel = new schema.Entity('clues', {
+  category: categoryModel,
+  restrictToAccount: accountModel
+});
+export const listOfCluesModel = new schema.Array(clueModel);
 
 export const transactionModel = new schema.Entity('transactions', {
   accountId: accountModel,
