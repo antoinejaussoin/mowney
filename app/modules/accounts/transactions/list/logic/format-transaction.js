@@ -5,5 +5,6 @@ export default (transaction) => ({
   ...transaction,
   date: moment(transaction.date).format('DD/MM/YYYY'),
   debit: transaction.amount < 0 ? toAmount(-transaction.amount) : null,
-  credit: transaction.amount >= 0 ? toAmount(transaction.amount) : null
+  credit: transaction.amount >= 0 ? toAmount(transaction.amount) : null,
+  categoryName: transaction.categoryId ? transaction.categoryId.name : ''
 });

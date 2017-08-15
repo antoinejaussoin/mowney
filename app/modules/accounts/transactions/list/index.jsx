@@ -9,6 +9,7 @@ import { getFormattedTransactions, getSelectedTransactionsIndicies } from './sel
 const TransactionModel = {
   date: { type: Date },
   description: { type: String },
+  categoryName: { type: String, title: 'Category' },
   debit: { type: Number },
   credit: { type: Number },
   balance: { type: Number }

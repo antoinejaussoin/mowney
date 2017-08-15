@@ -56,3 +56,13 @@ export const toggleIsStatEnabled = (token, id) => fetch(`/api/account/${id}/togg
       throw new Error('Bad response from server');
     }
   });
+
+export const postCategoriseAll = (token) => fetch('/api/category/categorise-all', {
+  headers: getHeaders(token),
+  method: 'POST'
+})
+  .then(response => {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+  });
