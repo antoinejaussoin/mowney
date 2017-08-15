@@ -7,4 +7,21 @@
       margin-right: 20px;
     }
   }
+
+  .periods {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    > div > div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    > div > div > div {
+      margin: 10px;
+      min-width: 400px;
+      flex: 1;
+    }
+  }
 }

@@ -11,13 +11,8 @@ select
           where c3.isoCode = :currency
         ) 
       ) end
-    ) as 'amountInCurrency',
-    account.name as 'accountName',
-    currency.name as 'currencyName',
-    currency.isoCode as 'currencyIso',
-    category.name as 'categoryName',
-    category.description as 'categoryDescription'
-
+    ) as 'amountInCurrency'
+    
     from Transactions transaction
 
     join Accounts account on account.id = transaction.accountId
