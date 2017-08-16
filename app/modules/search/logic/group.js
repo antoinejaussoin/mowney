@@ -12,7 +12,6 @@ const groupTransactions = (transactions, groupByFunction) => {
   }
   const sorted = sortBy(transactions, t => t.dateMoment);
   const grouped = groupBy(sorted, groupByFunction);
-  console.log('Grouped: ', grouped);
 
   const buckets = toPairs(grouped).map(pair => {
     const total = round(sumBy(pair[1], t => +t.amountInCurrency));
@@ -23,7 +22,6 @@ const groupTransactions = (transactions, groupByFunction) => {
     };
   });
 
-  console.log('buckets: ', buckets);
   return buckets;
 };
 

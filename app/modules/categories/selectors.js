@@ -12,10 +12,7 @@ export const getSelectedCategoriesIndicies = createSelector(
   (selected, ids) => selected.map(id => ids.indexOf(id)));
 
 export const getClues = createSelector(getSelectedCategories, getCluesBase,
-  (categoryIds, clues) => {
-    console.log('ids: ', categoryIds, clues);
-    return clues.filter(c => categoryIds.indexOf(c.category.id) > -1);
-  });
+  (categoryIds, clues) => clues.filter(c => categoryIds.indexOf(c.category.id) > -1));
 const getDisplayedCluesIds = createSelector(getClues, clues => clues.map(c => c.id));
 
 export const getSelectedClues = createSelector(getCategoryRoot, root => root.selectedClues);
@@ -24,3 +21,4 @@ export const getSelectedCluesIndicies = createSelector(
   (selected, ids) => selected.map(id => ids.indexOf(id)));
 
 export const getFormattedClues = createSelector(getClues, clues => clues.map(c => ({ ...c, match: c.exactString || c.regex })));
+export const canDisplayClues = createSelector(getSelectedCategories, cats => Boolean(cats.length));
