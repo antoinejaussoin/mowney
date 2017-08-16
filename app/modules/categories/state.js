@@ -1,25 +1,35 @@
 import { createAction } from 'redux-actions';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-export const UPDATE_SELECTED = 'mowney/categories/update-selected';
+export const UPDATE_SELECTED_CATEGORIES = 'mowney/categories/update-selected-categories';
+export const UPDATE_SELECTED_CLUES = 'mowney/categories/update-selected-clues';
 
 export default function reducer(state = {
-  selected: []
+  selectedCategories: [],
+  selectedClues: []
 }, action) {
   switch (action.type) {
-  case UPDATE_SELECTED:
+  case UPDATE_SELECTED_CATEGORIES:
     return {
       ...state,
-      selected: action.payload
+      selectedCategories: action.payload,
+      selectedClues: []
+    };
+  case UPDATE_SELECTED_CLUES:
+    return {
+      ...state,
+      selectedClues: action.payload
     };
   case LOCATION_CHANGE:
     return {
       ...state,
-      selected: []
+      selectedCategories: [],
+      selectedClues: []
     };
   default:
     return state;
   }
 }
 
-export const updateSelected = createAction(UPDATE_SELECTED);
+export const updateSelectedCategories = createAction(UPDATE_SELECTED_CATEGORIES);
+export const updateSelectedClues = createAction(UPDATE_SELECTED_CLUES);

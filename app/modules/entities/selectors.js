@@ -14,16 +14,18 @@ const denorm = (model) => (ids, entities) => {
   return results;
 };
 
+const getIds = (entities) => keys(entities).map(id => +id);
+
 export const getEntities = getRoot;
 
 export const getAccountEntities = createSelector(getRoot, entities => entities.accounts);
-export const getAccountIds = createSelector(getRoot, entities => keys(entities.accounts));
+export const getAccountIds = createSelector(getRoot, entities => getIds(entities.accounts));
 export const getAccounts = createSelector(getAccountIds, getRoot, denorm(listOfAccountsModel));
 
-export const getCategoryIds = createSelector(getRoot, entities => keys(entities.categories));
+export const getCategoryIds = createSelector(getRoot, entities => getIds(entities.categories));
 export const getCategories = createSelector(getCategoryIds, getRoot, denorm(listOfCategoriesModel));
 
-export const getCluesIds = createSelector(getRoot, entities => keys(entities.clues));
-export const getClues = createSelector(getCluesIds, getRoot, denorm(listOfCluesModel));
+export const getClueIds = createSelector(getRoot, entities => getIds(entities.clues));
+export const getClues = createSelector(getClueIds, getRoot, denorm(listOfCluesModel));
 
 export const denormalizeTransactions = denorm(listOfTransactionsModel);

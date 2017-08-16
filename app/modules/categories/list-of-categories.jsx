@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Table from 'components/Table';
-import { updateSelected } from './state';
+import { updateSelectedCategories } from './state';
 import { getCategories, getSelectedCategoriesIndicies } from './selectors';
 
 const CategoryModel = {
@@ -29,7 +29,7 @@ CategoryList.propTypes = {
   onSelect: PropTypes.func
 };
 
-const rowIndexToId = (categories, indicies) => indicies.map(index => `${categories[index].id}`);
+const rowIndexToId = (categories, indicies) => indicies.map(index => categories[index].id);
 
 const mapStateToProps = (state) => ({
   categories: getCategories(state),
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = (dispatch) => ({
-  onSelect: (categories) => (list) => dispatch(updateSelected(rowIndexToId(categories, list)))
+  onSelect: (categories) => (list) => dispatch(updateSelectedCategories(rowIndexToId(categories, list)))
 });
 
 const decorators = compose(
