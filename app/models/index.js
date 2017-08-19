@@ -22,8 +22,8 @@ categoryModel.define({
 export const listOfCategoriesModel = new schema.Array(categoryModel);
 
 export const clueModel = new schema.Entity('clues', {
-  category: categoryModel,
-  restrictToAccount: accountModel
+  categoryId: categoryModel,
+  restrictToAccountId: accountModel
 });
 export const listOfCluesModel = new schema.Array(clueModel);
 

@@ -7,6 +7,7 @@ import homeSagas from 'modules/home/sagas';
 import userSagas from 'modules/user/sagas';
 import uploadSagas from 'modules/upload/sagas';
 import searchSagas from 'modules/search/sagas';
+import categoriesSagas from 'modules/categories/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
     homeSagas(),
     userSagas(),
     uploadSagas(),
-    searchSagas()
+    searchSagas(),
+    categoriesSagas()
   ]);
 }

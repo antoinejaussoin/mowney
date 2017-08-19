@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as form } from 'redux-form';
 import entities from 'modules/entities/state';
 import user from 'modules/user/state';
 import accounts from 'modules/accounts/state';
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   upload,
   search,
   categories,
-  routing: routerReducer
+  routing: routerReducer,
+  form
 });
 
 export default rootReducer;

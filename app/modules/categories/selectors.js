@@ -12,7 +12,7 @@ export const getSelectedCategoriesIndicies = createSelector(
   (selected, ids) => selected.map(id => ids.indexOf(id)));
 
 export const getClues = createSelector(getSelectedCategories, getCluesBase,
-  (categoryIds, clues) => clues.filter(c => categoryIds.indexOf(c.category.id) > -1));
+  (categoryIds, clues) => clues.filter(c => categoryIds.indexOf(c.categoryId.id) > -1));
 const getDisplayedCluesIds = createSelector(getClues, clues => clues.map(c => c.id));
 
 export const getSelectedClues = createSelector(getCategoryRoot, root => root.selectedClues);

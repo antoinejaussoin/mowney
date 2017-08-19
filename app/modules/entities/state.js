@@ -3,19 +3,23 @@ import merge from 'lodash/merge';
 import reduceReducers from 'reduce-reducers';
 import accountReducer from './account-reducer';
 import transactionReducer from './transaction-reducer';
+import clueReducer from './clue-reducer';
 
 export const ADD_ENTITIES = 'mowney/entities/add';
 
 const entitiesReducer = reduceReducers(
   accountReducer,
-  transactionReducer
+  transactionReducer,
+  clueReducer
 );
 
 export default function reducer(state = {
   accounts: {},
   transactions: {},
   currencies: {},
-  users: {}
+  users: {},
+  clues: {},
+  categories: {}
 }, action) {
   switch (action.type) {
   case ADD_ENTITIES:

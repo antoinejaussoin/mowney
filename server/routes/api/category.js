@@ -29,9 +29,8 @@ router.get('/historic/:categoryId/:currency/:from/:to', (req, res) => {
 router.post('/clue', (req, res) => {
   // createClue(user, categoryId, isRegex, str) {
   categoryRepository.createClue(req.user, req.body.categoryId, req.body.isRegex, req.body.str)
-    .then(() => categoryRepository.categoriseAll(req.user))
-    .then(() => {
-      res.status(200).send();
+    .then(clue => {
+      res.status(200).send(clue);
     });
 });
 
