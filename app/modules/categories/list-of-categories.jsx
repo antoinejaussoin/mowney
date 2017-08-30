@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Table from 'components/Table';
 import { updateSelectedCategories } from './state';
-import { getCategories, getSelectedCategoriesIndicies } from './selectors';
+import { getCategoriesHierarchy, getSelectedCategoriesIndicies } from './selectors';
 
 const CategoryModel = {
   name: { type: String },
@@ -32,7 +32,7 @@ CategoryList.propTypes = {
 const rowIndexToId = (categories, indicies) => indicies.map(index => categories[index].id);
 
 const mapStateToProps = (state) => ({
-  categories: getCategories(state),
+  categories: getCategoriesHierarchy(state),
   selected: getSelectedCategoriesIndicies(state)
 });
 

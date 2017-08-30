@@ -68,7 +68,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: false
+      __DEVTOOLS__: true
     }),
     new webpack.ProvidePlugin({
       React: 'react'

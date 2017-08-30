@@ -1,14 +1,17 @@
 import { createSelector } from 'reselect';
-import { getCategories as getCategoriesBase, getClues as getCluesBase, getCategoryIds } from 'modules/entities/selectors';
+import { getCategories as getCategoriesBase, getClues as getCluesBase } from 'modules/entities/selectors';
+import { buildFlatHierarchy } from './logic/build-hierarchy';
 
 const getCategoryRoot = state => state.categories;
 export const getCategories = createSelector(getCategoriesBase, cats => cats.map(c => ({
   ...c,
   parentName: c.parentId ? c.parentId.name : '(none)'
 })));
+export const getCategoriesHierarchy = createSelector(getCategories, buildFlatHierarchy);
+export const getCategoriesHierarchyIds = createSelector(getCategoriesHierarchy, cats => cats.map(c => c.id));
 export const getSelectedCategories = createSelector(getCategoryRoot, root => root.selectedCategories);
 export const getSelectedCategoriesIndicies = createSelector(
-  getSelectedCategories, getCategoryIds,
+  getSelectedCategories, getCategoriesHierarchyIds,
   (selected, ids) => selected.map(id => ids.indexOf(id)));
 
 export const getClues = createSelector(getSelectedCategories, getCluesBase,

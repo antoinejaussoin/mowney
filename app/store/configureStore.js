@@ -5,7 +5,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import DevTools from 'components/DevTools';
+// import DevTools from 'components/DevTools';
 import reducers from 'modules/state';
 import sagas from 'modules/sagas';
 
@@ -28,9 +28,11 @@ export default function configureStore(initialState = {}, browserHistory) {
   let createStoreWithMiddleware = applyMiddleware(...middlewares);
 
   if (__DEVTOOLS__) {
-    createStoreWithMiddleware = compose(
-      createStoreWithMiddleware,
-      DevTools.instrument()
+    /* eslint-disable no-underscore-dangle,no-undef */
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    /* eslint-enable */
+    createStoreWithMiddleware = composeEnhancers(
+      createStoreWithMiddleware
     );
   }
 
