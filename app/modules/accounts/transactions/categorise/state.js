@@ -5,6 +5,8 @@ export const CLOSE_MODAL = 'mowney/accounts/transactions/categorise/close-modal'
 export const CHANGE_CATEGORY = 'mowney/accounts/transactions/categorise/change-category';
 export const ASSIGN_CATEGORY = 'mowney/accounts/transactions/categorise/assign-category';
 export const ASSIGN_CATEGORY_SUCCESS = 'mowney/accounts/transactions/categorise/assign-category-success';
+export const CREATE_CLUE = 'mowney/accounts/transactions/categorise/create-clue';
+export const CREATE_CLUE_SUCCESS = 'mowney/accounts/transactions/categorise/create-clue-success';
 
 const INITIAL_STATE = {
   open: false,
@@ -40,3 +42,5 @@ export const changeCategory = createAction(CHANGE_CATEGORY);
 export const assignCategory = createAction(ASSIGN_CATEGORY);
 export const assignCategorySuccess = createAction(ASSIGN_CATEGORY_SUCCESS,
   (transactionId, categoryId) => categoryId, (transactionId) => ({ entity: 'transactions', id: transactionId }));
+export const createClue = createAction(CREATE_CLUE);
+export const createClueSuccess = createAction(CREATE_CLUE_SUCCESS);

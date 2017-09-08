@@ -7,3 +7,18 @@
     margin-right: 20px;
   }
 }
+
+.clue {
+  form {
+    display: flex;
+    align-items: center;
+
+    div:first-child {
+      flex: 1;
+    }
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}

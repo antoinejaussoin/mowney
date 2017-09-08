@@ -28,7 +28,7 @@ class AccountDetails extends Component {
         <Card>
           <CardText>
             <List />
-            <CategoriseModal />
+            <CategoriseModal accountId={accountId} />
           </CardText>
         </Card>
         <Card>
