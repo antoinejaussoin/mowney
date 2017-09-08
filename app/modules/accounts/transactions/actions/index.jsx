@@ -20,7 +20,7 @@ const Actions = ({
     <Button label="Categorise" icon="assignment" onClick={onOpenModal} disabled={!areTransactionsSelected} raised primary />
     <div><Switch label="Activated" checked={isActive} onChange={onIsActiveToggled} /></div>
     <div><Switch label="Statistics Enabled" checked={isStatEnabled} onChange={onIsStatEnabledToggled} /></div>
-    <Button label="Categorise" icon="assignment" onClick={onCategorise} raised />
+    <Button label="Categorise All" icon="assignment" onClick={onCategorise} raised />
   </div>
 );
 
