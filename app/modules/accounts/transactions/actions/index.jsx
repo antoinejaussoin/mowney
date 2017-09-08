@@ -17,10 +17,10 @@ const Actions = ({
   <div className={styles.container}>
     <Button label="Delete Selected" icon="delete" onClick={onDeleteSelected} disabled={!areTransactionsSelected} raised accent />
     <Button label="Load Every Transactions" icon="cloud_download" onClick={onLoadAll} raised primary />
-    <Button label="Categorise" icon="assignment" onClick={onCategorise} raised primary />
-    <Button label="C" icon="assignment" onClick={onOpenModal} disabled={!areTransactionsSelected} raised primary />
+    <Button label="Categorise" icon="assignment" onClick={onOpenModal} disabled={!areTransactionsSelected} raised primary />
     <div><Switch label="Activated" checked={isActive} onChange={onIsActiveToggled} /></div>
     <div><Switch label="Statistics Enabled" checked={isStatEnabled} onChange={onIsStatEnabledToggled} /></div>
+    <Button label="Categorise" icon="assignment" onClick={onCategorise} raised />
   </div>
 );
 
