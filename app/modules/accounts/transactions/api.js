@@ -66,3 +66,16 @@ export const postCategoriseAll = (token) => fetch('/api/category/categorise-all'
       throw new Error('Bad response from server');
     }
   });
+
+export const categoriseTransaction = (token, transactionId, categoryId) => fetch(`/api/transaction/categorise/${transactionId}`, {
+  headers: getHeaders(token),
+  method: 'PATCH',
+  body: JSON.stringify({
+    categoryId
+  })
+})
+  .then(response => {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+  });

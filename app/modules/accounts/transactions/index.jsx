@@ -6,6 +6,7 @@ import translate from 'i18n/Translate';
 import { Card, CardTitle, CardText } from 'components/Card';
 import { loadTransactions } from './list/state';
 import List from './list';
+import CategoriseModal from './categorise';
 import Create from './create';
 import Actions from './actions';
 import Infos from './infos';
@@ -27,6 +28,7 @@ class AccountDetails extends Component {
         <Card>
           <CardText>
             <List />
+            <CategoriseModal />
           </CardText>
         </Card>
         <Card>

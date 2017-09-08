@@ -1,0 +1,9 @@
+.category {
+  display: flex;
+  align-items: center;
+
+  div:first-child {
+    flex: 1;
+    margin-right: 20px;
+  }
+}

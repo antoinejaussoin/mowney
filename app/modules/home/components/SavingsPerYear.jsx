@@ -23,7 +23,7 @@ const SavingsPerYear = ({ data }) => (
       <Bar dataKey="amount" fill="#8884d8" label="Savings per Year">
         {
           data.map((entry) => (
-            <Cell fill={entry.amount >= 0 ? '#81c784' : '#e57373'} />
+            <Cell fill={entry.amount >= 0 ? '#81c784' : '#e57373'} key={entry.date} />
           ))
         }
       </Bar>
