@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.location.pathname, this.props.isLoggedIn);
     return (
       <Layout className={style.layout}>
         <Panel className={style.panel}>

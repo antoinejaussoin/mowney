@@ -26,7 +26,6 @@ export function* onAssignCategory() {
   const token = yield select(getToken);
   const selectedTransactions = yield select(getSelectedTransactions);
   const categoryId = yield select(selectCategory);
-  console.log('Selected:', selectedTransactions, categoryId);
   for (let i = 0; i < selectedTransactions.length; i++) {
     const transactionId = selectedTransactions[i];
     yield call(categoriseTransaction, token, transactionId, categoryId);
