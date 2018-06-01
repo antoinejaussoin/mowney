@@ -8,7 +8,7 @@ function* onSearch() {
   try {
     const token = yield select(getToken);
     const search = yield select(getSearch);
-    const searchResults = yield call(fetchSearch, token, search, 'GBP', 500);
+    const searchResults = yield call(fetchSearch, token, search, 'GBP', 10000);
     yield put(receiveSearchResults(searchResults));
   } catch (e) {
     console.error('Get search error: ', e);

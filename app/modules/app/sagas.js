@@ -1,5 +1,5 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 import ls from 'local-storage';
 import { loginSuccess } from 'modules/user/state';
 import { loadDashboard } from 'modules/home/state';
@@ -10,7 +10,7 @@ import { listOfCurrenciesModel,
   listOfLoadersModel,
   listOfCategoriesModel,
   listOfCluesModel } from 'models';
-import { initialLoad, INITIALISE, INITIAL_LOAD } from './state';
+import { initialLoad, INITIALISE, INITIAL_LOAD, initialLoadSuccess } from './state';
 
 function* doReAuthenticate() {
   const userAndToken = yield call(ls, 'token');
@@ -19,13 +19,14 @@ function* doReAuthenticate() {
     if (validatedUserAndToken) {
       yield put(loginSuccess(validatedUserAndToken));
       yield put(initialLoad());
-      yield put(push('/'));
+      // yield put(push('/'));
     }
   }
 }
 
 export function* onInitialise() {
   yield call(doReAuthenticate);
+  yield put(initialLoadSuccess());
 }
 
 export function* onInitialLoad() {

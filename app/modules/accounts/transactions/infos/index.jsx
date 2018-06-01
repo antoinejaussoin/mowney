@@ -4,12 +4,11 @@ import { connect } from 'react-redux';
 import { getAccount } from '../selectors';
 import styles from './index.scss';
 
-const AccountInfo = ({ account }) => (
+const AccountInfo = ({ account }) => account ?
   <div className={styles.container}>
     <h4>{account.name}</h4>
     <p>{account.currencyId.name}</p>
-  </div>
-);
+  </div> : null;
 
 AccountInfo.propTypes = {
   account: PropTypes.object

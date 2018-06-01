@@ -22,7 +22,7 @@ select
     left join Categories category on category.id = transaction.categoryId
 
     where 
-      account.ownerId = 200 and
+      account.ownerId = :ownerId and
       :search
 
     order by transaction.date desc

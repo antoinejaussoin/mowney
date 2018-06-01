@@ -27,7 +27,8 @@ module.exports = {
         target: 'http://localhost:3000',
         secure: false
       }
-    }
+    },
+    headers: { 'Access-Control-Allow-Origin': '*' }
   },
   resolve: {
     extensions: ['.js', '.jsx'],

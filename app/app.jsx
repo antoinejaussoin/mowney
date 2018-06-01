@@ -16,14 +16,14 @@ import configureStore from './store/configureStore';
 const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
-function requireAuth(nextState, replace) {
+function requireAuth() {
   const state = store.getState();
 
   if (!state.user.token) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname }
-    });
+    // replace({
+    //   pathname: '/login',
+    //   state: { nextPathname: nextState.location.pathname }
+    // });
   }
 }
 
