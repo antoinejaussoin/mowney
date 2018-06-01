@@ -21,13 +21,21 @@ function qifLoader(raw) {
 
   const transactions = result.transactions.map(t => new ImportedTransaction(
     moment(t.date, 'YYYY-MM-DD'),
-    t.payee,
+    description(t.payee, t.category),
     t.amount
   ));
 
   defer.resolve(transactions);
 
   return defer.promise;
+}
+
+function description(payee, category) {
+  if (category) {
+    return '[' + category + '] ' + payee;
+  }
+
+  return payee;
 }
 
 module.exports = {
