@@ -39,3 +39,6 @@ materialadmin
 
 server/tmp/*
 !server/tmp/.gitkeep
+yarn.lock
+mowney*.sqlite
+server/dist/**/*
