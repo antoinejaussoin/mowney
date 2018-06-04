@@ -9,7 +9,8 @@ import { GraphQLSchema } from 'graphql';
 const typeDefs = `
 type Query {
   accountById(id: ID): Account,
-  allAccounts: [Account]
+  allAccounts: [Account],
+  savingsPerYear(currency: String): [SavingPerYear]
 }
 
 type Account {
@@ -82,6 +83,12 @@ type Import {
   date: String,
   fileName: String,
   isManual: Boolean
+}
+
+
+type SavingPerYear {
+  date: String,
+  amount: Float
 }
 `;
 

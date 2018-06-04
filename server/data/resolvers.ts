@@ -1,4 +1,5 @@
 import { Account, Currency, Transaction } from './connectors';
+import savingsPerYear from './queries/savings-per-year';
 import { FindOptions } from 'sequelize';
 // import Currency from './models/currency';
 
@@ -9,6 +10,9 @@ const resolvers = {
     },
     allAccounts(root, args) {
       return Promise.resolve<any>(Account.findAll);
+    },
+    savingsPerYear(root, args) {
+      return savingsPerYear({ id: 200 }, args.currency);
     }
   },
   Account: {

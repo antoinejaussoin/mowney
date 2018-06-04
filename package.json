@@ -18,6 +18,7 @@
     "casual": "^1.5.19",
     "express": "^4.16.3",
     "graphql": "^0.13.2",
+    "graphql-iso-date": "^3.5.0",
     "graphql-tools": "^3.0.2",
     "lodash": "^4.17.10",
     "mysql2": "^1.5.3",
