@@ -1,8 +1,17 @@
 import bcrypt from 'bcrypt';
 import Sequelize, { SequelizeStatic } from "sequelize";
 
+export interface IUser {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isAdministrator: boolean;
+}
+
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define<IUser, void>('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,

@@ -1,7 +1,17 @@
 import Sequelize, { SequelizeStatic } from "sequelize";
 
+export interface ICategoryClue {
+  type: string,
+  mustBeCredit: boolean,
+  mustBeDebit: boolean,
+  validFrom: Date,
+  validTo: Date,
+  exactString: string,
+  regex: string
+}
+
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const CategoryClue = sequelize.define('CategoryClue', {
+  const CategoryClue = sequelize.define<ICategoryClue, void>('CategoryClue', {
     type: DataTypes.STRING,
     mustBeCredit: DataTypes.BOOLEAN,
     mustBeDebit: DataTypes.BOOLEAN,

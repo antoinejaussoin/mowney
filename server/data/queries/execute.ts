@@ -10,7 +10,7 @@ export default function execute<T>(query: string, parameters, queryModifier?: (q
       replacements: parameters,
       type: db.QueryTypes.SELECT
     }).then((data) => {
-      console.log('result data: ', data);
+      // console.log('result data: ', data);
       if (resultModifier) {
         data = resultModifier(data);
       }

@@ -1,7 +1,12 @@
 import Sequelize, { SequelizeStatic } from "sequelize";
 
+export interface IExchangeRate {
+  date: Date,
+  rate: number
+}
+
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const ExchangeRate = sequelize.define('ExchangeRate', {
+  const ExchangeRate = sequelize.define<IExchangeRate, void>('ExchangeRate', {
     date: DataTypes.DATE,
     rate: DataTypes.DECIMAL(12, 6)
   });

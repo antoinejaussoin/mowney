@@ -1,4 +1,4 @@
-export { Account, Currency, Transaction } from './models';
+// export { IAccount, ICurrency, Transaction } from './models';
 
 // const db = new Sequelize('blog', null, null, {
 //   dialect: 'sqlite',

@@ -1,30 +1,32 @@
-import { Account, Currency, Transaction } from './connectors';
+import { Account, Currency, Transaction, User } from './models';
 import savingsPerYear from './queries/savings-per-year';
 import { FindOptions } from 'sequelize';
 // import Currency from './models/currency';
 
 const resolvers = {
   Query: {
-    accountById(root, args) {
-      return Promise.resolve<any>(Account.findById(args.id));
+    async accountById(root, args) {
+      return Account.findById(args.id);
     },
-    allAccounts(root, args) {
-      return Promise.resolve<any>(Account.findAll);
+    async allAccounts(root, args) {
+      return Account.findAll();
     },
-    savingsPerYear(root, args) {
-      return savingsPerYear({ id: 200 }, args.currency);
+    async savingsPerYear(root, args) {
+      const user = await User.findById(200);
+      const results = await savingsPerYear(user, args.currency);
+      return results;
     }
   },
   Account: {
-    currency(account) {
-      return Promise.resolve<any>(Currency.findById(account.currencyId));
+    async currency(account) {
+      return Currency.findById(account.currencyId);
     },
-    transactions(account) {
-      return Promise.resolve<any>(Transaction.findAll({
+    async transactions(account) {
+      return Transaction.findAll({
         where: {
           accountId: account.id
         }
-      }));
+      });
     }
   }
   // Author: {

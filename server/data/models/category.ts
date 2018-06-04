@@ -1,7 +1,12 @@
 import Sequelize, { SequelizeStatic } from "sequelize";
 
+export interface ICategory {
+  name: string,
+  description: string
+}
+
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const Category = sequelize.define('Category', {
+  const Category = sequelize.define<ICategory, void>('Category', {
     name: DataTypes.STRING,
     description: DataTypes.STRING
   });

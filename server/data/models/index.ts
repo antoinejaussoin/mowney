@@ -1,15 +1,15 @@
 import Sequelize, { DataTypes, SequelizeStatic } from 'sequelize';
 import config from '../../config';
 
-import AccountIdentifierModel from './account-identifier';
+import AccountIdentifierModel, { IAccountIdentifier } from './account-identifier';
 import AccountModel, { IAccount } from './account';
-import CategoryClueModel from './category-clue';
-import CategoryModel from './category';
-import CurrencyModel from './currency';
-import ExchangeRateModel from './exchange-rate';
-import ImportModel from './import';
-import TransactionModel from './transactions';
-import UserModel from './user';
+import CategoryClueModel, { ICategoryClue } from './category-clue';
+import CategoryModel, { ICategory } from './category';
+import CurrencyModel, { ICurrency } from './currency';
+import ExchangeRateModel, { IExchangeRate } from './exchange-rate';
+import ImportModel, { IImport } from './import';
+import TransactionModel, { ITransactions } from './transactions';
+import UserModel, { IUser } from './user';
 
 // const Sequelize = require('sequelize');
 
@@ -93,4 +93,11 @@ Object.keys(models).forEach((modelName) => {
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
 
-export { db, Account, Currency, Transaction };
+export { db,
+  Account,
+  Currency,
+  Transaction,
+  Category,
+  CategoryClue,
+  User,
+  Import };

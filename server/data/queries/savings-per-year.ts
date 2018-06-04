@@ -1,4 +1,6 @@
 import execute from './execute';
+import { IUser } from '../models/user';
+
 //import query from './savings-per-year.sql'; todo
 
 const query = `
@@ -41,8 +43,8 @@ export interface SavingPerYear {
   amount: number;
 }
 
-export default (user: { id: number }, currency: string) => {
-  return execute<SavingPerYear>(query, {
+export default (user: IUser, currency: string) => {
+  return execute<SavingPerYear[]>(query, {
     currency,
     ownerId: user.id
   })
