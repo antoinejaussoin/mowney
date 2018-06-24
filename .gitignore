@@ -37,8 +37,8 @@ materialadmin
 .vscode
 .DS_Store
 
-server/tmp/*
-!server/tmp/.gitkeep
+mowney-server/tmp/*
+!mowney-server/tmp/.gitkeep
 yarn.lock
 mowney*.sqlite
-server/dist/**/*
+mowney-server/dist/**/*
