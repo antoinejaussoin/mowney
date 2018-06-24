@@ -1,9 +1,12 @@
 import { Account, Currency, Transaction, User } from './models';
 import savingsPerYear from './queries/savings-per-year';
+import transactions from './queries/transactions';
 import { FindOptions } from 'sequelize';
+import { IResolvers } from 'graphql-tools';
+import { Context } from './schema';
 // import Currency from './models/currency';
 
-const resolvers = {
+const resolvers: IResolvers<any, Context> = {
   Query: {
     async accountById(root, args) {
       return Account.findById(args.id);
@@ -14,6 +17,11 @@ const resolvers = {
     async savingsPerYear(root, args) {
       const user = await User.findById(200);
       const results = await savingsPerYear(user, args.currency);
+      return results;
+    },
+    async transactions(root, args) {
+      const user = await User.findById(200);
+      const results = await transactions(user, args.accountId, args.limit);
       return results;
     }
   },

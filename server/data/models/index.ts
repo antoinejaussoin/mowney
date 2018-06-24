@@ -22,7 +22,10 @@ import UserModel, { IUser } from './user';
 
 // const config = require(`${__dirname}/../../config`);
 // console.log('Config: ', config);
-const db = new Sequelize(config.database, config.username, config.password, config);
+const db = new Sequelize(config.database, config.username, config.password, {
+  ...config,
+  logging: console.log
+});
 
 // const db: Database = {
 //   sequelize,

@@ -1,39 +1,7 @@
-import {
-  makeExecutableSchema,
-  addMockFunctionsToSchema,
-} from 'graphql-tools';
-// import mocks from './mocks';
-import resolvers from './resolvers';
-import { GraphQLSchema } from 'graphql';
-
-import {
-  graphql,
-  GraphQLObjectType,
-  // GraphQLSchema,
-} from 'graphql';
-
-// const schema2 = new GraphQLSchema({
-//   query: new GraphQLObjectType({
-//     name: 'Query',
-//     fields: {
-//       accountById: 
-//     }
-//   }),
-//   types: [
-//     new GraphQLObjectType({
-//       name: 'Account',
-//       fields: {
-//         id: GraphQL
-//       }
-//     }),
-//   ] 
-// })
-
-const typeDefs = `
 type Query {
-  accountById(id: ID): Account,
-  allAccounts: [Account],
-  savingsPerYear(currency: String): [SavingPerYear],
+  accountById(id: ID): Account
+  allAccounts: [Account]
+  savingsPerYear(currency: String): [SavingPerYear]
   transactions(accountId: ID, limit: Int): [TransactionWithBalance]
 }
 
@@ -61,6 +29,7 @@ type Transaction {
 }
 
 type User {
+  id: ID,
   firstName: String,
   lastName: String,
   email: String,
@@ -70,6 +39,7 @@ type User {
 }
 
 type Currency {
+  id: ID,
   isoCode: String,
   name: String,
   isMain: Boolean,
@@ -78,12 +48,14 @@ type Currency {
 }
 
 type ExchangeRate {
+  id: ID,
   date: String,
   rate: Float,
   currency: Currency
 }
 
 type Category {
+  id: ID,
   name: String,
   description: String,
   parent: Category,
@@ -91,6 +63,7 @@ type Category {
 }
 
 type CategoryClue {
+  id: ID,
   type: String,
   mustBeCredit: Boolean,
   mustBeDebit: Boolean,
@@ -104,6 +77,7 @@ type CategoryClue {
 }
 
 type Import {
+  id: ID,
   date: String,
   fileName: String,
   isManual: Boolean
@@ -126,14 +100,3 @@ type TransactionWithBalance {
   import: Import,
   categoryClue: CategoryClue,
 }
-`;
-
-export interface Context {
-  foo: string;
-}
-
-const schema: GraphQLSchema = makeExecutableSchema<Context>({ typeDefs, resolvers, });
-
-// addMockFunctionsToSchema({ schema, mocks, });
-
-export default schema;
