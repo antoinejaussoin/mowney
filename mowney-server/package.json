@@ -1,5 +1,5 @@
 {
-  "name": "mowney",
+  "name": "mowney-server",
   "version": "0.0.1",
   "description": "An open-source personal finance software",
   "main": "index.js",
@@ -40,10 +40,8 @@
   "scripts": {
     "test": "mocha -t 20000 -d --watch --recursive -R spec -r rewire -r ./test/unit-test ./test/server",
     "lint": "eslint --ext .js --ext .jsx .",
-    "start-server": "nodemon ./server/dist/index.js",
-    "start-ui": "webpack-dev-server --progress --inline --hot --content-base content/",
-    "build-server": "tsc --p ./server/tsconfig.json",
-    "build": "cross-env npm run build-server && cross-env NODE_ENV=production webpack --config webpack.prod.config.js --progress --colors"
+    "start": "nodemon ./dist/index.js",
+    "build": "tsc --p ./tsconfig.json"
   },
   "repository": {
     "type": "git",
