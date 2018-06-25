@@ -5,7 +5,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Hidden
+  Hidden,
 } from "@material-ui/core";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
@@ -13,8 +13,8 @@ import styled from "styled-components";
 const styles = (theme: any) => ({
   appBar: {
     position: "relative" as "relative",
-    zIndex: theme.zIndex.drawer + 1
-  }
+    zIndex: theme.zIndex.drawer + 1,
+  },
 });
 
 const Title = styled(Typography)`
