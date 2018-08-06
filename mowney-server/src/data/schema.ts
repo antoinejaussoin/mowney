@@ -1,22 +1,19 @@
-import {
-  makeExecutableSchema,
-  addMockFunctionsToSchema,
-} from 'graphql-tools';
+import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
 // import mocks from './mocks';
-import resolvers from './resolvers';
-import { GraphQLSchema } from 'graphql';
+import resolvers from "./resolvers";
+import { GraphQLSchema } from "graphql";
 
 import {
   graphql,
   GraphQLObjectType,
   // GraphQLSchema,
-} from 'graphql';
+} from "graphql";
 
 // const schema2 = new GraphQLSchema({
 //   query: new GraphQLObjectType({
 //     name: 'Query',
 //     fields: {
-//       accountById: 
+//       accountById:
 //     }
 //   }),
 //   types: [
@@ -26,7 +23,7 @@ import {
 //         id: GraphQL
 //       }
 //     }),
-//   ] 
+//   ]
 // })
 
 const typeDefs = `
@@ -34,7 +31,17 @@ type Query {
   accountById(id: ID): Account,
   allAccounts: [Account],
   savingsPerYear(currency: String): [SavingPerYear],
+  savingsPerRange(currency: String, range: Range): [SavingPerRange],
   transactions(accountId: ID, limit: Int): [TransactionWithBalance]
+}
+
+enum Range {
+  currentMonth
+  lastMonth
+  sixMonth
+  oneYear
+  threeYears
+  inception
 }
 
 type Account {
@@ -115,6 +122,15 @@ type SavingPerYear {
   amount: Float
 }
 
+type SavingPerRange {
+  from: String
+  to: String
+  range: Range
+  amount: Float
+  months: Float
+  amountPerMonth: Float
+}
+
 type TransactionWithBalance {
   id: ID,
   amount: Float,
@@ -132,7 +148,10 @@ export interface Context {
   foo: string;
 }
 
-const schema: GraphQLSchema = makeExecutableSchema<Context>({ typeDefs, resolvers, });
+const schema: GraphQLSchema = makeExecutableSchema<Context>({
+  typeDefs,
+  resolvers,
+});
 
 // addMockFunctionsToSchema({ schema, mocks, });
 

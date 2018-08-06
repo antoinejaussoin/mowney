@@ -1,9 +1,10 @@
-import { Account, Currency, Transaction, User } from './models';
-import savingsPerYear from './queries/savings-per-year';
-import transactions from './queries/transactions';
-import { FindOptions } from 'sequelize';
-import { IResolvers } from 'graphql-tools';
-import { Context } from './schema';
+import { Account, Currency, Transaction, User } from "./models";
+import savingsPerYear from "./queries/savings-per-year";
+import savings from "./queries/savings";
+import transactions from "./queries/transactions";
+import { FindOptions } from "sequelize";
+import { IResolvers } from "graphql-tools";
+import { Context } from "./schema";
 // import Currency from './models/currency';
 
 const resolvers: IResolvers<any, Context> = {
@@ -23,7 +24,12 @@ const resolvers: IResolvers<any, Context> = {
       const user = await User.findById(200);
       const results = await transactions(user, args.accountId, args.limit);
       return results;
-    }
+    },
+    async savingsPerRange(root, args) {
+      const user = await User.findById(200);
+      const results = await savings(user, args.currency, args.range);
+      return results;
+    },
   },
   Account: {
     async currency(account) {
@@ -32,11 +38,11 @@ const resolvers: IResolvers<any, Context> = {
     async transactions(account) {
       return Transaction.findAll({
         where: {
-          accountId: account.id
-        }
+          accountId: account.id,
+        },
       });
-    }
-  }
+    },
+  },
   // Author: {
   //   posts(author) {
   //     return [
