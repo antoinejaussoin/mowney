@@ -109,15 +109,13 @@ export default async (user: IUser, currency: string, range: Range) => {
     months = 1;
   }
 
-  return [
-    {
-      from: from.format("YYYY-MM-DD"),
-      to: to.format("YYYY-MM-DD"),
-      months,
-      currency,
-      range,
-      amount: result[0].amount,
-      amountPerMonth: result[0].amount / months,
-    },
-  ];
+  return {
+    from: from.format("YYYY-MM-DD"),
+    to: to.format("YYYY-MM-DD"),
+    months,
+    currency,
+    range,
+    amount: result[0].amount,
+    amountPerMonth: result[0].amount / months,
+  };
 };

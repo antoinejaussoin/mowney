@@ -5,6 +5,7 @@
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,
     "object-literal-sort-keys": false,
+    "max-classes-per-file": false,
     "trailing-comma": [true, {
       "multiline": "always",
       "singleline": "never"

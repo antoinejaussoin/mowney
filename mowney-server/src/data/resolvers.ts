@@ -1,11 +1,10 @@
 import { Account, Currency, Transaction, User } from "./models";
 import savingsPerYear from "./queries/savings-per-year";
-import savings from "./queries/savings";
+import savings, { Range } from "./queries/savings";
 import transactions from "./queries/transactions";
-import { FindOptions } from "sequelize";
 import { IResolvers } from "graphql-tools";
 import { Context } from "./schema";
-// import Currency from './models/currency';
+// import { QueryResolver, Query} from '../types';
 
 const resolvers: IResolvers<any, Context> = {
   Query: {
@@ -29,6 +28,17 @@ const resolvers: IResolvers<any, Context> = {
       const user = await User.findById(200);
       const results = await savings(user, args.currency, args.range);
       return results;
+    },
+    async savingsAllRanges(root, args) {
+      const user = await User.findById(200);
+      return Promise.all([
+        savings(user, args.currency, Range.currentMonth),
+        savings(user, args.currency, Range.lastMonth),
+        savings(user, args.currency, Range.sixMonth),
+        savings(user, args.currency, Range.oneYear),
+        savings(user, args.currency, Range.threeYears),
+        savings(user, args.currency, Range.inception),
+      ]);
     },
   },
   Account: {
