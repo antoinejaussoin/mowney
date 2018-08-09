@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 import build from "./build";
 
 const QUERY = gql`
-  {
-    savingsPerYear(currency: "GBP") {
+  query Savings($currency: String!) {
+    savingsPerYear(currency: $currency) {
       date
       amount
     }
@@ -11,6 +11,7 @@ const QUERY = gql`
 `;
 
 export default build<
+  { currency: string },
   {
     savingsPerYear: [GQL.ISavingPerYear];
   },

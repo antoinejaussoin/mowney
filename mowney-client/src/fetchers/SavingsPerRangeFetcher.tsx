@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 import build from "./build";
 
 const QUERY = gql`
-  {
-    savingsAllRanges(currency: "GBP") {
+  query Savings($currency: String!) {
+    savingsAllRanges(currency: $currency) {
       amount
       from
       to
@@ -15,6 +15,7 @@ const QUERY = gql`
 `;
 
 export default build<
+  { currency: string },
   {
     savingsAllRanges: [GQL.ISavingPerRange];
   },

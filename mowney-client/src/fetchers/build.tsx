@@ -1,18 +1,20 @@
 import React, { SFC } from "react";
+import { omit } from "lodash";
 import { Query } from "react-apollo";
 
-function build<TResponse, TData>(query: any, accessor: string) {
+function build<TParameters, TResponse, TData>(query: any, accessor: string) {
   class GraphQLQuery extends Query<TResponse, {}> {}
-  const Fetcher: SFC<{
+  interface IFetcherProps {
     children: (result: TData) => React.ReactNode;
-  }> = ({ children }) => (
-    <GraphQLQuery query={query}>
+  }
+  const Fetcher: SFC<IFetcherProps & TParameters> = props => (
+    <GraphQLQuery query={query} variables={omit(props, "children")}>
       {({ data, loading }) => {
         if (loading) {
           return "Loading...";
         }
         console.log("data: ", data);
-        return children(data![accessor]);
+        return props.children(data![accessor]);
       }}
     </GraphQLQuery>
   );

@@ -4,21 +4,26 @@ import SavingBox from "../components/SavingBox";
 import SavingsPerYear from "./SavingsPerYear";
 import SavingsPerRangeFetcher from "../fetchers/SavingsPerRangeFetcher";
 import AccountSummariesFetcher from "../fetchers/AccountSummariesFetcher";
+import SavingsPerYearFetcher from "../fetchers/SavingsPerYearFetcher";
 import Accounts from "./Accounts";
 
 class App extends Component {
   public render() {
     return (
       <div>
-        <SavingsPerRangeFetcher>
+        <SavingsPerRangeFetcher currency="USD">
           {data => (
             <Savings>
               {data.map((s, i) => <SavingBox key={i} saving={s} />)}
             </Savings>
           )}
         </SavingsPerRangeFetcher>
-        <SavingsPerYear />
-        <AccountSummariesFetcher>
+
+        <SavingsPerYearFetcher currency="USD">
+          {data => <SavingsPerYear savings={data} />}
+        </SavingsPerYearFetcher>
+
+        <AccountSummariesFetcher currency="USD">
           {data => <Accounts summary={data.summaries} total={data.total} />}
         </AccountSummariesFetcher>
       </div>

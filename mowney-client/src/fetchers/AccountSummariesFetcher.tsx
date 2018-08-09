@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 import build from "./build";
 
 const QUERY = gql`
-  {
-    summaries(currency: "GBP") {
+  query Summaries($currency: String!) {
+    summaries(currency: $currency) {
       summaries {
         id
         name
@@ -19,6 +19,9 @@ const QUERY = gql`
 `;
 
 export default build<
+  {
+    currency: string;
+  },
   {
     summaries: GQL.ISummaries;
   },
