@@ -3,6 +3,7 @@ import { Query, QueryResult } from "react-apollo";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import SavingBox from "../components/SavingBox";
+import SavingsPerYear from "./SavingsPerYear";
 
 class App extends Component {
   public render() {
@@ -15,11 +16,14 @@ class App extends Component {
             }
             console.log("data: ", data);
             return (
-              <Savings>
-                {data!.savingsAllRanges.map((s, i) => (
-                  <SavingBox key={i} saving={s} />
-                ))}
-              </Savings>
+              <>
+                <Savings>
+                  {data!.savingsAllRanges.map((s, i) => (
+                    <SavingBox key={i} saving={s} />
+                  ))}
+                </Savings>
+                <SavingsPerYear />
+              </>
             );
           }}
         </DashboardQuery>
