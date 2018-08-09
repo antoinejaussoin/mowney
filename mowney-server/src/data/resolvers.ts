@@ -2,6 +2,7 @@ import { Account, Currency, Transaction, User } from "./models";
 import savingsPerYear from "./queries/savings-per-year";
 import savings, { Range } from "./queries/savings";
 import transactions from "./queries/transactions";
+import summaries from "./queries/summaries";
 import { IResolvers } from "graphql-tools";
 import { Context } from "./schema";
 // import { QueryResolver, Query} from '../types';
@@ -39,6 +40,10 @@ const resolvers: IResolvers<any, Context> = {
         savings(user, args.currency, Range.threeYears),
         savings(user, args.currency, Range.inception),
       ]);
+    },
+    async summaries(root, args) {
+      const user = await User.findById(200);
+      return await summaries(user, args.currency);
     },
   },
   Account: {

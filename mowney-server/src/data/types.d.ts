@@ -21,153 +21,175 @@ declare namespace GQL {
   }
 
   interface IQuery {
-    __typename: 'Query';
-    accountById: IAccount | null;
-    allAccounts: Array<IAccount> | null;
-    savingsPerYear: Array<ISavingPerYear> | null;
-    savingsPerRange: ISavingPerRange | null;
-    savingsAllRanges: Array<ISavingPerRange> | null;
-    transactions: Array<ITransactionWithBalance> | null;
+    __typename: "Query";
+    accountById: IAccount;
+    allAccounts: Array<IAccount>;
+    summaries: Array<IAccountSummary>;
+    savingsPerYear: Array<ISavingPerYear>;
+    savingsPerRange: ISavingPerRange;
+    savingsAllRanges: Array<ISavingPerRange>;
+    transactions: Array<ITransactionWithBalance>;
   }
 
   interface IAccountByIdOnQueryArguments {
-    id?: string | null;
+    id?: string;
+  }
+
+  interface ISummariesOnQueryArguments {
+    currency?: string;
   }
 
   interface ISavingsPerYearOnQueryArguments {
-    currency?: string | null;
+    currency?: string;
   }
 
   interface ISavingsPerRangeOnQueryArguments {
-    currency?: string | null;
-    range?: Range | null;
+    currency?: string;
+    range?: Range;
   }
 
   interface ISavingsAllRangesOnQueryArguments {
-    currency?: string | null;
+    currency?: string;
   }
 
   interface ITransactionsOnQueryArguments {
-    accountId?: string | null;
-    limit?: number | null;
+    accountId?: string;
+    limit?: number;
   }
 
   interface IAccount {
-    __typename: 'Account';
-    id: string | null;
-    name: string | null;
-    loaderType: string | null;
-    isActive: boolean | null;
-    isStatEnabled: boolean | null;
-    transactions: Array<ITransaction> | null;
-    currency: ICurrency | null;
-    owner: IUser | null;
+    __typename: "Account";
+    id: string;
+    name: string;
+    loaderType: string;
+    isActive: boolean;
+    isStatEnabled: boolean;
+    transactions: Array<ITransaction>;
+    currency: ICurrency;
+    owner: IUser;
   }
 
   interface ITransaction {
-    __typename: 'Transaction';
-    id: string | null;
-    amount: number | null;
-    date: string | null;
-    description: string | null;
-    categorisedDate: string | null;
-    account: IAccount | null;
-    category: ICategory | null;
-    import: IImport | null;
-    categoryClue: ICategoryClue | null;
+    __typename: "Transaction";
+    id: string;
+    amount: number;
+    date: string;
+    description: string;
+    categorisedDate: string;
+    account: IAccount;
+    category: ICategory;
+    import: IImport;
+    categoryClue: ICategoryClue;
   }
 
   interface ICategory {
-    __typename: 'Category';
-    name: string | null;
-    description: string | null;
-    parent: ICategory | null;
-    children: Array<ICategory> | null;
+    __typename: "Category";
+    name: string;
+    description: string;
+    parent: ICategory;
+    children: Array<ICategory>;
   }
 
   interface IImport {
-    __typename: 'Import';
-    date: string | null;
-    fileName: string | null;
-    isManual: boolean | null;
+    __typename: "Import";
+    date: string;
+    fileName: string;
+    isManual: boolean;
   }
 
   interface ICategoryClue {
-    __typename: 'CategoryClue';
-    type: string | null;
-    mustBeCredit: boolean | null;
-    mustBeDebit: boolean | null;
-    validFrom: string | null;
-    validTo: string | null;
-    exactString: string | null;
-    regex: string | null;
-    category: ICategory | null;
-    user: IUser | null;
-    restrictToAccount: IAccount | null;
+    __typename: "CategoryClue";
+    type: string;
+    mustBeCredit: boolean;
+    mustBeDebit: boolean;
+    validFrom: string;
+    validTo: string;
+    exactString: string;
+    regex: string;
+    category: ICategory;
+    user: IUser;
+    restrictToAccount: IAccount;
   }
 
   interface IUser {
-    __typename: 'User';
-    firstName: string | null;
-    lastName: string | null;
-    email: string | null;
-    password: string | null;
-    isAdministrator: boolean | null;
-    currency: ICurrency | null;
+    __typename: "User";
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isAdministrator: boolean;
+    currency: ICurrency;
   }
 
   interface ICurrency {
-    __typename: 'Currency';
-    isoCode: string | null;
-    name: string | null;
-    isMain: boolean | null;
-    symbol: string | null;
-    format: string | null;
+    __typename: "Currency";
+    isoCode: string;
+    name: string;
+    isMain: boolean;
+    symbol: string;
+    format: string;
+  }
+
+  interface IAccountSummary {
+    __typename: "AccountSummary";
+    id: string;
+    name: string;
+    currency: string;
+    balance: number;
+    balanceInCurrency: number;
+    rateToUsd: number;
+    rateToCurrency: number;
   }
 
   interface ISavingPerYear {
-    __typename: 'SavingPerYear';
-    date: string | null;
-    amount: number | null;
+    __typename: "SavingPerYear";
+    date: string;
+    amount: number;
   }
 
   const enum Range {
-    currentMonth = 'currentMonth',
-    lastMonth = 'lastMonth',
-    sixMonth = 'sixMonth',
-    oneYear = 'oneYear',
-    threeYears = 'threeYears',
-    inception = 'inception'
+    currentMonth = "currentMonth",
+    lastMonth = "lastMonth",
+    sixMonth = "sixMonth",
+    oneYear = "oneYear",
+    threeYears = "threeYears",
+    inception = "inception",
   }
 
   interface ISavingPerRange {
-    __typename: 'SavingPerRange';
-    from: string | null;
-    to: string | null;
-    range: Range | null;
-    amount: number | null;
-    months: number | null;
-    amountPerMonth: number | null;
+    __typename: "SavingPerRange";
+    from: string;
+    to: string;
+    range: Range;
+    amount: number;
+    months: number;
+    amountPerMonth: number;
   }
 
   interface ITransactionWithBalance {
-    __typename: 'TransactionWithBalance';
-    id: string | null;
-    amount: number | null;
-    date: string | null;
-    description: string | null;
-    categorisedDate: string | null;
-    account: IAccount | null;
-    category: ICategory | null;
-    import: IImport | null;
-    categoryClue: ICategoryClue | null;
+    __typename: "TransactionWithBalance";
+    id: string;
+    amount: number;
+    date: string;
+    description: string;
+    categorisedDate: string;
+    account: IAccount;
+    category: ICategory;
+    import: IImport;
+    categoryClue: ICategoryClue;
+  }
+
+  interface ISummaries {
+    __typename: "Summaries";
+    summaries: Array<IAccountSummary>;
+    total: number;
   }
 
   interface IExchangeRate {
-    __typename: 'ExchangeRate';
-    date: string | null;
-    rate: number | null;
-    currency: ICurrency | null;
+    __typename: "ExchangeRate";
+    date: string;
+    rate: number;
+    currency: ICurrency;
   }
 }
 

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import SavingBox from "../components/SavingBox";
 import SavingsPerYear from "./SavingsPerYear";
 import SavingsPerRangeFetcher from "../fetchers/SavingsPerRangeFetcher";
+import AccountSummariesFetcher from "../fetchers/AccountSummariesFetcher";
+import Accounts from "./Accounts";
 
 class App extends Component {
   public render() {
@@ -10,14 +12,15 @@ class App extends Component {
       <div>
         <SavingsPerRangeFetcher>
           {data => (
-            <>
-              <Savings>
-                {data.map((s, i) => <SavingBox key={i} saving={s} />)}
-              </Savings>
-              <SavingsPerYear />
-            </>
+            <Savings>
+              {data.map((s, i) => <SavingBox key={i} saving={s} />)}
+            </Savings>
           )}
         </SavingsPerRangeFetcher>
+        <SavingsPerYear />
+        <AccountSummariesFetcher>
+          {data => <Accounts summary={data.summaries} total={data.total} />}
+        </AccountSummariesFetcher>
       </div>
     );
   }

@@ -14,6 +14,7 @@ const typeDefs = gql`
   type Query {
     accountById(id: ID): Account
     allAccounts: [Account]
+    summaries(currency: String): Summaries
     savingsPerYear(currency: String): [SavingPerYear]
     savingsPerRange(currency: String, range: Range): SavingPerRange
     savingsAllRanges(currency: String): [SavingPerRange]
@@ -38,6 +39,21 @@ const typeDefs = gql`
     transactions: [Transaction]
     currency: Currency
     owner: User
+  }
+
+  type AccountSummary {
+    id: ID
+    name: String
+    currency: String
+    balance: Float
+    balanceInCurrency: Float
+    rateToUsd: Float
+    rateToCurrency: Float
+  }
+
+  type Summaries {
+    summaries: [AccountSummary]
+    total: Float
   }
 
   type Transaction {
