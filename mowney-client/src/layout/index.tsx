@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-// import ls from "local-storage";
 import Header from "./header";
 import Home from "../home";
 import Account from "../account";
 import Login from "./login";
 import UserFetcher from "../fetchers/UserFetcher";
-// import { login } from "./api";
 
 const Page = styled.div``;
 
