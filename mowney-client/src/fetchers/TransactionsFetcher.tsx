@@ -2,12 +2,14 @@ import gql from "graphql-tag";
 import build from "./build";
 
 const QUERY = gql`
-  query Transactions($accountId: ID!, $offset: Float!, $limit: Float!) {
+  query Transactions($accountId: ID!, $offset: Int!, $limit: Int!) {
     transactions(accountId: $accountId, offset: $offset, limit: $limit) {
       id
       date
       description
-      category
+      category {
+        name
+      }
       amount
       balance
     }

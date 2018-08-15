@@ -12,8 +12,8 @@ select * from (
   from  
 
   (
-    select t1.id, t1.amount, t1.date, t1.description, t1.accountId, t1.importId, t1.categoryClueId, 
-      c.id as 'categoryId', c.name as 'categoryName'
+    select t1.id, t1.amount, t1.date, t1.description, t1.accountId as 'account', t1.importId as 'import', t1.categoryClueId as 'categoryClue', 
+      c.id as 'category'
     from Transactions t1
       left join Categories c on t1.categoryId = c.id
     join Accounts a1 on a1.id = t1.accountId and a1.ownerId = :ownerId
@@ -25,7 +25,7 @@ select * from (
 
 
 
-  where t.accountId = :accountId
+  where t.account = :accountId
   order by t.date desc, t.id desc
 ) as innerTable
 `;

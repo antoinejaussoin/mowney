@@ -1,4 +1,4 @@
-import { Account, Currency, Transaction, User } from "./models";
+import { Account, Currency, Transaction, User, Category } from "./models";
 import savingsPerYear from "./queries/savings-per-year";
 import savings, { Range } from "./queries/savings";
 import transactions from "./queries/transactions";
@@ -62,6 +62,11 @@ const resolvers: IResolvers<any, Context> = {
           accountId: account.id,
         },
       });
+    },
+  },
+  TransactionWithBalance: {
+    async category(transaction) {
+      return Category.findById(transaction.category);
     },
   },
   // Author: {
