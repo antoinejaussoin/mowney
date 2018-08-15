@@ -6,6 +6,7 @@ import summaries from "./queries/summaries";
 import { IResolvers } from "graphql-tools";
 import { Context } from "./schema";
 // import { QueryResolver, Query} from '../types';
+import { GraphQLUpload } from "apollo-server";
 
 const resolvers: IResolvers<any, Context> = {
   Query: {
@@ -22,7 +23,12 @@ const resolvers: IResolvers<any, Context> = {
     },
     async transactions(root, args) {
       const user = await User.findById(200);
-      const results = await transactions(user, args.accountId, args.limit);
+      const results = await transactions(
+        user,
+        args.accountId,
+        args.offset,
+        args.limit,
+      );
       return results;
     },
     async savingsPerRange(root, args) {

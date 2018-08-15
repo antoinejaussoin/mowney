@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ls from "local-storage";
 import Header from "./header";
 import Home from "../home";
+import Account from "../account";
 import Login from "./login";
 import { reAuthenticate, login } from "./api";
 
@@ -70,6 +71,7 @@ class App extends Component<IAppProps, IAppState> {
         <Main>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/account/:accountId" exact component={Account} />
           </Switch>
         </Main>
         <Footer />

@@ -5,7 +5,7 @@ type Query {
   savingsPerYear(currency: String): [SavingPerYear]
   savingsPerRange(currency: String, range: Range): SavingPerRange
   savingsAllRanges(currency: String): [SavingPerRange]
-  transactions(accountId: ID, limit: Int): [TransactionWithBalance]
+  transactions(accountId: ID, offset: Int, limit: Int): [TransactionWithBalance]
 }
 
 enum Range {
@@ -128,4 +128,5 @@ type TransactionWithBalance {
   category: Category
   import: Import
   categoryClue: CategoryClue
+  balance: Float
 }

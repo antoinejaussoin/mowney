@@ -1,6 +1,6 @@
 import React, { SFC } from "react";
 import numeral from "numeral";
-// import { Link } from 'react-router';
+import { Link } from "react-router-dom";
 
 const format = "0,0.00";
 
@@ -42,8 +42,9 @@ interface ILineProps {
 
 const Line: SFC<ILineProps> = ({ line, isEven }) => (
   <tr>
-    {/* <td><Link to={`/accounts/${line.id}`}>{ line.name }</Link></td> */}
-    <td>{line.name}</td>
+    <td>
+      <Link to={`/account/${line.id}`}>{line.name}</Link>
+    </td>
     <td>{line.currency}</td>
     <td>{numeral(line.balance).format(format)}</td>
     <td>{numeral(line.balanceInCurrency).format(format)}</td>

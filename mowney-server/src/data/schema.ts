@@ -4,11 +4,17 @@ import resolvers from "./resolvers";
 import { GraphQLSchema } from "graphql";
 import gql from "graphql-tag";
 
-import {
-  graphql,
-  GraphQLObjectType,
-  // GraphQLSchema,
-} from "graphql";
+// import {
+//   graphql,
+//   GraphQLObjectType,
+//   // GraphQLSchema,
+// } from "graphql";
+const {
+  // ApolloServer,
+  // makeExecutableSchema,
+  // gql,
+  // GraphQLUpload,
+} = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
@@ -18,7 +24,11 @@ const typeDefs = gql`
     savingsPerYear(currency: String): [SavingPerYear]
     savingsPerRange(currency: String, range: Range): SavingPerRange
     savingsAllRanges(currency: String): [SavingPerRange]
-    transactions(accountId: ID, limit: Int): [TransactionWithBalance]
+    transactions(
+      accountId: ID
+      offset: Int
+      limit: Int
+    ): [TransactionWithBalance]
   }
 
   enum Range {
@@ -141,6 +151,7 @@ const typeDefs = gql`
     category: Category
     import: Import
     categoryClue: CategoryClue
+    balance: Float
   }
 `;
 

@@ -24,7 +24,7 @@ declare namespace GQL {
     __typename: "Query";
     accountById: IAccount;
     allAccounts: Array<IAccount>;
-    summaries: Array<IAccountSummary>;
+    summaries: ISummaries;
     savingsPerYear: Array<ISavingPerYear>;
     savingsPerRange: ISavingPerRange;
     savingsAllRanges: Array<ISavingPerRange>;
@@ -54,6 +54,7 @@ declare namespace GQL {
 
   interface ITransactionsOnQueryArguments {
     accountId?: string;
+    offset?: number;
     limit?: number;
   }
 
@@ -130,6 +131,12 @@ declare namespace GQL {
     format: string;
   }
 
+  interface ISummaries {
+    __typename: "Summaries";
+    summaries: Array<IAccountSummary>;
+    total: number;
+  }
+
   interface IAccountSummary {
     __typename: "AccountSummary";
     id: string;
@@ -177,12 +184,7 @@ declare namespace GQL {
     category: ICategory;
     import: IImport;
     categoryClue: ICategoryClue;
-  }
-
-  interface ISummaries {
-    __typename: "Summaries";
-    summaries: IAccountSummary[];
-    total: number;
+    balance: number;
   }
 
   interface IExchangeRate {
