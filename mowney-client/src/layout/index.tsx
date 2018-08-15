@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import ls from "local-storage";
+// import ls from "local-storage";
 import Header from "./header";
 import Home from "../home";
 import Account from "../account";
 import Login from "./login";
-import { reAuthenticate, login } from "./api";
+import UserFetcher from "../fetchers/UserFetcher";
+// import { login } from "./api";
 
 const Page = styled.div``;
 
@@ -30,49 +31,34 @@ class App extends Component<IAppProps, IAppState> {
     user: null,
     token: null,
   };
-  public async componentDidMount() {
-    const token = ls.get("token");
-    if (token) {
-      try {
-        const user = await reAuthenticate(token);
-        console.log("User: ", user);
-        this.setState({
-          user,
-          token,
-        });
-      } catch (err) {
-        console.error("Login error", err);
-        ls.remove("token");
-      }
-    }
-  }
-
-  public login = async (email: string, password: string) => {
-    try {
-      const result = await login(email, password);
-      console.log("result", result);
-      this.setState({
-        user: result.user,
-        token: result.token,
-      });
-      ls.set("token", result.token);
-    } catch (err) {
-      console.error("Error while login: ", err);
-    }
-  };
 
   public render() {
-    if (!this.state.user) {
-      return <Login onLogin={this.login} />;
-    }
     return (
       <Page>
         <Header />
         <Main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/account/:accountId" exact component={Account} />
-          </Switch>
+          <UserFetcher>
+            {data => {
+              if (!data.loading) {
+                if (data.error) {
+                  return <Login />;
+                } else if (data.data && data.data.me) {
+                  return (
+                    <Switch>
+                      <Route path="/login" exact component={() => <Login />} />
+                      <Route path="/" exact component={Home} />
+                      <Route
+                        path="/account/:accountId"
+                        exact
+                        component={Account}
+                      />
+                    </Switch>
+                  );
+                }
+              }
+              return "Loading...";
+            }}
+          </UserFetcher>
         </Main>
         <Footer />
       </Page>

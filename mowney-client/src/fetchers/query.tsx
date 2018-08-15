@@ -2,7 +2,11 @@ import React, { SFC } from "react";
 import { omit } from "lodash";
 import { Query } from "react-apollo";
 
-function build<TParameters, TResponse, TData>(query: any, accessor: string) {
+function build<TParameters, TResponse, TData>(
+  query: any,
+  accessor: string,
+  loader?: React.ReactNode,
+) {
   class GraphQLQuery extends Query<TResponse, {}> {}
   interface IFetcherProps {
     children: (result: TData) => React.ReactNode;
@@ -11,9 +15,9 @@ function build<TParameters, TResponse, TData>(query: any, accessor: string) {
     <GraphQLQuery query={query} variables={omit(props, "children")}>
       {({ data, loading }) => {
         if (loading) {
-          return "Loading...";
+          return loader || "Loading...";
         }
-        console.log("data: ", data);
+        // console.log("data: ", data);
         return props.children(data![accessor]);
       }}
     </GraphQLQuery>

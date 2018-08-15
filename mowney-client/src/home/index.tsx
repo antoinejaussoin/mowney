@@ -11,19 +11,21 @@ class App extends Component {
   public render() {
     return (
       <div>
-        <SavingsPerRangeFetcher currency="USD">
+        <SavingsPerRangeFetcher currency="GBP">
           {data => (
             <Savings>
-              {data.map((s, i) => <SavingBox key={i} saving={s} />)}
+              {data.map((s, i) => (
+                <SavingBox key={i} saving={s} />
+              ))}
             </Savings>
           )}
         </SavingsPerRangeFetcher>
 
-        <SavingsPerYearFetcher currency="USD">
+        <SavingsPerYearFetcher currency="GBP">
           {data => <SavingsPerYear savings={data} />}
         </SavingsPerYearFetcher>
 
-        <AccountSummariesFetcher currency="USD">
+        <AccountSummariesFetcher currency="GBP">
           {data => <Accounts summary={data.summaries} total={data.total} />}
         </AccountSummariesFetcher>
       </div>

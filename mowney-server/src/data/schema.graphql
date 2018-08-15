@@ -1,4 +1,5 @@
 type Query {
+  me: User
   accountById(id: ID): Account
   allAccounts: [Account]
   summaries(currency: String): Summaries
@@ -6,6 +7,10 @@ type Query {
   savingsPerRange(currency: String, range: Range): SavingPerRange
   savingsAllRanges(currency: String): [SavingPerRange]
   transactions(accountId: ID, offset: Int, limit: Int): [TransactionWithBalance]
+}
+
+type Mutation {
+  login(email: String!, password: String!): String
 }
 
 enum Range {
@@ -56,6 +61,7 @@ type Transaction {
 }
 
 type User {
+  id: ID
   firstName: String
   lastName: String
   email: String

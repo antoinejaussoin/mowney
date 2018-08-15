@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import build from "./build";
+import build from "./query";
 
 const QUERY = gql`
   query Savings($currency: String!) {

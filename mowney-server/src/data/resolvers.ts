@@ -1,28 +1,45 @@
 import { Account, Currency, Transaction, User, Category } from "./models";
+import { verifyPassword } from "../data/models/user";
 import savingsPerYear from "./queries/savings-per-year";
 import savings, { Range } from "./queries/savings";
 import transactions from "./queries/transactions";
 import summaries from "./queries/summaries";
 import { IResolvers } from "graphql-tools";
 import { Context } from "./schema";
-// import { QueryResolver, Query} from '../types';
-import { GraphQLUpload } from "apollo-server";
+import { pick } from "lodash";
+import * as jwt from "jsonwebtoken";
+
+const tokenSecret = "todo";
 
 const resolvers: IResolvers<any, Context> = {
   Query: {
-    async accountById(root, args) {
-      return Account.findById(args.id);
+    async me(root, args, { user }) {
+      if (!user) {
+        throw new Error("Not logged in");
+      }
+      return user;
     },
-    async allAccounts(root, args) {
-      return Account.findAll();
+    async accountById(root, args, { user }) {
+      const account = await Account.findById(args.id, {
+        include: [{ model: User, as: "owner" }],
+      });
+      if (account.owner.id !== user.id) {
+        throw new Error("Unauthorized");
+      }
+      return account;
     },
-    async savingsPerYear(root, args) {
-      const user = await User.findById(200);
+    async allAccounts(root, args, { user }) {
+      return Account.find({
+        where: {
+          userId: user.id,
+        },
+      });
+    },
+    async savingsPerYear(root, args, { user }) {
       const results = await savingsPerYear(user, args.currency);
       return results;
     },
-    async transactions(root, args) {
-      const user = await User.findById(200);
+    async transactions(root, args, { user }) {
       const results = await transactions(
         user,
         args.accountId,
@@ -31,13 +48,11 @@ const resolvers: IResolvers<any, Context> = {
       );
       return results;
     },
-    async savingsPerRange(root, args) {
-      const user = await User.findById(200);
+    async savingsPerRange(root, args, { user }) {
       const results = await savings(user, args.currency, args.range);
       return results;
     },
-    async savingsAllRanges(root, args) {
-      const user = await User.findById(200);
+    async savingsAllRanges(root, args, { user }) {
       return Promise.all([
         savings(user, args.currency, Range.currentMonth),
         savings(user, args.currency, Range.lastMonth),
@@ -50,6 +65,30 @@ const resolvers: IResolvers<any, Context> = {
     async summaries(root, args) {
       const user = await User.findById(200);
       return await summaries(user, args.currency);
+    },
+  },
+  Mutation: {
+    async login(_, { email, password }) {
+      const dbUser = await User.findOne({ where: { email } });
+
+      if (!dbUser) {
+        throw new Error("No user with that email");
+      }
+
+      const isValid = await verifyPassword(dbUser, password);
+      if (!isValid) {
+        throw new Error("User or password incorrect");
+      }
+
+      const user = pick(dbUser, [
+        "firstName",
+        "lastName",
+        "email",
+        "isAdmin",
+        "id",
+      ]);
+
+      return jwt.sign(user, tokenSecret, { expiresIn: "1y" });
     },
   },
   Account: {
@@ -69,19 +108,6 @@ const resolvers: IResolvers<any, Context> = {
       return Category.findById(transaction.category);
     },
   },
-  // Author: {
-  //   posts(author) {
-  //     return [
-  //       { id: 1, title: 'A post', text: 'Some text', views: 2 },
-  //       { id: 2, title: 'Another post', text: 'Some other text', views: 200 }
-  //     ];
-  //   }
-  // },
-  // Post: {
-  //   author(post) {
-  //     return { id: 1, firstName: 'Hello', lastName: 'World' };
-  //   }
-  // }
 };
 
 export default resolvers;

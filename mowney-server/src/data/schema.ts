@@ -1,23 +1,12 @@
 import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
-// import mocks from './mocks';
 import resolvers from "./resolvers";
 import { GraphQLSchema } from "graphql";
 import gql from "graphql-tag";
-
-// import {
-//   graphql,
-//   GraphQLObjectType,
-//   // GraphQLSchema,
-// } from "graphql";
-const {
-  // ApolloServer,
-  // makeExecutableSchema,
-  // gql,
-  // GraphQLUpload,
-} = require("apollo-server");
+import { IUser } from "./models/user";
 
 const typeDefs = gql`
   type Query {
+    me: User
     accountById(id: ID): Account
     allAccounts: [Account]
     summaries(currency: String): Summaries
@@ -29,6 +18,10 @@ const typeDefs = gql`
       offset: Int
       limit: Int
     ): [TransactionWithBalance]
+  }
+
+  type Mutation {
+    login(email: String!, password: String!): String
   }
 
   enum Range {
@@ -79,6 +72,7 @@ const typeDefs = gql`
   }
 
   type User {
+    id: ID
     firstName: String
     lastName: String
     email: String
@@ -156,7 +150,7 @@ const typeDefs = gql`
 `;
 
 export interface Context {
-  foo: string;
+  user: IUser;
 }
 
 const schema: GraphQLSchema = makeExecutableSchema<Context>({
