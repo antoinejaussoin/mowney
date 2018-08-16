@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { withRouter, RouteComponentProps } from "react-router";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Search from "@material-ui/icons/Search";
 import Transactions from "./Transactions";
 import TransactionsFetcher from "../fetchers/TransactionsFetcher";
 
 interface IAccountState {
   page: number;
   rowsPerPage: number;
+  search: string;
 }
 
 interface IRouteProps {
@@ -19,9 +23,10 @@ class Account extends Component<
   public state: IAccountState = {
     page: 0,
     rowsPerPage: 30,
+    search: "",
   };
   public render() {
-    const { page, rowsPerPage } = this.state;
+    const { page, rowsPerPage, search } = this.state;
     const {
       match: {
         params: { accountId },
@@ -29,10 +34,23 @@ class Account extends Component<
     } = this.props;
     return (
       <div>
+        <TextField
+          label="Search"
+          onChange={e => this.setState({ search: e.target.value })}
+          value={search}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
         <TransactionsFetcher
           accountId={accountId}
           limit={rowsPerPage}
           offset={page * rowsPerPage}
+          search={search}
         >
           {transactions => (
             <Transactions

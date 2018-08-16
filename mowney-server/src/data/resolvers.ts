@@ -40,7 +40,13 @@ const resolvers: IResolvers<any, Context> = {
       return results;
     },
     async transactions(root, args, { user }) {
-      return await transactions(user, args.accountId, args.offset, args.limit);
+      return await transactions(
+        user,
+        args.accountId,
+        args.search,
+        args.offset,
+        args.limit,
+      );
     },
     async savingsPerRange(root, args, { user }) {
       const results = await savings(user, args.currency, args.range);

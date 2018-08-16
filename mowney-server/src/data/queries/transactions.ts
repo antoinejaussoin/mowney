@@ -28,12 +28,13 @@ select * from (
   where t.account = :accountId
   order by t.date desc, t.id desc
 ) as innerTable
+where description like :search
 `;
 
 const countQuery = `
 select count(*) as 'count' from Transactions t
 join Accounts a on a.id = t.accountId and a.ownerId = :ownerId
-where t.accountId = :accountId
+where t.accountId = :accountId and t.description like :search
 `;
 
 export interface TransactionWithBalance extends ITransactions {
@@ -43,19 +44,19 @@ export interface TransactionWithBalance extends ITransactions {
 export default async (
   user: IUser,
   accountId: number,
+  search: string = "",
   offset: number = 0,
   limit: number = 0,
 ) => {
-  const count = await execute<[{ count: number }]>(countQuery, {
+  const params = {
     accountId,
     ownerId: user.id,
-  });
+    search: "%" + search + "%",
+  };
+  const count = await execute<[{ count: number }]>(countQuery, params);
   const transactions = await execute<TransactionWithBalance[]>(
     query,
-    {
-      accountId,
-      ownerId: user.id,
-    },
+    params,
     query => {
       const limitClause = limit > 0 ? ` LIMIT ${limit}` : "";
       const offsetClause = offset > 0 ? ` OFFSET ${offset}` : "";

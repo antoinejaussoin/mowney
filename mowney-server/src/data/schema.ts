@@ -13,7 +13,12 @@ const typeDefs = gql`
     savingsPerYear(currency: String!): [SavingPerYear!]!
     savingsPerRange(currency: String!, range: Range): SavingPerRange!
     savingsAllRanges(currency: String!): [SavingPerRange!]!
-    transactions(accountId: ID!, offset: Int!, limit: Int!): Transactions!
+    transactions(
+      accountId: ID!
+      search: String
+      offset: Int!
+      limit: Int!
+    ): Transactions!
   }
 
   type Mutation {
