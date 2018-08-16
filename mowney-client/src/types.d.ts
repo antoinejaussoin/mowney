@@ -3,7 +3,7 @@
 
 declare namespace GQL {
   interface IGraphQLResponseRoot {
-    data?: IQuery;
+    data?: IQuery | IMutation;
     errors?: Array<IGraphQLResponseError>;
   }
 
@@ -22,6 +22,7 @@ declare namespace GQL {
 
   interface IQuery {
     __typename: "Query";
+    me: IUser;
     accountById: IAccount;
     allAccounts: Array<IAccount>;
     summaries: ISummaries;
@@ -32,30 +33,50 @@ declare namespace GQL {
   }
 
   interface IAccountByIdOnQueryArguments {
-    id?: string;
+    id: string;
   }
 
   interface ISummariesOnQueryArguments {
-    currency?: string;
+    currency: string;
   }
 
   interface ISavingsPerYearOnQueryArguments {
-    currency?: string;
+    currency: string;
   }
 
   interface ISavingsPerRangeOnQueryArguments {
-    currency?: string;
-    range?: Range;
+    currency: string;
+    range?: Range | null;
   }
 
   interface ISavingsAllRangesOnQueryArguments {
-    currency?: string;
+    currency: string;
   }
 
   interface ITransactionsOnQueryArguments {
-    accountId?: string;
-    offset?: number;
-    limit?: number;
+    accountId: string;
+    offset: number;
+    limit: number;
+  }
+
+  interface IUser {
+    __typename: "User";
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isAdministrator: boolean;
+    currency: ICurrency;
+  }
+
+  interface ICurrency {
+    __typename: "Currency";
+    isoCode: string;
+    name: string;
+    isMain: boolean;
+    symbol: string;
+    format: string;
   }
 
   interface IAccount {
@@ -76,18 +97,18 @@ declare namespace GQL {
     amount: number;
     date: string;
     description: string;
-    categorisedDate: string;
+    categorisedDate: string | null;
     account: IAccount;
-    category: ICategory;
-    import: IImport;
-    categoryClue: ICategoryClue;
+    category: ICategory | null;
+    import: IImport | null;
+    categoryClue: ICategoryClue | null;
   }
 
   interface ICategory {
     __typename: "Category";
     name: string;
     description: string;
-    parent: ICategory;
+    parent: ICategory | null;
     children: Array<ICategory>;
   }
 
@@ -105,30 +126,11 @@ declare namespace GQL {
     mustBeDebit: boolean;
     validFrom: string;
     validTo: string;
-    exactString: string;
-    regex: string;
+    exactString: string | null;
+    regex: string | null;
     category: ICategory;
     user: IUser;
-    restrictToAccount: IAccount;
-  }
-
-  interface IUser {
-    __typename: "User";
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    isAdministrator: boolean;
-    currency: ICurrency;
-  }
-
-  interface ICurrency {
-    __typename: "Currency";
-    isoCode: string;
-    name: string;
-    isMain: boolean;
-    symbol: string;
-    format: string;
+    restrictToAccount: IAccount | null;
   }
 
   interface ISummaries {
@@ -144,8 +146,8 @@ declare namespace GQL {
     currency: string;
     balance: number;
     balanceInCurrency: number;
-    rateToUsd: number;
-    rateToCurrency: number;
+    rateToUsd: number | null;
+    rateToCurrency: number | null;
   }
 
   interface ISavingPerYear {
@@ -168,9 +170,9 @@ declare namespace GQL {
     from: string;
     to: string;
     range: Range;
-    amount: number;
+    amount: number | null;
     months: number;
-    amountPerMonth: number;
+    amountPerMonth: number | null;
   }
 
   interface ITransactionWithBalance {
@@ -179,12 +181,22 @@ declare namespace GQL {
     amount: number;
     date: string;
     description: string;
-    categorisedDate: string;
+    categorisedDate: string | null;
     account: IAccount;
-    category: ICategory;
-    import: IImport;
-    categoryClue: ICategoryClue;
+    category: ICategory | null;
+    import: IImport | null;
+    categoryClue: ICategoryClue | null;
     balance: number;
+  }
+
+  interface IMutation {
+    __typename: "Mutation";
+    login: string;
+  }
+
+  interface ILoginOnMutationArguments {
+    email: string;
+    password: string;
   }
 
   interface IExchangeRate {
@@ -192,6 +204,12 @@ declare namespace GQL {
     date: string;
     rate: number;
     currency: ICurrency;
+  }
+
+  interface ITransactions {
+    __typename: "Transactions";
+    count: number;
+    transactions: Array<ITransactionWithBalance>;
   }
 }
 
