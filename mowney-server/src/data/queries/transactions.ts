@@ -30,17 +30,27 @@ select * from (
 ) as innerTable
 `;
 
+const countQuery = `
+select count(*) as 'count' from Transactions t
+join Accounts a on a.id = t.accountId and a.ownerId = :ownerId
+where t.accountId = :accountId
+`;
+
 export interface TransactionWithBalance extends ITransactions {
   balance: number;
 }
 
-export default (
+export default async (
   user: IUser,
   accountId: number,
   offset: number = 0,
   limit: number = 0,
 ) => {
-  return execute<TransactionWithBalance[]>(
+  const count = await execute<[{ count: number }]>(countQuery, {
+    accountId,
+    ownerId: user.id,
+  });
+  const transactions = await execute<TransactionWithBalance[]>(
     query,
     {
       accountId,
@@ -52,4 +62,8 @@ export default (
       return query + limitClause + offsetClause;
     },
   );
+  return {
+    count: count[0].count,
+    transactions,
+  };
 };

@@ -29,7 +29,7 @@ declare namespace GQL {
     savingsPerYear: Array<ISavingPerYear>;
     savingsPerRange: ISavingPerRange;
     savingsAllRanges: Array<ISavingPerRange>;
-    transactions: Array<ITransactionWithBalance>;
+    transactions: ITransactions;
   }
 
   interface IAccountByIdOnQueryArguments {
@@ -175,6 +175,12 @@ declare namespace GQL {
     amountPerMonth: number | null;
   }
 
+  interface ITransactions {
+    __typename: "Transactions";
+    count: number;
+    transactions: Array<ITransactionWithBalance>;
+  }
+
   interface ITransactionWithBalance {
     __typename: "TransactionWithBalance";
     id: string;
@@ -204,12 +210,6 @@ declare namespace GQL {
     date: string;
     rate: number;
     currency: ICurrency;
-  }
-
-  interface ITransactions {
-    __typename: "Transactions";
-    count: number;
-    transactions: Array<ITransactionWithBalance>;
   }
 }
 

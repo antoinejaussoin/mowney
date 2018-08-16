@@ -4,14 +4,17 @@ import build from "./query";
 const QUERY = gql`
   query Transactions($accountId: ID!, $offset: Int!, $limit: Int!) {
     transactions(accountId: $accountId, offset: $offset, limit: $limit) {
-      id
-      date
-      description
-      category {
-        name
+      count
+      transactions {
+        id
+        date
+        description
+        category {
+          name
+        }
+        amount
+        balance
       }
-      amount
-      balance
     }
   }
 `;
@@ -23,7 +26,7 @@ export default build<
     limit: number;
   },
   {
-    transactions: [GQL.ITransactionWithBalance];
+    transactions: GQL.ITransactions;
   },
-  [GQL.ITransactionWithBalance]
+  GQL.ITransactions
 >(QUERY, "transactions");

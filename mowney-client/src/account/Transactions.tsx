@@ -10,6 +10,8 @@ import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 interface ITransactionTableProps {
   transactions: GQL.ITransactionWithBalance[];
@@ -20,6 +22,7 @@ const TransactionTable: SFC<
 > = ({
   transactions,
   onChangePage,
+  onChangeRowsPerPage,
   onPrevious,
   onNext,
   onFirst,
@@ -48,10 +51,8 @@ const TransactionTable: SFC<
                 <TableCell component="th" scope="row">
                   {t.date}
                 </TableCell>
-                <TableCell numeric>{t.description}</TableCell>
-                <TableCell numeric>
-                  {t.category ? t.category!.name : ""}
-                </TableCell>
+                <TableCell>{t.description}</TableCell>
+                <TableCell>{t.category ? t.category!.name : ""}</TableCell>
                 <TableCell numeric>
                   {t.amount && t.amount < 0 ? -t.amount : ""}
                 </TableCell>
@@ -63,16 +64,19 @@ const TransactionTable: SFC<
             );
           })}
           <TableRow>
-            <TablePaginationActions
-              onChangePage={onChangePage}
-              onFirst={onFirst}
-              onLast={onLast}
-              onPrevious={onPrevious}
-              onNext={onNext}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              count={count}
-            />
+            <TableCell colSpan={3}>
+              <TablePaginationActions
+                onChangePage={onChangePage}
+                onChangeRowsPerPage={onChangeRowsPerPage}
+                onFirst={onFirst}
+                onLast={onLast}
+                onPrevious={onPrevious}
+                onNext={onNext}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                count={count}
+              />
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -82,6 +86,7 @@ const TransactionTable: SFC<
 
 interface ITablePaginationActionsProps {
   onChangePage: (page: number) => void;
+  onChangeRowsPerPage: (rowsPerPage: number) => void;
   onPrevious: () => void;
   onNext: () => void;
   onFirst: () => void;
@@ -95,10 +100,33 @@ class TablePaginationActions extends React.Component<
   ITablePaginationActionsProps
 > {
   public render() {
-    const { count, page, rowsPerPage } = this.props;
+    const {
+      count,
+      page,
+      rowsPerPage,
+      onChangePage,
+      onChangeRowsPerPage,
+    } = this.props;
+    const numberOfPages = Math.ceil(count / rowsPerPage) - 1;
 
     return (
-      <div>
+      <>
+        <span style={{ marginRight: 20 }}>
+          Page {page + 1} of {numberOfPages + 1}
+        </span>
+        <Select
+          value={rowsPerPage}
+          onChange={value => {
+            onChangePage(0);
+            onChangeRowsPerPage(+value.target.value);
+          }}
+        >
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={30}>30</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+          <MenuItem value={99999999}>All</MenuItem>
+        </Select>
         <IconButton
           onClick={this.handleFirstPageButtonClick}
           disabled={page === 0}
@@ -115,19 +143,19 @@ class TablePaginationActions extends React.Component<
         </IconButton>
         <IconButton
           onClick={this.handleNextButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          disabled={page >= numberOfPages}
           aria-label="Next Page"
         >
           <KeyboardArrowRight />
         </IconButton>
         <IconButton
           onClick={this.handleLastPageButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          disabled={page >= numberOfPages}
           aria-label="Last Page"
         >
           <LastPageIcon />
         </IconButton>
-      </div>
+      </>
     );
   }
 

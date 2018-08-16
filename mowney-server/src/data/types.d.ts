@@ -29,7 +29,7 @@ summaries: ISummaries;
 savingsPerYear: Array<ISavingPerYear>;
 savingsPerRange: ISavingPerRange;
 savingsAllRanges: Array<ISavingPerRange>;
-transactions: Array<ITransactionWithBalance>;
+transactions: ITransactions;
 }
 
 interface IAccountByIdOnQueryArguments {
@@ -175,6 +175,12 @@ months: number;
 amountPerMonth: number | null;
 }
 
+interface ITransactions {
+__typename: "Transactions";
+count: number;
+transactions: Array<ITransactionWithBalance>;
+}
+
 interface ITransactionWithBalance {
 __typename: "TransactionWithBalance";
 id: string;
@@ -204,12 +210,6 @@ __typename: "ExchangeRate";
 date: string;
 rate: number;
 currency: ICurrency;
-}
-
-interface ITransactions {
-__typename: "Transactions";
-count: number;
-transactions: Array<ITransactionWithBalance>;
 }
 }
 

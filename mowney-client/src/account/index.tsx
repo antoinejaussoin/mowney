@@ -18,7 +18,7 @@ class Account extends Component<
 > {
   public state: IAccountState = {
     page: 0,
-    rowsPerPage: 25,
+    rowsPerPage: 30,
   };
   public render() {
     const { page, rowsPerPage } = this.state;
@@ -36,15 +36,16 @@ class Account extends Component<
         >
           {transactions => (
             <Transactions
-              transactions={transactions}
+              transactions={transactions.transactions}
               page={page}
               rowsPerPage={rowsPerPage}
               onChangePage={p => this.setState({ page: p })}
+              onChangeRowsPerPage={p => this.setState({ rowsPerPage: p })}
               onFirst={() => this.setState({ page: 0 })}
               onLast={() => this.setState({ page: 0 })}
               onNext={() => this.setState({ page: page + 1 })}
               onPrevious={() => this.setState({ page: page - 1 })}
-              count={10000}
+              count={transactions.count}
             />
           )}
         </TransactionsFetcher>
