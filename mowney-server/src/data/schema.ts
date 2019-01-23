@@ -13,6 +13,7 @@ const typeDefs = gql`
     savingsPerYear(currency: String): [SavingPerYear]
     savingsPerRange(currency: String, range: Range): SavingPerRange
     savingsAllRanges(currency: String): [SavingPerRange]
+    primarySavingsAllRanges(currency: String): [SavingPerRange]
     transactions(
       accountId: ID
       offset: Int

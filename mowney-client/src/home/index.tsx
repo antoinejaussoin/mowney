@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SavingBox from "../components/SavingBox";
 import SavingsPerYear from "./SavingsPerYear";
 import SavingsPerRangeFetcher from "../fetchers/SavingsPerRangeFetcher";
+import PrimarySavingsPerRangeFetcher from "../fetchers/PrimarySavingsPerRangeFetcher";
 import AccountSummariesFetcher from "../fetchers/AccountSummariesFetcher";
 import SavingsPerYearFetcher from "../fetchers/SavingsPerYearFetcher";
 import Accounts from "./Accounts";
@@ -20,6 +21,16 @@ class App extends Component {
             </Savings>
           )}
         </SavingsPerRangeFetcher>
+
+        <PrimarySavingsPerRangeFetcher currency="GBP">
+          {data => (
+            <Savings>
+              {data.map((s, i) => (
+                <SavingBox key={i} saving={s} />
+              ))}
+            </Savings>
+          )}
+        </PrimarySavingsPerRangeFetcher>
 
         <SavingsPerYearFetcher currency="GBP">
           {data => <SavingsPerYear savings={data} />}
