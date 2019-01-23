@@ -9,7 +9,7 @@ interface IAccountState {
 }
 
 interface IRouteProps {
-  accountId: number;
+  accountId: string | undefined;
 }
 
 class Account extends Component<
@@ -30,7 +30,7 @@ class Account extends Component<
     return (
       <div>
         <TransactionsFetcher
-          accountId={accountId}
+          accountId={Number(accountId)}
           limit={rowsPerPage}
           offset={page * rowsPerPage}
         >

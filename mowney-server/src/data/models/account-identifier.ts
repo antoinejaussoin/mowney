@@ -7,13 +7,16 @@ export interface IAccountIdentifier {
 }
 
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const AccountIdentifier = sequelize.define<IAccountIdentifier, void>('AccountIdentifier', {
-    type: DataTypes.STRING,
-    value: DataTypes.STRING
-  });
+  const AccountIdentifier = sequelize.define<IAccountIdentifier, any>(
+    "AccountIdentifier",
+    {
+      type: DataTypes.STRING,
+      value: DataTypes.STRING,
+    },
+  );
 
-  AccountIdentifier.associate = function (models) {
-    AccountIdentifier.belongsTo(models.Account, { as: 'account' });
+  AccountIdentifier.associate = function(models) {
+    AccountIdentifier.belongsTo(models.Account, { as: "account" });
   };
 
   return AccountIdentifier;
