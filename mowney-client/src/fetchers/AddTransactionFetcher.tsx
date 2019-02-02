@@ -25,10 +25,6 @@ const QUERY = gql`
       amount
       date
       description
-      account {
-        id
-        name
-      }
     }
   }
 `;
