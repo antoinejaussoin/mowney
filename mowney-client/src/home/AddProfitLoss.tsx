@@ -6,6 +6,7 @@ import AddTransactionFetcher from "../fetchers/AddTransactionFetcher";
 
 interface IAddProfitLossProps {
   accountId: string;
+  onAdded: (transaction: GQL.ITransaction) => void;
 }
 
 interface IAddProfitLossState {
@@ -21,7 +22,7 @@ class AddProfitLoss extends React.Component<
   };
   public render() {
     const { amount } = this.state;
-    const { accountId } = this.props;
+    const { accountId, onAdded } = this.props;
     return (
       <AddTransactionFetcher>
         {addTransaction => (
@@ -42,9 +43,8 @@ class AddProfitLoss extends React.Component<
                   },
                 });
                 if (result && result.data && result.data.addTransaction) {
-                  const transaction = result.data.addTransaction;
-                  console.log("Created: ", transaction);
                   this.setState({ amount: null });
+                  onAdded(result.data.addTransaction);
                 }
               }}
             >

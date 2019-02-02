@@ -16,9 +16,10 @@ const format = "0,0.00";
 interface ITableProps {
   summary: GQL.IAccountSummary[];
   total: number;
+  onChange: () => void;
 }
 
-const AccountsTable: SFC<ITableProps> = ({ summary, total }) => (
+const AccountsTable: SFC<ITableProps> = ({ summary, total, onChange }) => (
   <>
     <Table>
       <TableHead>
@@ -42,7 +43,7 @@ const AccountsTable: SFC<ITableProps> = ({ summary, total }) => (
               {numeral(line.balanceInCurrency).format(format)}
             </TableCell>
             <TableCell>
-              <AddProfitLoss accountId={line.id} />
+              <AddProfitLoss accountId={line.id} onAdded={onChange} />
             </TableCell>
           </TableRow>
         ))}

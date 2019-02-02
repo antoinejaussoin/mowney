@@ -8,11 +8,19 @@ import AccountSummariesFetcher from "../fetchers/AccountSummariesFetcher";
 import SavingsPerYearFetcher from "../fetchers/SavingsPerYearFetcher";
 import Accounts from "./Accounts";
 
-class App extends Component {
+interface IHomeState {
+  version: number;
+}
+
+class HomePage extends Component<{}, IHomeState> {
+  public state: IHomeState = {
+    version: 1,
+  };
   public render() {
+    const { version } = this.state;
     return (
-      <div>
-        <SavingsPerRangeFetcher currency="GBP">
+      <div key={version}>
+        <SavingsPerRangeFetcher currency="GBP" key={version}>
           {data => (
             <Savings>
               {data.map((s, i) => (
@@ -22,7 +30,7 @@ class App extends Component {
           )}
         </SavingsPerRangeFetcher>
 
-        <PrimarySavingsPerRangeFetcher currency="GBP">
+        <PrimarySavingsPerRangeFetcher currency="GBP" key={version}>
           {data => (
             <Savings>
               {data.map((s, i) => (
@@ -32,12 +40,18 @@ class App extends Component {
           )}
         </PrimarySavingsPerRangeFetcher>
 
-        <SavingsPerYearFetcher currency="GBP">
+        <SavingsPerYearFetcher currency="GBP" key={version}>
           {data => <SavingsPerYear savings={data} />}
         </SavingsPerYearFetcher>
 
-        <AccountSummariesFetcher currency="GBP">
-          {data => <Accounts summary={data.summaries} total={data.total} />}
+        <AccountSummariesFetcher currency="GBP" key={version}>
+          {data => (
+            <Accounts
+              summary={data.summaries}
+              total={data.total}
+              onChange={() => this.setState({ version: version + 1 })}
+            />
+          )}
         </AccountSummariesFetcher>
       </div>
     );
@@ -50,4 +64,4 @@ const Savings = styled.div`
   justify-content: space-around;
 `;
 
-export default App;
+export default HomePage;

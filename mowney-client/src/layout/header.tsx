@@ -17,11 +17,6 @@ const styles = (theme: any) => ({
   },
 });
 
-const Title = styled(Typography)`
-  flex: 1;
-  cursor: pointer;
-`;
-
 export interface IHeaderProps
   extends RouteComponentProps<{}, {}>,
     WithStyles<"appBar"> {}
@@ -47,5 +42,10 @@ export class Header extends React.Component<IHeaderProps> {
     );
   }
 }
+
+const Title = styled(Typography)`
+  flex: 1;
+  cursor: pointer;
+`;
 
 export default withStyles(styles, { withTheme: true })(withRouter(Header));
