@@ -1,15 +1,17 @@
-import Sequelize, { DataTypes, SequelizeStatic } from 'sequelize';
-import config from '../../config';
+import Sequelize, { DataTypes, SequelizeStatic } from "sequelize";
+import config from "../../config";
 
-import AccountIdentifierModel, { IAccountIdentifier } from './account-identifier';
-import AccountModel, { IAccount } from './account';
-import CategoryClueModel, { ICategoryClue } from './category-clue';
-import CategoryModel, { ICategory } from './category';
-import CurrencyModel, { ICurrency } from './currency';
-import ExchangeRateModel, { IExchangeRate } from './exchange-rate';
-import ImportModel, { IImport } from './import';
-import TransactionModel, { ITransactions } from './transactions';
-import UserModel, { IUser } from './user';
+import AccountIdentifierModel, {
+  IAccountIdentifier,
+} from "./account-identifier";
+import AccountModel, { IAccount } from "./account";
+import CategoryClueModel, { ICategoryClue } from "./category-clue";
+import CategoryModel, { ICategory } from "./category";
+import CurrencyModel, { ICurrency } from "./currency";
+import ExchangeRateModel, { IExchangeRate } from "./exchange-rate";
+import ImportModel, { IImport } from "./import";
+import TransactionModel, { ITransactions } from "./transactions";
+import UserModel, { IUser } from "./user";
 
 // const Sequelize = require('sequelize');
 
@@ -24,7 +26,7 @@ import UserModel, { IUser } from './user';
 // console.log('Config: ', config);
 const db = new Sequelize(config.database, config.username, config.password, {
   ...config,
-  logging: console.log
+  logging: console.log,
 });
 
 // const db: Database = {
@@ -53,54 +55,53 @@ const models = {
   User,
 };
 
-
 // const Account: Sequelize.Model<IAccount, void> = AccountModel(db, Sequelize);
-
 
 // models.forEach(modelFactory => {
 //   const model = modelFactory(db, Sequelize);
 //   db[model.name] = model;
 // });
 
-Object.keys(models).forEach((modelName) => {
-  if ('associate' in models[modelName]) {
+Object.keys(models).forEach(modelName => {
+  if ("associate" in models[modelName]) {
     models[modelName].associate(models);
   }
 });
 
 //db.init = function () {
-  
-  // fs
-  //   .readdirSync(__dirname)
-  //   .filter((file) => (file.indexOf('.') !== 0) && (file !== 'index.js'))
-  //   .forEach((file) => {
-  //     const model = sequelize.import(path.join(__dirname, file));
-  //     db[model.name] = model;
-  //   });
 
-  // Object.keys(db).forEach((modelName) => {
-  //   if ('associate' in db[modelName]) {
-  //     db[modelName].associate(db);
-  //   }
-  // });
+// fs
+//   .readdirSync(__dirname)
+//   .filter((file) => (file.indexOf('.') !== 0) && (file !== 'index.js'))
+//   .forEach((file) => {
+//     const model = sequelize.import(path.join(__dirname, file));
+//     db[model.name] = model;
+//   });
 
-  // sequelize.query('SET sql_mode=""').then(res => {
-  //     console.log('Setting sql_mode done ', res);
-  // });
+// Object.keys(db).forEach((modelName) => {
+//   if ('associate' in db[modelName]) {
+//     db[modelName].associate(db);
+//   }
+// });
+
+// sequelize.query('SET sql_mode=""').then(res => {
+//     console.log('Setting sql_mode done ', res);
+// });
 // };
 
 // const Account = db.models.Account;
 // const Currency = db.models.Currency;
 
-
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
 
-export { db,
+export {
+  db,
   Account,
   Currency,
   Transaction,
   Category,
   CategoryClue,
   User,
-  Import };
+  Import,
+};

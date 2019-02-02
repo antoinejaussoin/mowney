@@ -23,6 +23,12 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): String!
+    addTransaction(
+      accountId: ID!
+      date: String!
+      description: String!
+      amount: Float!
+    ): Transaction!
   }
 
   enum Range {

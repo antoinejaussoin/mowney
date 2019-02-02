@@ -4,6 +4,7 @@ import savingsPerYear from "./queries/savings-per-year";
 import savings, { Range } from "./queries/savings";
 import transactions from "./queries/transactions";
 import summaries from "./queries/summaries";
+import addTransaction from "./mutations/add-transaction";
 import { IResolvers } from "graphql-tools";
 import { Context } from "./schema";
 import { pick } from "lodash";
@@ -89,6 +90,21 @@ const resolvers: IResolvers<any, Context> = {
       ]);
 
       return jwt.sign(user, tokenSecret, { expiresIn: "1y" });
+    },
+    async addTransaction(
+      _,
+      { accountId, date, description, amount },
+      { user },
+    ) {
+      const account = await Account.findById(accountId, {
+        include: [{ model: User, as: "owner" }],
+      });
+      console.log("Logged in: ", user);
+      console.log("Owner: ", account.owner);
+      if (account.owner.id !== user.id) {
+        throw new Error("Unauthorized");
+      }
+      return await addTransaction(accountId, date, description, amount);
     },
   },
   Account: {
