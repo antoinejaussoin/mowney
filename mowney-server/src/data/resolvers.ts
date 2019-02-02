@@ -106,6 +106,7 @@ const resolvers: IResolvers<any, Context> = {
       { accountId, date, description, amount },
       { user },
     ) {
+      console.log("Reached addTransaction");
       const account = await Account.findById(accountId, {
         include: [{ model: User, as: "owner" }],
       });

@@ -1,6 +1,15 @@
 import React, { SFC } from "react";
 import numeral from "numeral";
 import { Link } from "react-router-dom";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableFooter,
+} from "@material-ui/core";
+import AddProfitLoss from "./AddProfitLoss";
 
 const format = "0,0.00";
 
@@ -9,46 +18,43 @@ interface ITableProps {
   total: number;
 }
 
-const Table: SFC<ITableProps> = ({ summary, total }) => (
-  <table>
-    <thead>
-      <tr>
-        <th>Account</th>
-        <th>Currency</th>
-        <th>Balance (in currency)</th>
-        <th>Balance (in GBP)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {summary.map((line, i) => (
-        <Line line={line} isEven={i % 2 === 0} key={line.id!} />
-      ))}
-    </tbody>
-    <tfoot>
-      <tr>
-        <th>Total</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>{numeral(total).format(format)}</th>
-      </tr>
-    </tfoot>
-  </table>
+const AccountsTable: SFC<ITableProps> = ({ summary, total }) => (
+  <>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell component="th">Account</TableCell>
+          <TableCell component="th">Currency</TableCell>
+          <TableCell component="th">Balance (in currency)</TableCell>
+          <TableCell component="th">Balance (in GBP)</TableCell>
+          <TableCell component="th">Profit/Loss</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {summary.map((line, i) => (
+          <TableRow key={line.id!}>
+            <TableCell component="th">
+              <Link to={`/account/${line.id}`}>{line.name}</Link>
+            </TableCell>
+            <TableCell>{line.currency}</TableCell>
+            <TableCell>{numeral(line.balance).format(format)}</TableCell>
+            <TableCell>
+              {numeral(line.balanceInCurrency).format(format)}
+            </TableCell>
+            <TableCell>
+              <AddProfitLoss accountId={line.id} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableCell component="th">Total</TableCell>
+        <TableCell component="th">&nbsp;</TableCell>
+        <TableCell component="th">&nbsp;</TableCell>
+        <TableCell component="th">{numeral(total).format(format)}</TableCell>
+      </TableFooter>
+    </Table>
+  </>
 );
 
-interface ILineProps {
-  line: GQL.IAccountSummary;
-  isEven: boolean;
-}
-
-const Line: SFC<ILineProps> = ({ line, isEven }) => (
-  <tr>
-    <td>
-      <Link to={`/account/${line.id}`}>{line.name}</Link>
-    </td>
-    <td>{line.currency}</td>
-    <td>{numeral(line.balance).format(format)}</td>
-    <td>{numeral(line.balanceInCurrency).format(format)}</td>
-  </tr>
-);
-
-export default Table;
+export default AccountsTable;
