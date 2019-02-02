@@ -45,6 +45,7 @@
     "lint": "eslint --ext .js --ext .jsx .",
     "start": "nodemon ./dist/index.js",
     "build": "tsc --p ./tsconfig.json",
+    "watch": "tsc --p ./tsconfig.json --watch",
     "generate": "gql2ts -o ./src/data/types.d.ts ./src/data/schema.graphql"
   },
   "repository": {

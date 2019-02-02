@@ -18,6 +18,8 @@ function build<TParameters, TResponse, TData>(
           return loader || "Loading...";
         }
         // console.log("data: ", data);
+        console.log("data: ", data);
+        console.log("accessor: ", accessor);
         return props.children(data![accessor]);
       }}
     </GraphQLQuery>
