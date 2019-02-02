@@ -4,23 +4,16 @@ export interface ITransactions {
   amount: number;
   date: Date;
   description: string;
-  categorisedDate?: Date;
-}
-
-interface ITransactionsParams extends ITransactions {
-  accountId?: number;
+  categorisedDate: Date;
 }
 
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const Transactions = sequelize.define<ITransactions, ITransactionsParams>(
-    "Transactions",
-    {
-      amount: DataTypes.DECIMAL(12, 6),
-      date: DataTypes.DATE,
-      description: DataTypes.STRING,
-      categorisedDate: DataTypes.DATE,
-    },
-  );
+  const Transactions = sequelize.define<ITransactions, any>("Transactions", {
+    amount: DataTypes.DECIMAL(12, 6),
+    date: DataTypes.DATE,
+    description: DataTypes.STRING,
+    categorisedDate: DataTypes.DATE,
+  });
 
   Transactions.associate = function(models) {
     Transactions.belongsTo(models.Account, { as: "account" });

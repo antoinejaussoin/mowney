@@ -23,7 +23,7 @@ export async function verifyPassword(user: IUser, password: string) {
 }
 
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const User = sequelize.define<IUser, IUser>("User", {
+  const User = sequelize.define<IUser, any>("User", {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,

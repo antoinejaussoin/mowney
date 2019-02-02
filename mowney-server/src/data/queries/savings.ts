@@ -30,13 +30,14 @@ select sum(amountInCurrency) as 'amount', min(date) as 'from', max(date) as 'to'
 	from Transactions t
 
 	join Accounts a on a.id = t.accountId
-	join Currencies c on c.id = a.currencyId
+  join Currencies c on c.id = a.currencyId
 	left join ExchangeRates r on r.currencyId = c.id and r.id = (select max(r2.id) from ExchangeRates r2 where r2.currencyId = c.id)
 
 	where a.ownerId = :ownerId
 	  and t.date >= :fromDate
-      and t.date <= :toDate
-      and a.isStatEnabled = true
+    and t.date <= :toDate
+    and a.isStatEnabled = true
+    and :clause
           
 	order by t.date asc
 
@@ -59,7 +60,12 @@ export enum Range {
   inception = "inception",
 }
 
-export default async (user: IUser, currency: string, range: Range) => {
+export default async (
+  user: IUser,
+  currency: string,
+  range: Range,
+  primary: boolean,
+) => {
   let dates;
 
   switch (range) {
@@ -85,12 +91,18 @@ export default async (user: IUser, currency: string, range: Range) => {
       throw Error(`This range "${range}" doesn't exist`);
   }
 
-  const result = await execute<SavingRange[]>(query, {
-    currency,
-    ownerId: user.id,
-    fromDate: dates.from.format("YYYY-MM-DD"),
-    toDate: dates.to.format("YYYY-MM-DD"),
-  });
+  const clause = primary ? 't.description <> "Change"' : "1 = 1";
+
+  const result = await execute<SavingRange[]>(
+    query,
+    {
+      currency,
+      ownerId: user.id,
+      fromDate: dates.from.format("YYYY-MM-DD"),
+      toDate: dates.to.format("YYYY-MM-DD"),
+    },
+    query => query.replace(":clause", clause),
+  );
 
   let from = moment(result[0].from);
   let to = moment(result[0].to);

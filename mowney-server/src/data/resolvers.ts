@@ -50,17 +50,27 @@ const resolvers: IResolvers<any, Context> = {
       );
     },
     async savingsPerRange(root, args, { user }) {
-      const results = await savings(user, args.currency, args.range);
+      const results = await savings(user, args.currency, args.range, false);
       return results;
     },
     async savingsAllRanges(root, args, { user }) {
       return Promise.all([
-        savings(user, args.currency, Range.currentMonth),
-        savings(user, args.currency, Range.lastMonth),
-        savings(user, args.currency, Range.sixMonth),
-        savings(user, args.currency, Range.oneYear),
-        savings(user, args.currency, Range.threeYears),
-        savings(user, args.currency, Range.inception),
+        savings(user, args.currency, Range.currentMonth, false),
+        savings(user, args.currency, Range.lastMonth, false),
+        savings(user, args.currency, Range.sixMonth, false),
+        savings(user, args.currency, Range.oneYear, false),
+        savings(user, args.currency, Range.threeYears, false),
+        savings(user, args.currency, Range.inception, false),
+      ]);
+    },
+    async primarySavingsAllRanges(root, args, { user }) {
+      return Promise.all([
+        savings(user, args.currency, Range.currentMonth, true),
+        savings(user, args.currency, Range.lastMonth, true),
+        savings(user, args.currency, Range.sixMonth, true),
+        savings(user, args.currency, Range.oneYear, true),
+        savings(user, args.currency, Range.threeYears, true),
+        savings(user, args.currency, Range.inception, true),
       ]);
     },
     async summaries(root, args) {

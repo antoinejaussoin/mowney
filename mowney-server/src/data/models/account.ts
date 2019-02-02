@@ -10,7 +10,7 @@ export interface IAccount {
 }
 
 export default (sequelize: Sequelize.Sequelize, DataTypes: SequelizeStatic) => {
-  const Account = sequelize.define<IAccount, void>("Account", {
+  const Account = sequelize.define<IAccount, any>("Account", {
     name: DataTypes.STRING,
     loaderType: DataTypes.STRING,
     isActive: DataTypes.BOOLEAN,
