@@ -42,3 +42,4 @@ mowney-server/tmp/*
 yarn.lock
 mowney*.sqlite
 mowney-server/dist/**/*
+docker-compose.yml
